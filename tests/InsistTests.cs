@@ -14,8 +14,6 @@ public class InsistTests
     [Fact]
     public void Insist_MustBe_NotNull_Fail()
     {
-        const string msg = "Exception";
-
         try
         {
             Insist.MustBe.NotNull(FakeTypes.TestValues.String_Null);

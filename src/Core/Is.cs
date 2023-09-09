@@ -1,7 +1,9 @@
 namespace Oluso;
 
-
-public partial class Is
+/// <summary>
+/// Helper class to execute validation of many different situations
+/// </summary>
+public static class Is
 {
     
 }

@@ -8,7 +8,8 @@ using Oluso.Exceptions;
 namespace Oluso;
 
 /// <summary>
-/// 
+/// Helper class to handle exceptions and validate some important value.
+/// It keeps a track of all launched exception.
 /// </summary>
 public static class Insist
 {
@@ -122,7 +123,7 @@ public static class Insist
     /// </summary>
     /// <param name="msg"></param>
     /// <typeparam name="TException"></typeparam>
-    public static void Throw<TException>(string msg) where TException : Exception
+    public static void Throw<TException>(string? msg) where TException : Exception
     {
         ConstructorInfo info;
 
@@ -143,12 +144,23 @@ public static class Insist
                     EncounteredExceptionTypes[t] = info;
                 }
             }
-            var ex = (TException)info?.Invoke(new[] { msg });
-            // RegisterException<TException>(t as TException ?? default(TException), msg);
-            RegisterException<TException>(ex, msg);
+            TException ex;
+            if (msg == null)
+            {
+                ex= (TException)info?.Invoke(new object[]{})!;
+            }
+            else
+            {
+#pragma warning disable CS8600                
+                ex = (TException)info?.Invoke(new[] { msg });
+#pragma warning restore CS8600                
+            }
+            if(ex != null)
+                RegisterException<TException>(ex, msg);
         }
-        
-        throw (info?.Invoke(new[] { msg })) as TException;
+#pragma warning disable CS8597
+        throw info?.Invoke(new[] { msg }) as TException;
+#pragma warning restore CS8597        
     }
 
     /// <summary>
@@ -157,9 +169,9 @@ public static class Insist
     /// </summary>
     /// <param name="msgs"></param>
     /// <typeparam name="TException"></typeparam>
-    public static void Throw<TException>(IEnumerable<string> msgs) where TException : Exception
+    public static void Throw<TException>(IEnumerable<string?>? msgs) where TException : Exception
     {
-        var messages = msgs as string[] ?? msgs.ToArray();
+        var messages = msgs as string[] ?? (msgs ?? Array.Empty<string?>()).ToArray();
         if (!(messages?.Count() < 0))
         {
             return;
@@ -204,12 +216,12 @@ public static class Insist
     /// <param name="exception"></param>
     /// <param name="msg"></param>
     /// <typeparam name="TException"></typeparam>
-    public static void RegisterException<TException>(TException exception, string msg)
+    public static void RegisterException<TException>(TException exception, string? msg)
         where TException: Exception
     {
         lock (LockObject)
         {
-            var tmp = new Dictionary<Exception, string>()
+            var tmp = new Dictionary<Exception, string?>()
             {
                 { exception, msg }
             };
@@ -220,6 +232,6 @@ public static class Insist
     /// <summary>
     /// get/set the launched exceptions
     /// </summary>
-    public static SortedList<DateTimeOffset, Dictionary<Exception, string>> Exceptions { get; set; } = new();
+    public static SortedList<DateTimeOffset, Dictionary<Exception, string?>> Exceptions { get; set; } = new();
     
 }
