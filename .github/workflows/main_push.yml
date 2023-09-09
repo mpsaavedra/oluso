@@ -28,11 +28,12 @@ jobs:
       run: dotnet restore Oluso.sln
     - name: Build
       run: dotnet build --configuration Release --no-restore Oluso.sln
-    - name: Send message to Telegram
-        if: ${{ always() }}
-        uses: appleboy/telegram-action@master
-        with:
-          to: ${{ secrets.TELEGRAM_CHAT_ID }}
-          token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          message: "Compilation result: ${{ job.status }}"
+    - name: Test
+      run: dotnet test
+    # - name: Send message to Telegram
+    #     uses: appleboy/telegram-action@master
+    #     with:
+    #       to: ${{ secrets.TELEGRAM_CHAT_ID }}
+    #       token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+    #       message: "Compilation result: ${{ job.status }}"
 
