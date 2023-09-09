@@ -1,7 +1,7 @@
 # SDK Core
 
 ![Build status master](https://github.com/mpsaavedra/oluso/actions/workflows/main_push.yml/badge.svg?branch=main)
-![Build status development](https://github.com/oluso/actions/workflows/dev_push.yml/badge.svg?branch=dev)
+![Build status development](https://github.com/mpsaavedra/oluso/actions/workflows/dev_push.yml/badge.svg?branch=dev)
 
 
 This repository contains the **Oluso** SDK and has the intention to put together as many packages and utilities as possible that solve many of the common problems i' ve been facing during this years of development. I hope that helps some other developers out there.
