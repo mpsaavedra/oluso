@@ -1,0 +1,92 @@
+<Project>
+    <PropertyGroup>
+        <CurrentVersion>0.1.0</CurrentVersion>
+        <GithubRepo>http://github.com/mpsaavedra/oluso/</GithubRepo>
+        <CompanyName>Michel Perez</CompanyName>
+        <IsTestsProject>$(MSBuildProjectName.Contains('Tests'))</IsTestsProject>
+        
+        <TargetFramework>net6.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <LangVersion>latest</LangVersion>
+        <NeutralLanguage>en-US</NeutralLanguage>
+        <Authors>$(CompanyName)</Authors>
+        <Owners>$(CompanyName)</Owners>
+        <Version>$(CurrentVersion)</Version>
+        <AssemblyVersion>$(CurrentVersion)</AssemblyVersion>
+        <PackageVersion>$(CurrentVersion)</PackageVersion>
+        <AssemblyVersion>$(CurrentVersion)</AssemblyVersion>
+        <FileVersion>$(CurrentVersion)</FileVersion>
+        <Company>$(CompanyName)</Company>
+        <Copyright>Copyright © 2023-$([System.DateTime]::Now.Year) by $(CompanyName). All rights reserved.</Copyright>
+        <PackageId>$(AssemblyName)</PackageId>
+        <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+        <License>$(SolutionDir)LICENSE.txt</License>
+        <PackageIcon>logo.png</PackageIcon>
+        <PackageProjectUrl>$(GithubRepo)</PackageProjectUrl>
+        <PackageReleaseNotes>$(GithubRepo)tree/main/docs/RELEASE_NOTES.txt</PackageReleaseNotes>
+        <RepositoryUrl>$(GithubRepo)</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+        <PackageOutputPath>$(SolutionDir)..\oluso-packages\$(Version)</PackageOutputPath>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <None Include="$(SolutionDir)LICENSE.txt" Pack="true" PackagePath="." />
+        <None Include="$(SolutionDir)docs\images\logo.png" Pack="true" PackagePath="." />
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Remove="version.txt" />
+        <EmbeddedResource Include="version.txt" />
+    </ItemGroup>
+
+    <Target Name="PreBuildTarget" BeforeTargets="Build">
+        <Exec Command="git rev-parse --short HEAD &gt; version.txt" />
+    </Target>
+
+    <Choose>
+        <When Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+            <PropertyGroup>
+                <MSBuildTreatWarningsAsErrors>false</MSBuildTreatWarningsAsErrors>
+                <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+            </PropertyGroup>
+        </When>
+        <When Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+            <PropertyGroup>
+                <MSBuildTreatWarningsAsErrors>true</MSBuildTreatWarningsAsErrors>
+                <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+            </PropertyGroup>
+        </When>
+        <Otherwise>
+            <PropertyGroup>
+                <ConfigurationErrorMsg>You need to configure variables [$(Configuration)] or [$(Platform)] in your solution.</ConfigurationErrorMsg>
+            </PropertyGroup>
+        </Otherwise>
+    </Choose>
+    <Choose>
+        <When Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+            <PropertyGroup>
+                <DebugSymbols>true</DebugSymbols>
+                <DebugType>full</DebugType>
+                <Optimize>false</Optimize>
+                <DefineConstants>DEBUG;TRACE</DefineConstants>
+            </PropertyGroup>
+        </When>
+        <When Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+            <PropertyGroup>
+                <DebugSymbols>false</DebugSymbols>
+                <DebugType>none</DebugType>
+                <Optimize>true</Optimize>
+                <DefineConstants>TRACE</DefineConstants>
+            </PropertyGroup>
+        </When>
+        <Otherwise>
+            <PropertyGroup>
+                <ConfigurationErrorMsg>You need to configure variables [$(Configuration)] or [$(Platform)] in your solution.</ConfigurationErrorMsg>
+            </PropertyGroup>
+        </Otherwise>
+    </Choose>
+    <PropertyGroup Condition=" '$(IsTestsProject)' == 'false' ">
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    </PropertyGroup>
+</Project>
