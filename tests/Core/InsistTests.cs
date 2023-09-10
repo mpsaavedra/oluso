@@ -3,7 +3,7 @@ using Shouldly;
 using Tests.Fakes;
 using Xunit.Sdk;
 
-namespace Tests;
+namespace Tests.Core;
 
 public class InsistTests
 {

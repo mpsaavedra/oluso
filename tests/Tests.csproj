@@ -26,4 +26,9 @@
     <ProjectReference Include="..\src\Core\Oluso.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="test.txt" />
+    <EmbeddedResource Include="test.txt" />
+  </ItemGroup>
+
 </Project>
