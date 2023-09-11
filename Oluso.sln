@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Oluso", "src\Core\Oluso.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "tests\Tests.csproj", "{1A3FEEF3-3775-4B66-B367-F2E955CF24E9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Oluso.Data", "src\Data\Oluso.Data.csproj", "{D723EC29-9276-478E-B722-958F8B87B88F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,8 +28,13 @@ Global
 		{1A3FEEF3-3775-4B66-B367-F2E955CF24E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1A3FEEF3-3775-4B66-B367-F2E955CF24E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1A3FEEF3-3775-4B66-B367-F2E955CF24E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D723EC29-9276-478E-B722-958F8B87B88F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D723EC29-9276-478E-B722-958F8B87B88F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D723EC29-9276-478E-B722-958F8B87B88F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D723EC29-9276-478E-B722-958F8B87B88F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{197C8646-AAF6-4C89-96AF-18F064813F6E} = {29CE7033-FA10-4D4F-9285-06D119940C86}
+		{D723EC29-9276-478E-B722-958F8B87B88F} = {29CE7033-FA10-4D4F-9285-06D119940C86}
 	EndGlobalSection
 EndGlobal
