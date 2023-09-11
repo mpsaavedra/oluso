@@ -40,7 +40,7 @@
         <EmbeddedResource Include="version.txt" />
     </ItemGroup>
 
-    <Target Name="PreBuildTarget" BeforeTargets="Build">
+    <Target Name="PreBuildTarget" BeforeTargets="Publish">
         <Exec Command="git rev-parse --short HEAD &gt; version.txt" />
     </Target>
 

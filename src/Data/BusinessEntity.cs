@@ -12,7 +12,9 @@ public class BusinessEntity<TKey, TUserKey> : IBusinessEntity<TKey, TUserKey>, I
     /// <summary>
     /// returns a new <see cref="BusinessEntity{TKey,TUserKey}"/> instance
     /// </summary>
+#pragma warning disable CS8618
     public BusinessEntity()
+#pragma warning restore CS8618
     {
         CreateAt = DateTime.UtcNow;
         RowVersion = Guid.NewGuid().ToString();
@@ -116,11 +118,11 @@ public class BusinessEntity<TKey, TUserKey> : IBusinessEntity<TKey, TUserKey>, I
     #region Comparisons
 
     /// <summary>
-    /// <inheritdoc cref="IEquatable{T}.Equals(T?)"/>
+    /// <inheritdoc cref="IEquatable{T}"/>
     /// </summary>
     /// <param name="obj"></param>
     /// <returns></returns>
-    public override bool Equals(object obj)
+    public override bool Equals(object? obj)
     {
         var compareTo = obj as BusinessEntity<TKey, TUserKey>;
 
@@ -162,7 +164,7 @@ public class BusinessEntity<TKey, TUserKey> : IBusinessEntity<TKey, TUserKey>, I
     /// <returns></returns>
     public override int GetHashCode()
     {
-        return (GetType().GetHashCode() * 907) + Id.GetHashCode();
+        return (GetType().GetHashCode() * 907) + (Id != null ? Id.GetHashCode() : 314);
     }
 
     /// <summary>
