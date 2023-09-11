@@ -14,4 +14,37 @@
     <data name="MsgItemNullException" xml:space="preserve">
         <value>Elemento {item} no puede ser nulo o vacio</value>
     </data>
+    <data name="MsgNullOrEmpty" xml:space="preserve">
+        <value>{source} no puede ser nulo o contener miembros nulos</value>
+    </data>
+    <data name="MsgComparisonMustBeTrue" xml:space="preserve">
+        <value>El resultado no puede ser verdadero</value>
+    </data>
+    <data name="MsgComparisonMustBeFalse" xml:space="preserve">
+        <value>El resultado no puede ser falso</value>
+    </data>
+    <data name="MsgHadFail" xml:space="preserve">
+        <value>Operacion fallida</value>
+    </data>
+    <data name="MsgBooleanComparisonFail" xml:space="preserve">
+        <value>Fallo comparacion binaria</value>
+    </data>
+    <data name="MsgNullOrAnyNull" xml:space="preserve">
+        <value> {source} o cualquiera de sus miembros puede ser nulo</value>
+    </data>
+    <data name="MsgInvalidFormat" xml:space="preserve">
+        <value>{source} esta en formato invalido</value>
+    </data>
+    <data name="MsgNotFound" xml:space="preserve">
+        <value>{source} no ha sido encontrado</value>
+    </data>
+    <data name="MsgGreater" xml:space="preserve">
+        <value>{source} no puede ser mayor que {max}</value>
+    </data>
+    <data name="MsgLower" xml:space="preserve">
+        <value>{source} no puede ser menor que {min}</value>
+    </data>
+    <data name="MsgInRange" xml:space="preserve">
+        <value>{source} debe estar en un rango entre {min} y {max}</value>
+    </data>
 </root>

@@ -6,7 +6,7 @@
         <IsTestsProject>$(MSBuildProjectName.Contains('Tests'))</IsTestsProject>
         
         <TargetFramework>net6.0</TargetFramework>
-        <Nullable>enable</Nullable>
+<!--        <Nullable>enable</Nullable>-->
         <LangVersion>latest</LangVersion>
         <NeutralLanguage>en-US</NeutralLanguage>
         <Authors>$(CompanyName)</Authors>

@@ -60,11 +60,110 @@ namespace Oluso {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Invalid boolean result.
+        /// </summary>
+        internal static string MsgBooleanComparisonFail {
+            get {
+                return ResourceManager.GetString("MsgBooleanComparisonFail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Result could not be false.
+        /// </summary>
+        internal static string MsgComparisonMustBeFalse {
+            get {
+                return ResourceManager.GetString("MsgComparisonMustBeFalse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Result could not be true.
+        /// </summary>
+        internal static string MsgComparisonMustBeTrue {
+            get {
+                return ResourceManager.GetString("MsgComparisonMustBeTrue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {source} could not be greater than {max}.
+        /// </summary>
+        internal static string MsgGreater {
+            get {
+                return ResourceManager.GetString("MsgGreater", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Operation had fail.
+        /// </summary>
+        internal static string MsgHadFail {
+            get {
+                return ResourceManager.GetString("MsgHadFail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {source} must be in a range between {min} and {max}.
+        /// </summary>
+        internal static string MsgInRange {
+            get {
+                return ResourceManager.GetString("MsgInRange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {source} is on invalid format.
+        /// </summary>
+        internal static string MsgInvalidFormat {
+            get {
+                return ResourceManager.GetString("MsgInvalidFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Item {item} could not be null or empty.
         /// </summary>
         internal static string MsgItemNullException {
             get {
                 return ResourceManager.GetString("MsgItemNullException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {source} could not be lower than {min}.
+        /// </summary>
+        internal static string MsgLower {
+            get {
+                return ResourceManager.GetString("MsgLower", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {source} not found.
+        /// </summary>
+        internal static string MsgNotFound {
+            get {
+                return ResourceManager.GetString("MsgNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {source} or any of his members could be null.
+        /// </summary>
+        internal static string MsgNullOrAnyNull {
+            get {
+                return ResourceManager.GetString("MsgNullOrAnyNull", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {source} could not be null or contain any null item.
+        /// </summary>
+        internal static string MsgNullOrEmpty {
+            get {
+                return ResourceManager.GetString("MsgNullOrEmpty", resourceCulture);
             }
         }
     }

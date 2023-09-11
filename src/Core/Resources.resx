@@ -21,4 +21,37 @@
     <data name="MsgItemNullException" xml:space="preserve">
         <value>Item {item} could not be null or empty</value>
     </data>
+    <data name="MsgNullOrEmpty" xml:space="preserve">
+        <value>{source} could not be null or contain any null item</value>
+    </data>
+    <data name="MsgComparisonMustBeTrue" xml:space="preserve">
+        <value>Result could not be true</value>
+    </data>
+    <data name="MsgComparisonMustBeFalse" xml:space="preserve">
+        <value>Result could not be false</value>
+    </data>
+    <data name="MsgHadFail" xml:space="preserve">
+        <value>Operation had fail</value>
+    </data>
+    <data name="MsgBooleanComparisonFail" xml:space="preserve">
+        <value>Invalid boolean result</value>
+    </data>
+    <data name="MsgNullOrAnyNull" xml:space="preserve">
+        <value>{source} or any of his members could be null</value>
+    </data>
+    <data name="MsgInvalidFormat" xml:space="preserve">
+        <value>{source} is on invalid format</value>
+    </data>
+    <data name="MsgNotFound" xml:space="preserve">
+        <value>{source} not found</value>
+    </data>
+    <data name="MsgGreater" xml:space="preserve">
+        <value>{source} could not be greater than {max}</value>
+    </data>
+    <data name="MsgLower" xml:space="preserve">
+        <value>{source} could not be lower than {min}</value>
+    </data>
+    <data name="MsgInRange" xml:space="preserve">
+        <value>{source} must be in a range between {min} and {max}</value>
+    </data>
 </root>

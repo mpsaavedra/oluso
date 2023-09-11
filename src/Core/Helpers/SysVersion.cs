@@ -1,3 +1,4 @@
+#nullable enable
 using System;
 
 namespace Oluso.Helpers;
@@ -20,7 +21,7 @@ public static class SysVersion
             type ??= typeof(Version);
             return type.Assembly.GetName().Version.ToString();
         }
-        catch (Exception e)
+        catch
         {
             return "1.0.0";
         }
