@@ -16,7 +16,7 @@ public class BusinessEntity<TKey, TUserKey> : IBusinessEntity<TKey, TUserKey>, I
     public BusinessEntity()
 #pragma warning restore CS8618
     {
-        CreateAt = DateTime.UtcNow;
+        CreatedAt = DateTime.UtcNow;
         RowVersion = Guid.NewGuid().ToString();
     }
 
@@ -37,7 +37,7 @@ public class BusinessEntity<TKey, TUserKey> : IBusinessEntity<TKey, TUserKey>, I
     {
         Id = id;
         Status = status;
-        CreateAt = createAt;
+        CreatedAt = createAt;
         CreatedBy = createdBy;
         UpdatedAt = updatedAt;
         UpdatedBy = updatedBy;
@@ -58,7 +58,7 @@ public class BusinessEntity<TKey, TUserKey> : IBusinessEntity<TKey, TUserKey>, I
         Status = status;
         CreatedBy = createdBy;
         RowVersion = Guid.NewGuid().ToString();
-        CreateAt = DateTime.UtcNow;
+        CreatedAt = DateTime.UtcNow;
     }
 
     /// <summary>
@@ -75,10 +75,10 @@ public class BusinessEntity<TKey, TUserKey> : IBusinessEntity<TKey, TUserKey>, I
     public bool Status { get; set; }
 
     /// <summary>
-    /// <inheritdoc cref="IBusinessEntity{TKey,TUserKey}.CreateAt"/>
+    /// <inheritdoc cref="IBusinessEntity{TKey,TUserKey}.CreatedAt"/>
     /// </summary>
-    [JsonPropertyName("createAt")]
-    public DateTime CreateAt { get; set; }
+    [JsonPropertyName("createdAt")]
+    public DateTime CreatedAt { get; set; }
 
     /// <summary>
     /// <inheritdoc cref="IBusinessEntity{TKey,TUserKey}.CreatedBy"/>

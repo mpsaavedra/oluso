@@ -29,6 +29,18 @@ public class BaseDbContext : BaseDbContext<string>
     public BaseDbContext(DbContextOptions options) : base(options)
     {
     }
+    
+    /// <summary>
+    /// delegate to notify operations in the database events 
+    /// </summary>
+    public delegate void DatabaseOperationEventHandler(object? sender, DatabaseOperationEventArgs args);
+
+    /// <summary>
+    /// delegate to notify operations in the database events 
+    /// </summary>
+    /// <typeparam name="TDatabaseOperationEventArgs"></typeparam>
+    public delegate void DatabaseOperationEventHandler<in TDatabaseOperationEventArgs>(object? sender,
+        TDatabaseOperationEventArgs args);
 }
 
 /// <summary>
@@ -55,17 +67,17 @@ public class BaseDbContext<TUserKey> : DbContext
     /// <summary>
     /// event to invoke when entities where added
     /// </summary>
-    public event DatabaseOperationEventHandler? OnEntitiesAdded;
+    public event BaseDbContext.DatabaseOperationEventHandler? OnEntitiesAdded;
 
     /// <summary>
     /// event to invoke when entities where modified
     /// </summary>
-    public event DatabaseOperationEventHandler? OnEntitiesModified;
+    public event BaseDbContext.DatabaseOperationEventHandler? OnEntitiesUpdated;
 
     /// <summary>
     /// event to invoke when entities where deleted
     /// </summary>
-    public event DatabaseOperationEventHandler? OnEntitiesDeleted;
+    public event BaseDbContext.DatabaseOperationEventHandler? OnEntitiesDeleted;
 
     /// <summary>
     /// returns a new <see cref="BaseDbContext{TUserKey}"/> instance 
@@ -117,24 +129,7 @@ public class BaseDbContext<TUserKey> : DbContext
     /// entities.
     /// </summary>
     /// <returns></returns>
-    public virtual int SaveEntitiesChanges()
-    {
-        var entries = ChangeTracker.Entries().Where(x => x.Entity is IBusinessEntity);
-        {
-            var entityEntries = entries as EntityEntry[] ?? entries.ToArray();
-            var added = entityEntries.Where(e => e.State == EntityState.Added);
-            var modified = entityEntries.Where(e => e.State == EntityState.Modified);
-            var deleted = entityEntries.Where(e => e.State == EntityState.Deleted);
-
-            if(added.Any()) ProcessAddedEntities(added);
-            if(modified.Any()) ProcessModifiedEntities(modified);
-            if(deleted.Any()) ProcessDeletedEntities(deleted);
-        }
-
-
-        var result = SaveChanges();
-        return result;
-    }
+    public virtual int SaveEntitiesChanges() => SaveEntitiesChangesAsync().Result;
 
     private void ProcessAddedEntities(IEnumerable<EntityEntry> entries)
     {
@@ -180,7 +175,7 @@ public class BaseDbContext<TUserKey> : DbContext
                     throw new ApplicationException($"Entry {entry} is not Modified state");
             }
         }
-        OnEntitiesModified?.Invoke(this, DatabaseOperationEventArgs.New(entityEntries));
+        OnEntitiesUpdated?.Invoke(this, DatabaseOperationEventArgs.New(entityEntries));
     }
 
     private void ProcessDeletedEntities(IEnumerable<EntityEntry> entries)
@@ -219,15 +214,5 @@ public class BaseDbContext<TUserKey> : DbContext
         return userId!;
     }
         
-    /// <summary>
-    /// delegate to notify operations in the database events 
-    /// </summary>
-    public delegate void DatabaseOperationEventHandler(object? sender, DatabaseOperationEventArgs args);
-
-    /// <summary>
-    /// delegate to notify operations in the database events 
-    /// </summary>
-    /// <typeparam name="TDatabaseOperationEventArgs"></typeparam>
-    public delegate void DatabaseOperationEventHandler<in TDatabaseOperationEventArgs>(object? sender,
-        TDatabaseOperationEventArgs args);
+    
 }

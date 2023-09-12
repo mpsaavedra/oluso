@@ -8,10 +8,10 @@ namespace Oluso.Data;
 /// </summary>
 public class DatabaseOperationEventArgs
 {
-    /// <summary>
-    /// state represent the operation
-    /// </summary>
-    public EntityState State { get; set;  }
+    // /// <summary>
+    // /// state represent the operation
+    // /// </summary>
+    // public EntityState State { get; set;  }
 
     /// <summary>
     /// entries affected by operation
@@ -21,13 +21,12 @@ public class DatabaseOperationEventArgs
     /// <summary>
     /// returns an empty instance of <see cref="DatabaseOperationEventArgs"/>
     /// </summary>
-    public static DatabaseOperationEventArgs Empty => new DatabaseOperationEventArgs();
+    public static DatabaseOperationEventArgs Empty => new ();
 
     /// <summary>
     /// returns a new <see cref="DatabaseOperationEventArgs"/> instance
     /// </summary>
     /// <param name="entries"></param>
     /// <returns></returns>
-    public static DatabaseOperationEventArgs New(IEnumerable<EntityEntry> entries) =>
-        new DatabaseOperationEventArgs() { Entries = entries };
+    public static DatabaseOperationEventArgs New(IEnumerable<EntityEntry> entries) => new () { Entries = entries };
 }

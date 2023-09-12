@@ -30,7 +30,7 @@ public interface IBusinessEntity<TKey, TUserKey> : IBusinessEntity
     /// <summary>
     /// creation date
     /// </summary>
-    DateTime CreateAt { get; set; }
+    DateTime CreatedAt { get; set; }
     
     /// <summary>
     /// how create the entity

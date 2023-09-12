@@ -20,10 +20,12 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="7.0.10" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\src\Core\Oluso.csproj" />
+    <ProjectReference Include="..\src\Data\Oluso.Data.csproj" />
   </ItemGroup>
 
   <ItemGroup>

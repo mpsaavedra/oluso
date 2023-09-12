@@ -43,7 +43,7 @@ public class InsistTests
 
     [Fact]
     public void Insist_MustBe_True_Ok_Lambda() => 
-        Insist.MustBe.True<FakeException>(true, () => "This is true");
+        Insist.MustBe.True<FakeException>(true, () => "This is false but it must be true");
 
     [Fact]
     public void Insist_MustBe_True_Ok_Func() =>
@@ -55,7 +55,7 @@ public class InsistTests
 
     [Fact]
     public void Insists_MustBe_Ok_Msg() =>
-        Insist.MustBe.True<FakeException>(true, "This is true");
+        Insist.MustBe.True<FakeException>(true, "This is false but it must be true");
 
     [Fact]
     public void Insist_MustBe_Fail_Lambda()
@@ -72,17 +72,17 @@ public class InsistTests
 
     [Fact]
     public void Insist_MustBe_False_Ok_Lambda() =>
-        Insist.MustBe.False<FakeException>(false, () => "This is false");
+        Insist.MustBe.False<FakeException>(false, () => "This is true but it must be false");
 
     [Fact]
     public void Insist_Mustbe_False_Ok_Func() =>
         Insist.MustBe.False<FakeException>(false, () =>
         {
             // execute some code
-            return "This is false";
+            return "This is true but it must be false";
         });
 
     [Fact]
     public void Insist_MustBe_False_Ok_Msg() =>
-        Insist.MustBe.False<FalseException>(false, "This is false");
+        Insist.MustBe.False<FalseException>(false, "This is true but it mut be false");
 }

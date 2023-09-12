@@ -110,7 +110,7 @@ public class UnitOfWork<TContext> : IUnitOfWork<TContext>
         Context = context.IsNullOrEmptyThrow($"{nameof(context)} could not be null or empty");
         _provider = provider;
     }
-    
+
     /// <summary>
     /// <inheritdoc cref="IUnitOfWork{TContext}.ExecuteAsync{TResult}(Func{Task{TResult}}, CancellationToken)"/>
     /// </summary>
@@ -121,13 +121,32 @@ public class UnitOfWork<TContext> : IUnitOfWork<TContext>
     public async Task<TResult> ExecuteAsync<TResult>(Func<Task<TResult>> operation,
         CancellationToken cancellationToken = default)
     {
-        return await Task.Run(async () =>
+        var executionStrategy = Context.Database.CreateExecutionStrategy();
+        if (Context.Database.ProviderName == null || Context.Database.ProviderName.Contains("InMemory"))
         {
-            var executionStrategy = Context.Database.CreateExecutionStrategy();
-            return await executionStrategy.ExecuteAsync(operation);
-        }, cancellationToken);
+            // InMemory does no support transactions
+            return await executionStrategy.ExecuteAsync(async () =>
+            {
+                var result = operation.Invoke();
+                if (Context is BaseDbContext context)
+                    await context.SaveEntitiesChangesAsync(cancellationToken);
+                else
+                    await Context.SaveChangesAsync(cancellationToken);
+                return await result;
+            });
+        }
+
+        return await executionStrategy.ExecuteInTransaction(async () =>
+        {
+            var result = await operation.Invoke();
+            if (Context is BaseDbContext context)
+                await context.SaveEntitiesChangesAsync(cancellationToken);
+            else
+                await Context.SaveChangesAsync(cancellationToken);
+            return result;
+        }, () => true);
     }
-    
+
     /// <summary>
     /// <inheritdoc cref="IUnitOfWork{TContext}.ExecuteAsync(Action, Func{bool}?, CancellationToken)"/>
     /// </summary>
@@ -142,7 +161,29 @@ public class UnitOfWork<TContext> : IUnitOfWork<TContext>
         {
             verifySucceeded ??= (() => false);
             var executionStrategy = Context.Database.CreateExecutionStrategy();
-            executionStrategy.ExecuteInTransaction(operation, verifySucceeded);
+            if (Context.Database.ProviderName == null || Context.Database.ProviderName.Contains("InMemory"))
+            {
+                // InMemory does no support transactions
+                executionStrategy.Execute(async () =>
+                {
+                    operation.Invoke();
+                    if (Context is BaseDbContext context)
+                        await context.SaveEntitiesChangesAsync(cancellationToken);
+                    else
+                        await Context.SaveChangesAsync(cancellationToken);
+                });
+            }
+            else
+            {
+                executionStrategy.ExecuteInTransaction(async () =>
+                {
+                    operation.Invoke();
+                    if (Context is BaseDbContext context)
+                        await context.SaveEntitiesChangesAsync(cancellationToken);
+                    else 
+                        await Context.SaveChangesAsync(cancellationToken);
+                }, verifySucceeded);
+            }
         }, cancellationToken);
     }
     
@@ -150,7 +191,7 @@ public class UnitOfWork<TContext> : IUnitOfWork<TContext>
     /// <inheritdoc cref="IUnitOfWork{TContext}.Repository{T}"/>
     /// </summary>
     /// <typeparam name="T">repository interface</typeparam>
-    /// <returns></returns>
+    /// <returns></returns> 
     public T? Repository<T>() where T : class =>
         _provider.GetRequiredService(typeof(T)) as T;
 
