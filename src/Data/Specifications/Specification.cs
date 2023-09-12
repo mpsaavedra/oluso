@@ -3,7 +3,7 @@ using Oluso.Extensions;
 
 namespace Oluso.Data.Specifications;
 
-// <summary>
+/// <summary>
 /// Base class for all specifications
 /// </summary>
 /// <remarks>

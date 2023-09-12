@@ -140,6 +140,13 @@ public static class FakeTypes
                 o,
                 u
             };
+
+            public enum Gender
+            {
+                Male,
+                Female,
+                NotSpecified
+            }
         }
 
         public class StructureTypes

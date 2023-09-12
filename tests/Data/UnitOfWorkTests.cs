@@ -7,17 +7,6 @@ namespace Tests.Data;
 
 public class UnitOfWorkTests
 {
-    
-    private IFakeUnitOfWork BuildContext(string section)
-    {
-        var serviceProvider = new ServiceCollection()
-            .AddDbContext<FakeDbContextBaseDbContext>(cfg => 
-                cfg.UseInMemoryDatabase($"dbContest{section}TestDatabase"))
-            .AddSingleton<IFakeUnitOfWork, FakeUnitOfWork>()
-            .BuildServiceProvider();
-        return serviceProvider.GetRequiredService<IFakeUnitOfWork>();
-    }
-
     [Fact]
     public async Task UnitOfWorkTests_Add()
     {
@@ -67,4 +56,15 @@ public class UnitOfWorkTests
         });
         unitOfWork.Context.FakeBusinessEntities.Count().ShouldBe(1);
     }
+    
+    private IFakeUnitOfWork BuildContext(string section)
+    {
+        var serviceProvider = new ServiceCollection()
+            .AddDbContext<FakeDbContextBaseDbContext>(cfg => 
+                cfg.UseInMemoryDatabase($"unitOfWork{section}TestDatabase"))
+            .AddSingleton<IFakeUnitOfWork, FakeUnitOfWork>()
+            .BuildServiceProvider();
+        return serviceProvider.GetRequiredService<IFakeUnitOfWork>();
+    }
+
 }

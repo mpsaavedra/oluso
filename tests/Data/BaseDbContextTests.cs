@@ -10,15 +10,6 @@ namespace Tests.Data;
 
 public class BaseDbContextTests
 {
-    private FakeDbContextBaseDbContext BuildContext(string section)
-    {
-        var serviceProvider = new ServiceCollection()
-            .AddDbContext<FakeDbContextBaseDbContext>(cfg => 
-                cfg.UseInMemoryDatabase($"dbContest{section}TestDatabase"))
-            .BuildServiceProvider();
-        return serviceProvider.GetRequiredService<FakeDbContextBaseDbContext>();
-    }
-
     [Fact]
     public void BaseDbContextTests_OnAddedEvent()
     {
@@ -98,5 +89,14 @@ public class BaseDbContextTests
         var entity = ctx.FakeBusinessEntities.First(x => x.Id == 1);
         ctx.Remove(entity);
         ctx.SaveEntitiesChanges();
+    }
+    
+    private FakeDbContextBaseDbContext BuildContext(string section)
+    {
+        var serviceProvider = new ServiceCollection()
+            .AddDbContext<FakeDbContextBaseDbContext>(cfg => 
+                cfg.UseInMemoryDatabase($"dbContest{section}TestDatabase"))
+            .BuildServiceProvider();
+        return serviceProvider.GetRequiredService<FakeDbContextBaseDbContext>();
     }
 }
