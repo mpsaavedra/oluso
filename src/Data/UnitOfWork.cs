@@ -53,15 +53,18 @@ public interface IUnitOfWork<out TContext>
     /// Database context
     /// </summary>
     TContext Context { get; }
-    
+
     /// <summary>
     /// Execute an operation in resilient environment with a return value
     /// </summary>
     /// <param name="operation"></param>
+    /// <param name="verifySucceeded"></param>
     /// <param name="cancellationToken"></param>
     /// <typeparam name="TResult"></typeparam>
     /// <returns></returns>
-    Task<TResult> ExecuteAsync<TResult>(Func<Task<TResult>> operation, CancellationToken cancellationToken = default);
+    Task<TResult> ExecuteAsync<TResult>(Func<Task<TResult>> operation,
+        Task<bool>? verifySucceeded = null, 
+        CancellationToken cancellationToken = default);
 
     /// <summary>
     /// execute an operation in a resilient environment with no return value
@@ -112,15 +115,18 @@ public class UnitOfWork<TContext> : IUnitOfWork<TContext>
     }
 
     /// <summary>
-    /// <inheritdoc cref="IUnitOfWork{TContext}.ExecuteAsync{TResult}(Func{Task{TResult}}, CancellationToken)"/>
+    /// <inheritdoc cref="IUnitOfWork{TContext}.ExecuteAsync{TResult}"/>
     /// </summary>
     /// <param name="operation"></param>
+    /// <param name="verifySucceeded"></param>
     /// <param name="cancellationToken"></param>
     /// <typeparam name="TResult"></typeparam>
     /// <returns></returns>
     public async Task<TResult> ExecuteAsync<TResult>(Func<Task<TResult>> operation,
+        Task<bool>? verifySucceeded = null,
         CancellationToken cancellationToken = default)
     {
+        verifySucceeded ??= new Task<bool>(() => true);
         var executionStrategy = Context.Database.CreateExecutionStrategy();
         if (Context.Database.ProviderName == null || Context.Database.ProviderName.Contains("InMemory"))
         {
@@ -135,16 +141,25 @@ public class UnitOfWork<TContext> : IUnitOfWork<TContext>
                 return await result;
             });
         }
-
-        return await executionStrategy.ExecuteInTransaction(async () =>
+        return await executionStrategy.ExecuteInTransactionAsync<TResult>(async ct =>
         {
-            var result = await operation.Invoke();
-            if (Context is BaseDbContext context)
-                await context.SaveEntitiesChangesAsync(cancellationToken);
-            else
-                await Context.SaveChangesAsync(cancellationToken);
-            return result;
-        }, () => true);
+            await using var transaction = await Context.Database.BeginTransactionAsync(cancellationToken);
+            try
+            {
+                var result = await operation.Invoke();
+                if (Context is BaseDbContext context)
+                    await context.SaveEntitiesChangesAsync(cancellationToken);
+                else
+                    await Context.SaveChangesAsync(cancellationToken);
+                return result;
+            }
+            catch (Exception e)
+            {
+                Insist.RegisterException(e, e.Message);
+                await transaction.RollbackAsync(cancellationToken);
+                throw;
+            }
+        }, async ct => await Task.FromResult(true), cancellationToken);
     }
 
     /// <summary>
