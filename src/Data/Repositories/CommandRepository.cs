@@ -51,7 +51,7 @@ public class CommandRepository<TKey, TUserKey, TEntity, TContext> :
     {
         try
         {
-            var entity = await Context.Set<TEntity>().FirstOrDefaultAsync(x => x.Id.Equals(id), cancellationToken);
+            var entity = await Context.Set<TEntity>().FirstOrDefaultAsync(x => x.Id!.Equals(id), cancellationToken);
             if (entity == null)
             {
                 throw new Exception(Messages.EntityWithIdNotFound(id));

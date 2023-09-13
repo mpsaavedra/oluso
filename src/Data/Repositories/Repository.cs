@@ -51,6 +51,8 @@ public class Repository<TKey, TUserKey, TEntity, TContext> :
         Insist.MustBe.NotNull(unitOfWork);
         CommandRepository = new CommandRepository<TKey, TUserKey, TEntity, TContext>(unitOfWork);
         QueryRepository = new QueryRepository<TKey, TUserKey, TEntity, TContext>(unitOfWork.Context);
+        Query = QueryRepository.Query;
+        Context = unitOfWork.Context;
     }
 
     /// <summary>
@@ -167,8 +169,19 @@ public class Repository<TKey, TUserKey, TEntity, TContext> :
         CancellationToken cancellationToken = default) =>
         await CommandRepository.DeleteRangeAsync(entitiesIds, softDelete, cancellationToken);
 
+    /// <summary>
+    /// <inheritdoc cref="IQueryRepository{TKey,TUserKey,TEntity,TContext}.Query"/>
+    /// </summary>
     public IQueryable<TEntity> Query { get; }
+    
+    /// <summary>
+    /// <inheritdoc cref="ICommandRepository{TKey,TUserKey,TEntity,TContext}.UnitOfWork"/>
+    /// </summary>
     public IUnitOfWork<TContext>? UnitOfWork { get; }
+    
+    /// <summary>
+    /// <inheritdoc cref="ICommandRepository{TKey,TUserKey,TEntity,TContext}.Context"/>
+    /// </summary>
     public TContext Context { get; }
 
     /// <summary>
