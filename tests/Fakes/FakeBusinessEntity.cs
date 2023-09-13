@@ -9,6 +9,11 @@ namespace Tests.Fakes;
 public class FakeBusinessEntity : BusinessEntity<int, string>
 {
     public string Value { get; set; }
+
+    public FakeTypes.ValueTypes.EnumerationTypes.Gender Gender { get; set; } =
+        FakeTypes.ValueTypes.EnumerationTypes.Gender.NotSpecified;
+
+    public int Age { get; set; } = 19;
 }
 
 public class FakeBusinessEntityTypeConfiguration : IEntityTypeConfiguration<FakeBusinessEntity>

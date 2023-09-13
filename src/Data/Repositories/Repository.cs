@@ -1,4 +1,5 @@
 using System.Linq.Expressions;
+using System.Windows.Input;
 using Microsoft.EntityFrameworkCore;
 using Oluso.Data.Operations;
 using Oluso.Data.Specifications;
@@ -13,17 +14,15 @@ namespace Oluso.Data.Repositories;
 /// <typeparam name="TEntity"></typeparam>
 /// <typeparam name="TContext"></typeparam>
 public interface IRepository<TKey, TUserKey, TEntity, TContext> :
-    ICreateOperation<TKey, TUserKey, TEntity>,
-    IReadOperation<TKey, TUserKey, TEntity>,
-    IUpdateOperation<TKey, TUserKey, TEntity>,
-    IDeleteOperation<TKey, TUserKey, TEntity>
+    IQueryRepository<TKey, TUserKey, TEntity, TContext>,
+    ICommandRepository<TKey, TUserKey, TEntity, TContext>
     where TEntity : class, IBusinessEntity<TKey, TUserKey>
     where TContext : DbContext
 {
     /// <summary>
     /// get the query repository <see cref="IQueryRepository{TKey,TUserKey,TEntity,TContext}"/>
     /// </summary>
-    IQueryRepository<TKey, TUserKey, TEntity, TContext> QueryRepositsory { get; }
+    IQueryRepository<TKey, TUserKey, TEntity, TContext> QueryRepository { get; }
     
     /// <summary>
     /// get the command repository <see cref="ICommandRepository{TKey,TUserKey,TEntity,TContext}"/>
@@ -51,13 +50,13 @@ public class Repository<TKey, TUserKey, TEntity, TContext> :
     {
         Insist.MustBe.NotNull(unitOfWork);
         CommandRepository = new CommandRepository<TKey, TUserKey, TEntity, TContext>(unitOfWork);
-        QueryRepositsory = new QueryRepository<TKey, TUserKey, TEntity, TContext>(unitOfWork.Context);
+        QueryRepository = new QueryRepository<TKey, TUserKey, TEntity, TContext>(unitOfWork.Context);
     }
 
     /// <summary>
-    /// <inheritdoc cref="IRepository{TKey,TUserKey,TEntity,TContext}.QueryRepositsory"/>
+    /// <inheritdoc cref="IRepository{TKey,TUserKey,TEntity,TContext}.QueryRepository"/>
     /// </summary>
-    public IQueryRepository<TKey, TUserKey, TEntity, TContext> QueryRepositsory { get; }
+    public IQueryRepository<TKey, TUserKey, TEntity, TContext> QueryRepository { get; }
 
     /// <summary>
     /// <inheritdoc cref="CommandRepository"/>
@@ -91,18 +90,27 @@ public class Repository<TKey, TUserKey, TEntity, TContext> :
     /// <returns></returns>
     public async Task<IQueryable<TEntity>> FindAsync(Expression<Func<TEntity, bool>> predicate,
         CancellationToken cancellationToken = default) =>
-        await QueryRepositsory.FindAsync(predicate, cancellationToken);
+        await QueryRepository.FindAsync(predicate, cancellationToken);
 
+    /// <summary>
+    /// <inheritdoc cref="IReadOperation{TKey,TUserKey,TEntity}.FindAsync(Oluso.Data.Specifications.Specification{TEntity},System.Threading.CancellationToken)"/>
+    /// </summary>
+    /// <param name="specification"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
     public async Task<IQueryable<TEntity>> FindAsync(Specification<TEntity> specification,
-        CancellationToken cancellationToken = default)
-    {
-        throw new NotImplementedException();
-    }
+        CancellationToken cancellationToken = default) =>
+        await QueryRepository.FindAsync(specification, cancellationToken);
 
-    public async Task<bool> UpdateAsync(TEntity entity, CancellationToken cancellationToken = default)
-    {
-        throw new NotImplementedException();
-    }
+    /// <summary>
+    /// <inheritdoc cref="IUpdateOperation{TKey,TUserKey,TEntity}.UpdateAsync"/>
+    /// </summary>
+    /// <param name="entity"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    /// <exception cref="NotImplementedException"></exception>
+    public async Task<bool> UpdateAsync(TEntity entity, CancellationToken cancellationToken = default) =>
+        await CommandRepository.UpdateAsync(entity, cancellationToken);
 
     /// <summary>
     /// <inheritdoc cref="IDeleteOperation{TKey,TUserKey,TEntity}.DeleteAsync(System.Linq.Expressions.Expression{System.Func{TEntity,bool}},bool,System.Threading.CancellationToken)"/>
@@ -158,4 +166,64 @@ public class Repository<TKey, TUserKey, TEntity, TContext> :
     public async Task<bool> DeleteRangeAsync(List<TKey> entitiesIds, bool softDelete = true,
         CancellationToken cancellationToken = default) =>
         await CommandRepository.DeleteRangeAsync(entitiesIds, softDelete, cancellationToken);
+
+    public IQueryable<TEntity> Query { get; }
+    public IUnitOfWork<TContext>? UnitOfWork { get; }
+    public TContext Context { get; }
+
+    /// <summary>
+    /// <inheritdoc cref="ICommandRepository{TKey,TUserKey,TEntity,TContext}.ChangeStatusAsync"/>
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="state"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    public async Task<bool>? ChangeStatusAsync(TKey id, bool state, CancellationToken cancellationToken = default) =>
+        await CommandRepository.ChangeStatusAsync(id, state, cancellationToken)!;
+
+    /// <summary>
+    /// <inheritdoc cref="IQueryRepository{TKey,TUserKey,TEntity,TContext}.GetEntity{T}"/>
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <returns></returns>
+    public DbSet<T> GetEntity<T>() where T : class =>
+        QueryRepository.GetEntity<T>();
+
+    /// <summary>
+    /// <inheritdoc cref="IQueryRepository{TKey,TUserKey,TEntity,TContext}.Count"/>
+    /// </summary>
+    /// <param name="softDeleted"></param>
+    /// <returns></returns>
+    public int Count(bool softDeleted = false) =>
+        QueryRepository.Count(softDeleted);
+
+    /// <summary>
+    /// <inheritdoc cref="IQueryRepository{TKey,TUserKey,TEntity,TContext}.CountAsync"/>
+    /// </summary>
+    /// <param name="predicate"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    public async Task<int> CountAsync(Expression<Func<TEntity, bool>>? predicate = null,
+        CancellationToken cancellationToken = default) =>
+        await QueryRepository.CountAsync(predicate, cancellationToken);
+
+    /// <summary>
+    /// <inheritdoc cref="IQueryRepository{TKey,TUserKey,TEntity,TContext}.Any"/>
+    /// </summary>
+    /// <param name="softDeleted"></param>
+    /// <returns></returns>
+    /// <exception cref="NotImplementedException"></exception>
+    public bool Any(bool softDeleted = false) =>
+        QueryRepository.Any(softDeleted);
+
+    /// <summary>
+    /// <inheritdoc cref="IQueryRepository{TKey,TUserKey,TEntity,TContext}.AnyAsync"/>
+    /// </summary>
+    /// <param name="predicate"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    /// <exception cref="NotImplementedException"></exception>
+    public async Task<bool> AnyAsync(Expression<Func<TEntity, bool>>? predicate = null,
+        CancellationToken cancellationToken = default) =>
+        await QueryRepository.AnyAsync(predicate, cancellationToken);
 }
