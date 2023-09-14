@@ -57,4 +57,13 @@ public static class StringExtensions
             "Office365" => EmailProvider.Aws,
             _ => EmailProvider.Custom
         };
+
+    /// <summary>
+    /// parse host name 
+    /// </summary>
+    /// <param name="source"></param>
+    /// <param name="host"></param>
+    /// <returns></returns>
+    public static string ToParseHost(this string source, string host) =>
+        string.Format(source, host);
 }
