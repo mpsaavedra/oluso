@@ -1,0 +1,59 @@
+<root>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <data name="MsgEmailAddressCouldNotBeNull" xml:space="preserve">
+        <value>La direccion de correo no puede ser nula, vacia o espacio vacio</value>
+    </data>
+    <data name="MsgEmailAddressIsInvalid" xml:space="preserve">
+        <value>La direccion de correo {email} es invalida</value>
+    </data>
+    <data name="MsgEmailBodyCoudNotBeNull" xml:space="preserve">
+        <value>El cuerpo del mensaje no puede ser nullo, vacio o espacio en blanco</value>
+    </data>
+    <data name="MsgEmailAttachmentCouldNotBeNull" xml:space="preserve">
+        <value>El adjunto del email no puede ser nullo</value>
+    </data>
+    <data name="MsgEmailZipDirectoryNotFound" xml:space="preserve">
+        <value>No se encontrol {filePath} del archivo zip</value>
+    </data>
+    <data name="MsgEmailTemplateNotFound" xml:space="preserve">
+        <value>PLantilla del email {filePath} no se encontro</value>
+    </data>
+    <data name="MsgEmailAttachmentNotFound" xml:space="preserve">
+        <value>El adjunto {filePaht} no se ha encontrado</value>
+    </data>
+    <data name="MsgEmailTemplateDirectoryNotFound" xml:space="preserve">
+        <value>Directorio de plantillas de email {templateDir} not found</value>
+    </data>
+    <data name="MsgDirectoryNotFound" xml:space="preserve">
+        <value>Directorio {directoryPath} no encontrado</value>
+    </data>
+    <data name="MsgFileNotFound" xml:space="preserve">
+        <value>{filePath} no encontrado</value>
+    </data>
+    <data name="MsgMustBeOfType" xml:space="preserve">
+        <value>{source} debe ser de tipo {type}</value>
+    </data>
+    <data name="MsgRequiredParameter" xml:space="preserve">
+        <value>{paramname} es requerido</value>
+    </data>
+    <data name="MsgEmailFromCouldNotBeNull" xml:space="preserve">
+        <value>La direccion del remitente del correo no puede ser nula</value>
+    </data>
+    <data name="MsgEmailToCouldNotBeNullOrEmpty" xml:space="preserve">
+        <value>La direccion del destinatario no puede ser nula</value>
+    </data>
+    <data name="MsgEmailZipDirectoryCouldNotBeNull" xml:space="preserve">
+        <value>La direccion del zip no puede ser nula</value>
+    </data>
+</root>

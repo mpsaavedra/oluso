@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+            
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <data name="MsgEmailAddressCouldNotBeNull" xml:space="preserve">
+        <value>Email address could not be null, empty or whitespace</value>
+    </data>
+    <data name="MsgEmailAddressIsInvalid" xml:space="preserve">
+        <value>Email address {email} is invalid</value>
+    </data>
+    <data name="MsgEmailBodyCoudNotBeNull" xml:space="preserve">
+        <value>Email body could not be null, empty or whitespace</value>
+    </data>
+    <data name="MsgEmailAttachmentCouldNotBeNull" xml:space="preserve">
+        <value>Email attachment could not be null</value>
+    </data>
+    <data name="MsgEmailZipDirectoryNotFound" xml:space="preserve">
+        <value>Email zip path {filePath} could not be found</value>
+    </data>
+    <data name="MsgEmailTemplateNotFound" xml:space="preserve">
+        <value>Email template at {filePath} not found</value>
+    </data>
+    <data name="MsgEmailAttachmentNotFound" xml:space="preserve">
+        <value>Email attachment {filePath} not found</value>
+    </data>
+    <data name="MsgEmailTemplateDirectoryNotFound" xml:space="preserve">
+        <value>Email template directory {templateDir} not found</value>
+    </data>
+    <data name="MsgDirectoryNotFound" xml:space="preserve">
+        <value>Directory {directoryPath} not found</value>
+    </data>
+    <data name="MsgFileNotFound" xml:space="preserve">
+        <value>{filePath} not found</value>
+    </data>
+    <data name="MsgMustBeOfType" xml:space="preserve">
+        <value>{source} must be of type {type}</value>
+    </data>
+    <data name="MsgRequiredParameter" xml:space="preserve">
+        <value>{paramName} is required</value>
+    </data>
+    <data name="MsgEmailFromCouldNotBeNull" xml:space="preserve">
+        <value>Email from address could not be null</value>
+    </data>
+    <data name="MsgEmailToCouldNotBeNullOrEmpty" xml:space="preserve">
+        <value>Email to address could not be null</value>
+    </data>
+    <data name="MsgEmailZipDirectoryCouldNotBeNull" xml:space="preserve">
+        <value>Email zip directory could not be null</value>
+    </data>
+</root>
