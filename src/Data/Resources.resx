@@ -21,4 +21,7 @@
     <data name="MsgEntityWithIdNotFound" xml:space="preserve">
         <value>Element with id {id} was not found, please check that it exists</value>
     </data>
+    <data name="MsgGreaterThan" xml:space="preserve">
+        <value>source} musst be greter than {min}</value>
+    </data>
 </root>

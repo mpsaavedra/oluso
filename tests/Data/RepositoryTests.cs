@@ -19,15 +19,35 @@ public class RepositoryTests
     }
 
     [Fact]
+    public async Task QueryRepositoryTest_FindPaginatedAsync_Predicate()
+    {
+        var repo = BuildRepository("FindPaginatedAsync_Predicate");
+        var result = await repo.FindPaginatedAsync(x => x.Age > 2, pageSize: 2);
+        result.CurrentPage.ShouldBe(0);
+        result.Descriptor.NumberOfPages.ShouldBe(5);
+        result.Descriptor.PageBoundaries.Length.ShouldBe(5);
+    }
+
+    [Fact]
     public async Task QueryRepositoryTest_FindAsync_Specification()
     {
+        var repo = BuildRepository("FindAsync_Specification");
         var isFemale = new FakeSpecificationIsFemale();
         var is19 = new FakeSpecification19Years();
-        var isTeenager = new FakeSpecificationTeenAger();
-        var repo = BuildRepository("FindAsync_Specification");
         (await repo.FindAsync(isFemale)).Count().ShouldBe(5);
         (await repo.FindAsync(isFemale.And(is19))).Count().ShouldBe(1);
         (await repo.FindAsync(isFemale.And(is19.Not()))).Count().ShouldBe(4);
+    }
+
+    [Fact]
+    public async Task QueryRepositoryTest_FindPaginatedAsync_Specification()
+    {
+        var repo = BuildRepository("FindPaginatedAsync_Specification");
+        var isTeenager = new FakeSpecificationTeenAger();
+        var result = await repo.FindPaginatedAsync(isTeenager, pageSize: 2);
+        result.CurrentPage.ShouldBe(0);
+        result.Descriptor.NumberOfPages.ShouldBe(2);
+        result.Descriptor.PageBoundaries.Length.ShouldBe(2);
     }
     
     #endregion

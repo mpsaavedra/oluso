@@ -67,5 +67,14 @@ namespace Oluso.Data {
                 return ResourceManager.GetString("MsgEntityWithIdNotFound", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to source} musst be greter than {min}.
+        /// </summary>
+        internal static string MsgGreaterThan {
+            get {
+                return ResourceManager.GetString("MsgGreaterThan", resourceCulture);
+            }
+        }
     }
 }

@@ -12,7 +12,6 @@ public class SpecificationTests
     public void SpecificationTest_And()
     {
         var ctx = BuildContext("And");
-        ctx = Populate(ctx);
         ctx.FakeEntities.Count().ShouldBe(2);
         var under18 = new FakeSpecificationAgeUnder18();
         var isMale = new FakeSpecificationIsMale();
@@ -26,7 +25,6 @@ public class SpecificationTests
     public void SpecificationTest_Or()
     {
         var ctx = BuildContext("Or");
-        ctx = Populate(ctx);
         var under18 = new FakeSpecificationAgeUnder18();
         var isMale = new FakeSpecificationIsMale();
         var result = ctx.FakeEntities.Where(under18.Or(isMale));
@@ -39,7 +37,6 @@ public class SpecificationTests
     public void SpecificationTest_OrOperator()
     {
         var ctx = BuildContext("OrOperator");
-        ctx = Populate(ctx);
         var under18 = new FakeSpecificationAgeUnder18();
         var isMale = new FakeSpecificationIsMale();
         var result = ctx.FakeEntities.Where(under18 | isMale);
@@ -53,7 +50,6 @@ public class SpecificationTests
     public void SpecificationTest_Not()
     {
         var ctx = BuildContext("Not");
-        ctx = Populate(ctx);
         var under18 = new FakeSpecificationAgeUnder18();
         var result = ctx.FakeEntities.Where(under18.Not());
 
@@ -67,10 +63,12 @@ public class SpecificationTests
             .AddDbContext<FakeDbContext>(cfg => 
                 cfg.UseInMemoryDatabase($"specification{section}TestDatabase"))
             .BuildServiceProvider();
+        var ctx = provider.GetRequiredService<FakeDbContext>();
+        Populate(ctx);
         return provider.GetRequiredService<FakeDbContext>();
     }
 
-    public FakeDbContext Populate(FakeDbContext context)
+    private void Populate(FakeDbContext context)
     {
         context.FakeEntities.AddRange(new FakeEntity[]
         {
@@ -78,6 +76,5 @@ public class SpecificationTests
             new() { Id = 2, Value = "Amanda", Age = 19, Gender = FakeTypes.ValueTypes.EnumerationTypes.Gender.Female },
         });
         context.SaveChanges();
-        return context;
     }
 }
