@@ -24,7 +24,7 @@ Oluso has a lot to documentation. A high-level of how it's organized will help y
 If you are new to Oluso SDK usage, This is the place to start! There are several important things you must know before start using Oluso.
 
 * **From scratch:** [Overview](./intro.md#from-scratch) | [Installation](./intro.md#installation)
-* **Packages introduction:** [Core package](./developers/core/index.md) | [Data package](./developers/data/index.md) | [Email package](./developers/email/index.md)
+* **Packages introduction:** [Core package](./developers/core/index.md) | [Data package](./developers/data/index.md) | [Email package](./developers/email/index.md) | [Configuration package](./developers/configuration/index.md)
 * **Tutorials:** [How to write applications](./tutorial/application-development.md) | [How to structure microservices](./tutorial/microservices.md)
 
 ## Core package
