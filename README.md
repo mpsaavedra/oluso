@@ -4,12 +4,15 @@
 ![Build status development](https://github.com/mpsaavedra/oluso/actions/workflows/dev_push.yml/badge.svg?branch=dev)
 
 
-This repository contains the **Oluso** SDK and has the intention to put together as many packages and utilities as possible that solve many of the common problems i' ve been facing during this years of development. I hope that helps some other developers out there.
+This repository contains the **Oluso** SDK and has the intention to put together as many packages and utilities as possible that solve many of the common problems i' ve been facing during this years of development. I hope that helps some other developers out there. It include a very large documentation -that's been written on the go, so it could change a lot- that cover almost every helper, extension or tool included in the SDK, You could found it in the [documentation](./docs/index.md) folder, and also check for the examples placed in there that introduce you in a more fluid way to the SDK functionalities and design.
 
 ![Oluso logo](./docs/images/logo.png)
 
 **What Oluso means?**: Well, the word is from the `Vodoo` language and the real translation is **guardian, keeper** or **celador** on spanish, i am cuban so `Vodoo` language words are part of our common slang, so why not to used to honor mi heritage. Also because the SDK should work a process guardian that provides the desire stability in code, and simplify the development process.
 
+## How it the SDK structured
+
+The SDK is divided into several packages that has different function and could or could not interact between them, and gather some functionality. 
 
 ## License
 
