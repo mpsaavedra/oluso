@@ -58,6 +58,9 @@ public static class Messages
     {
         throw new NotImplementedException();
     }
+
+    public static string NullOrEmpty(string source) =>
+        string.Format(Resources.MsgNullOrEmpty, source);
 }
 
 #pragma warning restore CS1591

@@ -186,6 +186,15 @@ namespace Oluso.Email {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {source} could not be null.
+        /// </summary>
+        internal static string MsgNullOrEmpty {
+            get {
+                return ResourceManager.GetString("MsgNullOrEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {paramName} is required.
         /// </summary>
         internal static string MsgRequiredParameter {

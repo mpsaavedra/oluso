@@ -56,4 +56,7 @@
     <data name="MsgEmailZipDirectoryCouldNotBeNull" xml:space="preserve">
         <value>La direccion del zip no puede ser nula</value>
     </data>
+    <data name="MsgNullOrEmpty" xml:space="preserve">
+        <value>{source} no puede ser nulo</value>
+    </data>
 </root>

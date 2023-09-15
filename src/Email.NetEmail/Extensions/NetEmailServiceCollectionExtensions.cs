@@ -1,9 +1,12 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Oluso.Email.Extensions;
+using Oluso.Email.NetEmail;
 using Oluso.Email.NetEmail.Settings;
+using Oluso.Email.Settings;
 
-namespace Oluso.Email.NetEmail.Extensions;
+// ReSharper disable once CheckNamespace
+namespace Oluso.Email.Extensions;
 
 /// <summary>
 /// Service collection related extensions
@@ -20,9 +23,8 @@ public static class NetEmailServiceCollectionExtensions
         Action<NetEmailOptions> options)
     {
         var settings = options!.ToEmailConfigureOrDefault().EmailSettings as NetEmailSettings;
-        if (!settings!.GetType().IsInstanceOfType(typeof(NetEmailSettings)))
-            throw new ApplicationException($"Settings are not valid");
-        services.AddNetEmailService(settings);
+        var cfg = settings.IsEqualTypeThrow<IEmailSettings, NetEmailSettings>(nameof(settings));
+        services.AddNetEmailService(cfg);
         return services;
     }
 
