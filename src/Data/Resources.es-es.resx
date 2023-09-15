@@ -14,4 +14,7 @@
     <data name="MsgEntityWithIdNotFound" xml:space="preserve">
         <value>Elemento con Id {id} no ha sido encontrado, por favor compruebe que exista</value>
     </data>
+    <data name="MsgGreaterThan" xml:space="preserve">
+        <value>{source} debe ser mayor que {min}</value>
+    </data>
 </root>

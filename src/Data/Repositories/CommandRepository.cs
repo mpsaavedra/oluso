@@ -5,13 +5,7 @@ using Oluso.Data.Operations;
 
 namespace Oluso.Data.Repositories;
 
-/// <summary>
 /// <inheritdoc cref="ICommandRepository{TKey,TUserKey,TEntity,TContext}"/>
-/// </summary>
-/// <typeparam name="TKey"></typeparam>
-/// <typeparam name="TUserKey"></typeparam>
-/// <typeparam name="TEntity"></typeparam>
-/// <typeparam name="TContext"></typeparam>
 public class CommandRepository<TKey, TUserKey, TEntity, TContext> :
     ICommandRepository<TKey, TUserKey, TEntity, TContext>
     where TEntity : class, IBusinessEntity<TKey, TUserKey>
@@ -28,14 +22,10 @@ public class CommandRepository<TKey, TUserKey, TEntity, TContext> :
         Context = unitOfWork.Context;
     }
     
-    /// <summary>
     /// <inheritdoc cref="ICommandRepository{TKey,TUserKey,TEntity,TContext}.UnitOfWork"/>
-    /// </summary>
     public IUnitOfWork<TContext>? UnitOfWork { get; }
 
-    /// <summary>
     /// <inheritdoc cref="ICommandRepository{TKey,TUserKey,TEntity,TContext}.Context"/>
-    /// </summary>
     public TContext Context { get; }
 
     /// <summary>
@@ -68,12 +58,7 @@ public class CommandRepository<TKey, TUserKey, TEntity, TContext> :
         }
     }
 
-    /// <summary>
     /// <inheritdoc cref="ICreateOperation{TKey,TUserKey,TEntity}.CreateAsync"/>
-    /// </summary>
-    /// <param name="entity"></param>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
     public async Task<TKey>? CreateAsync(TEntity entity, CancellationToken cancellationToken = default)
     {
         try
@@ -96,12 +81,7 @@ public class CommandRepository<TKey, TUserKey, TEntity, TContext> :
         }
     }
 
-    /// <summary>
     /// <inheritdoc cref="ICreateOperation{TKey,TUserKey,TEntity}.CreateRangeAsync"/>
-    /// </summary>
-    /// <param name="entities"></param>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
     public async Task<List<TKey>>? CreateRangeAsync(List<TEntity> entities, CancellationToken cancellationToken = default)
     {
         try
@@ -133,12 +113,7 @@ public class CommandRepository<TKey, TUserKey, TEntity, TContext> :
         }
     }
 
-    /// <summary>
     /// <inheritdoc cref="IUpdateOperation{TKey,TUserKey,TEntity}.UpdateAsync"/>
-    /// </summary>
-    /// <param name="entity"></param>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
     public async Task<bool> UpdateAsync(TEntity entity, CancellationToken cancellationToken = default)
     {
         try
@@ -164,13 +139,7 @@ public class CommandRepository<TKey, TUserKey, TEntity, TContext> :
         }
     }
 
-    /// <summary>
     /// <inheritdoc cref="IDeleteOperation{TKey,TUserKey,TEntity}.DeleteAsync(System.Linq.Expressions.Expression{System.Func{TEntity,bool}},bool,System.Threading.CancellationToken)"/>
-    /// </summary>
-    /// <param name="predicate"></param>
-    /// <param name="softDelete"></param>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
     public async Task<bool> DeleteAsync(Expression<Func<TEntity, bool>> predicate, bool softDelete = true,
         CancellationToken cancellationToken = default)
     {
@@ -192,13 +161,7 @@ public class CommandRepository<TKey, TUserKey, TEntity, TContext> :
         }
     }
 
-    /// <summary>
     /// <inheritdoc cref="IDeleteOperation{TKey,TUserKey,TEntity}.DeleteAsync(TKey,bool,System.Threading.CancellationToken)"/>
-    /// </summary>
-    /// <param name="id"></param>
-    /// <param name="softDelete"></param>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
     public async Task<bool> DeleteAsync(TKey id, bool softDelete = true, CancellationToken cancellationToken = default)
     {
         try
@@ -235,24 +198,11 @@ public class CommandRepository<TKey, TUserKey, TEntity, TContext> :
         }
     }
 
-    /// <summary>
     /// <inheritdoc cref="IDeleteOperation{TKey,TUserKey,TEntity}.DeleteAsync(TEntity,bool,System.Threading.CancellationToken)"/>
-    /// </summary>
-    /// <param name="entity"></param>
-    /// <param name="softDelete"></param>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
-    /// <exception cref="NotImplementedException"></exception>
     public async Task<bool> DeleteAsync(TEntity entity, bool softDelete = true, CancellationToken cancellationToken = default)
         => await DeleteAsync(entity.Id, softDelete, cancellationToken);
 
-    /// <summary>
     /// <inheritdoc cref="IDeleteOperation{TKey,TUserKey,TEntity}.DeleteRangeAsync(System.Collections.Generic.List{TEntity},bool,System.Threading.CancellationToken)"/>
-    /// </summary>
-    /// <param name="entities"></param>
-    /// <param name="softDelete"></param>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
     public async Task<bool> DeleteRangeAsync(List<TEntity> entities, bool softDelete = true,
         CancellationToken cancellationToken = default)
     {
@@ -273,13 +223,7 @@ public class CommandRepository<TKey, TUserKey, TEntity, TContext> :
         }
     }
     
-    /// <summary>
     /// <inheritdoc cref="IDeleteOperation{TKey,TUserKey,TEntity}.DeleteRangeAsync(System.Collections.Generic.List{TKey},bool,System.Threading.CancellationToken)"/>
-    /// </summary>
-    /// <param name="entitiesIds"></param>
-    /// <param name="softDelete"></param>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
     public async Task<bool> DeleteRangeAsync(List<TKey> entitiesIds, bool softDelete = true,
         CancellationToken cancellationToken = default)
     {

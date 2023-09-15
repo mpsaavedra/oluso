@@ -61,34 +61,24 @@ public class BusinessEntity<TKey, TUserKey> : IBusinessEntity<TKey, TUserKey>, I
         CreatedAt = DateTime.UtcNow;
     }
 
-    /// <summary>
     /// <inheritdoc cref="IBusinessEntity{TKey, TUserKey}.Id"/>
-    /// </summary>
     [Key]
     [JsonPropertyName("id")]
     public TKey Id { get; set; }
 
-    /// <summary>
     /// <inheritdoc cref="IBusinessEntity{TKey,TUserKey}.Status"/>
-    /// </summary>
     [JsonPropertyName("status")]
     public bool Status { get; set; }
 
-    /// <summary>
     /// <inheritdoc cref="IBusinessEntity{TKey,TUserKey}.CreatedAt"/>
-    /// </summary>
     [JsonPropertyName("createdAt")]
     public DateTime CreatedAt { get; set; }
 
-    /// <summary>
     /// <inheritdoc cref="IBusinessEntity{TKey,TUserKey}.CreatedBy"/>
-    /// </summary>
     [JsonPropertyName("createdBy")]
     public TUserKey? CreatedBy { get; set; }
 
-    /// <summary>
     /// <inheritdoc cref="IBusinessEntity{TKey,TUserKey}.UpdatedAt"/>
-    /// </summary>
     [JsonPropertyName("updateAt")]
     public DateTime? UpdatedAt { get; set; }
 
@@ -98,30 +88,21 @@ public class BusinessEntity<TKey, TUserKey> : IBusinessEntity<TKey, TUserKey>, I
     [JsonPropertyName("updatedBy")]
     public TUserKey? UpdatedBy { get; set; }
 
-    /// <summary>
     /// <inheritdoc cref="IBusinessEntity{TKey, TUserKey}.DeletedAt"/>
-    /// </summary>
     [JsonPropertyName("deletedAt")]
     public DateTime? DeletedAt { get; set; }
 
-    /// <summary>
     /// <inheritdoc cref="IBusinessEntity{TKey,TUserKey}.DeletedBy"/>
-    /// </summary>
     [JsonPropertyName("deletedBy")]
     public TUserKey? DeletedBy { get; set; }
 
-    /// <summary>
     /// <inheritdoc cref="IBusinessEntity{TKey,TUserKey}.RowVersion"/>
-    /// </summary>
     [JsonPropertyName("rowVersion")]
     public string RowVersion { get; set; }
+    
     #region Comparisons
 
-    /// <summary>
     /// <inheritdoc cref="IEquatable{T}"/>
-    /// </summary>
-    /// <param name="obj"></param>
-    /// <returns></returns>
     public override bool Equals(object? obj)
     {
         var compareTo = obj as BusinessEntity<TKey, TUserKey>;

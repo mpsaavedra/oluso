@@ -91,18 +91,13 @@ public interface IUnitOfWork<out TContext>
     T? Service<T>() where T: class;
 }
 
-/// <summary>
 /// <inheritdoc cref="IUnitOfWork{TContext}"/>
-/// </summary>
-/// <typeparam name="TContext"></typeparam>
 public class UnitOfWork<TContext> : IUnitOfWork<TContext>
     where TContext : DbContext
 {
     private readonly IServiceProvider _provider;
 
-    /// <summary>
     /// <inheritdoc cref="IUnitOfWork{TContext}.Context"/>
-    /// </summary>
     public TContext Context { get; }
 
     /// <summary>
@@ -114,14 +109,7 @@ public class UnitOfWork<TContext> : IUnitOfWork<TContext>
         _provider = provider;
     }
 
-    /// <summary>
     /// <inheritdoc cref="IUnitOfWork{TContext}.ExecuteAsync{TResult}"/>
-    /// </summary>
-    /// <param name="operation"></param>
-    /// <param name="verifySucceeded"></param>
-    /// <param name="cancellationToken"></param>
-    /// <typeparam name="TResult"></typeparam>
-    /// <returns></returns>
     public async Task<TResult> ExecuteAsync<TResult>(Func<Task<TResult>> operation,
         Task<bool>? verifySucceeded = null,
         CancellationToken cancellationToken = default)
@@ -162,13 +150,7 @@ public class UnitOfWork<TContext> : IUnitOfWork<TContext>
         }, async ct => await Task.FromResult(true), cancellationToken);
     }
 
-    /// <summary>
     /// <inheritdoc cref="IUnitOfWork{TContext}.ExecuteAsync(Action, Func{bool}?, CancellationToken)"/>
-    /// </summary>
-    /// <param name="operation"></param>
-    /// <param name="verifySucceeded"></param>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
     public async Task ExecuteAsync(Action operation, Func<bool>? verifySucceeded = null,
         CancellationToken cancellationToken = default)
     {
@@ -202,19 +184,11 @@ public class UnitOfWork<TContext> : IUnitOfWork<TContext>
         }, cancellationToken);
     }
     
-    /// <summary>
     /// <inheritdoc cref="IUnitOfWork{TContext}.Repository{T}"/>
-    /// </summary>
-    /// <typeparam name="T">repository interface</typeparam>
-    /// <returns></returns> 
     public T? Repository<T>() where T : class =>
         _provider.GetRequiredService(typeof(T)) as T;
 
-    /// <summary>
     /// <inheritdoc cref="IUnitOfWork{TContext}.Service{T}"/>
-    /// </summary>
-    /// <typeparam name="T">repository interface</typeparam>
-    /// <returns></returns>
     public T? Service<T>() where T : class =>
         _provider.GetRequiredService(typeof(T)) as T;
 
