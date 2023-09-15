@@ -8,7 +8,9 @@ public class EmailOptions
     /// <summary>
     /// get the <see cref="EmailSettings"/> object with configuration to use
     /// </summary>
-    public EmailSettings EmailSettings { get; private set; } = new();
+#pragma warning disable CS8618
+    public IEmailSettings EmailSettings { get; private set; }
+#pragma warning restore CS8618
 
     /// <summary>
     /// set if use credentials to authenticate to server or not
@@ -81,7 +83,7 @@ public class EmailOptions
     /// </summary>
     /// <param name="useSsl"></param>
     /// <returns></returns>
-    public EmailOptions WithUseSsl(bool useSsl=EmailSettings.DefaultUseSsl)
+    public EmailOptions WithUseSsl(bool useSsl=Settings.EmailSettings.DefaultUseSsl)
     {
         EmailSettings.UseSsl = useSsl;
         return this;

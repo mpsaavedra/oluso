@@ -43,6 +43,21 @@ public static class Messages
     public static string EmailToCouldNotBeNullOrEmpty() => Resources.MsgEmailToCouldNotBeNullOrEmpty;
 
     public static string EmailZipDirectoryCouldNotBeNull() => Resources.MsgEmailZipDirectoryCouldNotBeNull;
+
+    public static string EmailCouldNotBeSend()
+    {
+        throw new NotImplementedException();
+    }
+
+    public static string EmailSentSuccessfully()
+    {
+        throw new NotImplementedException();
+    }
+
+    public static string EmailSendingPleaseWait()
+    {
+        throw new NotImplementedException();
+    }
 }
 
 #pragma warning restore CS1591

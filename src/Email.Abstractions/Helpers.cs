@@ -2,7 +2,8 @@ using System.IO.Compression;
 
 namespace Oluso.Email;
 
-internal static class Helpers
+#pragma warning disable CS1591
+public static class Helpers
 {
     public static List<(string filename, string filePath, string fileConvert, byte[] fileBytes)> ReadAllBytes(
         this string directoryPath, string extensions = "*.*")
@@ -136,3 +137,4 @@ internal static class Helpers
         return (TResult)Convert.ChangeType(value, typeof(TResult));
     }
 }
+#pragma warning restore CS1591
