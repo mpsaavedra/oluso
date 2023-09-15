@@ -23,7 +23,7 @@ public static class NetEmailServiceCollectionExtensions
         Action<NetEmailOptions> options)
     {
         var settings = options!.ToEmailConfigureOrDefault().EmailSettings as NetEmailSettings;
-        var cfg = settings.IsEqualTypeThrow<IEmailSettings, NetEmailSettings>(nameof(settings));
+        var cfg = settings!.IsEqualTypeThrow<IEmailSettings, NetEmailSettings>(nameof(settings));
         services.AddNetEmailService(cfg);
         return services;
     }

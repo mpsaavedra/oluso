@@ -20,7 +20,7 @@ public static class MailKitServiceCollectionExtensions
     public static IServiceCollection AddMailKit(this IServiceCollection services,
         Action<MailKitOptions> options)
     {
-        var settings = options.ToEmailConfigureOrDefault().EmailSettings;
+        var settings = options!.ToEmailConfigureOrDefault().EmailSettings;
         var config = settings.IsEqualTypeThrow<IEmailSettings, MailKitSettings>(nameof(settings));
         services.AddMailKit(config);
         return services;

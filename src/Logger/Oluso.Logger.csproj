@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Logger.Abstractions\Oluso.Logger.Abstractions.csproj" />
+    <ProjectReference Include="..\Logger.Serilog\Oluso.Logger.Serilog.csproj" />
+  </ItemGroup>
+
 </Project>

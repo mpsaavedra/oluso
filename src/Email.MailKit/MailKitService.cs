@@ -69,9 +69,10 @@ public class MailKitService : EmailService, IEmailService
                 Messages.EmailSentSuccessfully().Show();
             };
         }
-        catch (Exception e)
+        catch
         {
             Messages.EmailCouldNotBeSend().Show();
+            throw;
         }
         await client.DisconnectAsync(true);
 

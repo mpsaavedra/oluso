@@ -12,6 +12,9 @@ public class RabbitMqPublisherOptions
     /// </summary>
     public RabbitMqPublisherSettings Settings { get; } = new();
 
+    /// <summary>
+    /// returns a new <see cref="RabbitMqPublisherOptions"/> instance
+    /// </summary>
     public RabbitMqPublisherOptions()
     {
     }

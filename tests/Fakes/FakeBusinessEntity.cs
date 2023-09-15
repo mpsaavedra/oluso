@@ -8,7 +8,9 @@ namespace Tests.Fakes;
 // only value because BusinessEntity already has auditory data on it
 public class FakeBusinessEntity : BusinessEntity<int, string>
 {
+#pragma warning disable CS8618
     public string Value { get; set; }
+#pragma warning restore CS8618
 
     public FakeTypes.ValueTypes.EnumerationTypes.Gender Gender { get; set; } =
         FakeTypes.ValueTypes.EnumerationTypes.Gender.NotSpecified;

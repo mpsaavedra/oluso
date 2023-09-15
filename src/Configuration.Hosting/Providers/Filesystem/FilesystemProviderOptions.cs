@@ -12,6 +12,9 @@ public class FilesystemProviderOptions
     /// </summary>
     public FilesystemProviderSettings Settings { get; } = new();
 
+    /// <summary>
+    /// returns a new <see cref="FilesystemProviderOptions"/> instance
+    /// </summary>
     public FilesystemProviderOptions()
     {
     }

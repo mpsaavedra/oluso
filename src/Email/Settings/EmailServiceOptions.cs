@@ -32,7 +32,7 @@ public class EmailServiceOptions
     /// <returns></returns>
     public EmailServiceOptions WithNetEmail(Action<NetEmailOptions> options)
     {
-        var settings = options.ToEmailConfigureOrDefault().EmailSettings;
+        var settings = options!.ToEmailConfigureOrDefault().EmailSettings;
         var config = settings.IsEqualTypeThrow<IEmailSettings, NetEmailSettings>(nameof(settings));
         return WithNetEmail(config);
     }
@@ -70,7 +70,7 @@ public class EmailServiceOptions
     /// <returns></returns>
     public EmailServiceOptions WithMailKit(Action<MailKitOptions> options)
     {
-        var settings = options.ToEmailConfigureOrDefault().EmailSettings;
+        var settings = options!.ToEmailConfigureOrDefault().EmailSettings;
         var config = settings.IsEqualTypeThrow<IEmailSettings, MailKitSettings>(nameof(settings));
         return WithMailKit(config);
     }

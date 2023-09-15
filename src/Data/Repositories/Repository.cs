@@ -37,7 +37,7 @@ public class Repository<TKey, TUserKey, TEntity, TContext> :
     where TEntity : class, IBusinessEntity<TKey, TUserKey>
     where TContext : DbContext
 {
-    private IRepository<TKey, TUserKey, TEntity, TContext> _repositoryImplementation;
+    // private IRepository<TKey, TUserKey, TEntity, TContext> _repositoryImplementation;
 
     /// <summary>
     /// returns a new <see cref="Repository{TKey,TUserKey,TEntity,TContext}"/> instance
@@ -69,23 +69,23 @@ public class Repository<TKey, TUserKey, TEntity, TContext> :
         await CommandRepository.CreateRangeAsync(entities, cancellationToken)!;
 
     /// <inheritdoc cref="IReadOperation{TKey,TUserKey,TEntity}.FindAsync(System.Linq.Expressions.Expression{System.Func{TEntity,bool}},System.Threading.CancellationToken)"/>
-    public async Task<IQueryable<TEntity>> FindAsync(Expression<Func<TEntity, bool>> predicate,
+    public async Task<IQueryable<TEntity>> FindAsync(Expression<Func<TEntity, bool>>? predicate,
         CancellationToken cancellationToken = default) =>
         await QueryRepository.FindAsync(predicate, cancellationToken);
 
     /// <inheritdoc cref="IReadOperation{TKey,TUserKey,TEntity}.FindAsync(Oluso.Data.Specifications.Specification{TEntity},System.Threading.CancellationToken)"/>
-    public async Task<IQueryable<TEntity>> FindAsync(Specification<TEntity> specification,
+    public async Task<IQueryable<TEntity>> FindAsync(Specification<TEntity>? specification,
         CancellationToken cancellationToken = default) =>
         await QueryRepository.FindAsync(specification, cancellationToken);
 
     /// <inheritdoc cref="IReadOperation{TKey,TUserKey,TEntity}.FindPaginatedAsync(System.Linq.Expressions.Expression{System.Func{TEntity,bool}},int,int,System.Threading.CancellationToken)"/>
-    public async Task<QueryResult<TEntity>> FindPaginatedAsync(Expression<Func<TEntity, bool>> predicate, int pageIndex = 0,
+    public async Task<QueryResult<TEntity>> FindPaginatedAsync(Expression<Func<TEntity, bool>>? predicate, int pageIndex = 0,
         int pageSize = 50,
         CancellationToken cancellationToken = default) =>
         await QueryRepository.FindPaginatedAsync(predicate, pageIndex, pageSize, cancellationToken);
 
     /// <inheritdoc cref="IReadOperation{TKey,TUserKey,TEntity}.FindPaginatedAsync(Oluso.Data.Specifications.Specification{TEntity},int,int,System.Threading.CancellationToken)"/>
-    public async Task<QueryResult<TEntity>> FindPaginatedAsync(Specification<TEntity> specification, int pageIndex = 0,
+    public async Task<QueryResult<TEntity>> FindPaginatedAsync(Specification<TEntity>? specification, int pageIndex = 0,
         int pageSize = 50,
         CancellationToken cancellationToken = default) =>
         await QueryRepository.FindPaginatedAsync(specification, pageIndex, pageSize, cancellationToken);
