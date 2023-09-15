@@ -24,7 +24,7 @@ Oluso has a lot to documentation. A high-level of how it's organized will help y
 If you are new to Oluso SDK usage, This is the place to start! There are several important things you must know before start using Oluso.
 
 * **From scratch:** [Overview](./intro.md#from-scratch) | [Installation](./intro.md#installation)
-* **Packages introduction:** [Core package](./developers/core/index.md) | [Data package](./developers/data/index.md)
+* **Packages introduction:** [Core package](./developers/core/index.md) | [Data package](./developers/data/index.md) | [Email package](./developers/email/index.md)
 * **Tutorials:** [How to write applications](./tutorial/application-development.md) | [How to structure microservices](./tutorial/microservices.md)
 
 ## Core package
@@ -34,3 +34,7 @@ This package is used by almost every other package in the Oluso SDK, because it 
 ## Data package
 
 By far this could be the most used package of all, because the increasent necesity of data store of any kind. Almost every software save data in some form, this means that we have the necesity to save that data into databases of some mind. The data package provide some tested patterns, [Repository](https://wikipedia.org/wiki/repository_pattern_software), [Unit of work](https://wikipedia.org/wiki/unit_of_work_pattern_software) and the [Specification](https://wikipedia.org/wiki/specification_pattern_software) are some of the provided examples. You as developer could use of this patterns, check the [Data package section](./developers/data/index.md) for a more detailed information about how to use them.
+
+## Email package
+
+Send an email to notify some action or send some data is always a need when developing application. This package simplify this process by implmenenting all required implementation. By using it you will have no need to develop everything from scratch, a very simple API allows you to send emails with attachments and many other data in a very simple way. Details are in the [email package](./developers/email/index.md) among other information and examples of usage.
