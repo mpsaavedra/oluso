@@ -46,7 +46,7 @@ public static class SerilogExtensions
             loggerConfiguration.IsNullOrEmptyThrow(nameof(loggerConfiguration))
                 .WriteTo.Console(
                     theme: Seri.Sinks.SystemConsole.Themes.SystemConsoleTheme.Colored,
-                    outputTemplate: settings.OutputTemplate,
+                    outputTemplate: settings.OutputTemplate!,
                     restrictedToMinimumLevel: settings.MinimumLevel.ToMinimumLevel());
         }
         return loggerConfiguration;
@@ -65,7 +65,7 @@ public static class SerilogExtensions
         {
             loggerConfiguration.IsNullOrEmptyThrow(nameof(loggerConfiguration))
                 .WriteTo.File(
-                    path: settings.FilePath,
+                    path: settings.FilePath!,
                     restrictedToMinimumLevel: settings.MinimumLevel.ToMinimumLevel(),
                     rollingInterval:settings.Interval.ToRollingInterval(),
                     formatter: new Seri.Formatting.Compact.CompactJsonFormatter(),

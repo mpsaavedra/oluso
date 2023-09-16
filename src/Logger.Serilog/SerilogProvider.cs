@@ -14,6 +14,9 @@ using ILogger = Serilog.ILogger;
 
 namespace Oluso.Logger.Serilog;
 
+/// <summary>
+/// Serilog provider
+/// </summary>
 public class SerilogProvider : Abstractions.ILogger, ILoggerService
 {
     private ILogger? _logger;

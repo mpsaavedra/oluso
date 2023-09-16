@@ -15,15 +15,22 @@ public class EmailServiceOptions
     /// </summary>
     public EmailServiceSettings EmailServiceSettings { get; private set; } = new ();
 
-    // public EmailServiceOptions WithNetEmail(IConfiguration configuration)
-    // {
-    //     var settings = configuration
-    //         .GetSection(nameof(EmailServiceSettings))?
-    //         .GetSection(nameof(NetEmailSettings))?
-    //         .Get<NetEmailSettings>();
-    //     var config = settings.IsNullOrEmptyThrow(Messages.NullOrEmpty(nameof(settings)));
-    //     return WithNetEmail(config);
-    // }
+    /// <summary>
+    /// load configuration from the appsettings
+    /// </summary>
+    /// <param name="configuration"></param>
+    /// <returns></returns>
+    /// <exception cref="ArgumentNullException"></exception>
+    public EmailServiceOptions WithNetEmail(IConfiguration configuration)
+    {
+        var settings = configuration
+            .GetSection(nameof(EmailServiceSettings))?
+            .GetSection(nameof(NetEmailSettings))?
+            .Get<NetEmailSettings>();
+        if (settings == null)
+            throw new ArgumentNullException(nameof(configuration));
+        return WithNetEmail(settings!);
+    }
 
     /// <summary>
     /// set the NetEmailSettings options through the action
@@ -48,20 +55,21 @@ public class EmailServiceOptions
         return this;
     }
 
-    // /// <summary>
-    // /// set MailKit settings loaded from configuration
-    // /// </summary>
-    // /// <param name="configuration"></param>
-    // /// <returns></returns>
-    // public EmailServiceOptions WithMailKit(IConfiguration configuration)
-    // {
-    //     var settings = configuration
-    //         .GetSection(nameof(EmailServiceSettings))?
-    //         .GetSection(nameof(MailKitSettings))?
-    //         .Get<MailKitSettings>();
-    //     var config = settings.IsNullOrEmptyThrow(Messages.NullOrEmpty(nameof(settings)));
-    //     return WithMailKit(config);
-    // }
+    /// <summary>
+    /// set MailKit settings loaded from configuration
+    /// </summary>
+    /// <param name="configuration"></param>
+    /// <returns></returns>
+    public EmailServiceOptions WithMailKit(IConfiguration configuration)
+    {
+        var settings = configuration
+            .GetSection(nameof(EmailServiceSettings))?
+            .GetSection(nameof(MailKitSettings))?
+            .Get<MailKitSettings>();
+        if (settings == null)
+            throw new ArgumentNullException(nameof(configuration));
+        return WithMailKit(settings!);
+    }
 
     /// <summary>
     /// set MailKit options through the action
