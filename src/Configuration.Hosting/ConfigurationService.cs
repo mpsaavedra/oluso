@@ -5,6 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Oluso.Configuration.Abstractions;
+using Oluso.Configuration.Hosting.Providers.Filesystem;
 
 namespace Oluso.Configuration.Hosting;
 
@@ -40,10 +41,13 @@ public class ConfigurationService : IConfigurationService
         if (_provider != null)
         {
             _logger.LogDebug("Initializing publisher {Publisher}", nameof(_publisher));
+            _publisher.Initialize();
         }
         var paths = await _provider!.ListPaths();
         await PublishChanges(paths);
         await _provider.Watch(OnChange, cancellationToken);
+
+        _logger.LogInformation("{Name} configuration watching for changes.", _provider.Name);
     }
 
     /// <inheritdoc/>
@@ -65,7 +69,24 @@ public class ConfigurationService : IConfigurationService
     public async Task OnChange(IEnumerable<string> paths)
     {
         _logger.LogDebug("changes in configuration files detected, publishing using {Name}", _provider.Name);
-        paths = paths.ToList();
+        if (_provider is FilesystemProvider)
+        {
+            paths = paths
+                .Select(x =>
+                {
+                    var settingsPath = (_provider as FilesystemProvider)?.Settings.Path;
+                    var path = settingsPath != null &&
+                           !x.StartsWith(settingsPath)
+                            ? Path.Combine(settingsPath, x)
+                            : x;
+                    path = path.EndsWith("~") ? path.Substring(0, path.Length - 1) : path;
+                    return path;
+                });
+        }
+        else
+        {
+            paths = paths.ToList();
+        }
         if (paths.Any())
         {
             await PublishChanges(paths);

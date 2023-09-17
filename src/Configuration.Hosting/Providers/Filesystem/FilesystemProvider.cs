@@ -37,6 +37,11 @@ public class FilesystemProvider : IProvider
         }
     }
 
+    /// <summary>
+    /// Settings
+    /// </summary>
+    public FilesystemProviderSettings Settings => _settings;
+
     /// <inheritdoc/>
     public async Task<string> GetHash(string name)
     {
@@ -67,9 +72,9 @@ public class FilesystemProvider : IProvider
             var credentials = new NetworkCredential(_settings.UserName, _settings.Password, _settings.Domain);
             var uri = new Uri(_settings.Path);
             _ = new CredentialCache
-      {
-          { new Uri($"{uri.Scheme}://{uri.Host}"), "Basic, credentials", credentials }
-      };
+            {
+                { new Uri($"{uri.Scheme}://{uri.Host}"), "Basic, credentials", credentials }
+            };
         }
 
         _watcher = new FileSystemWatcher
@@ -87,7 +92,9 @@ public class FilesystemProvider : IProvider
     /// <inheritdoc/>
     public async Task<byte[]> GetConfiguration(string name)
     {
-        var path = Path.Combine(_settings.Path, name);
+        var path = !name.StartsWith(_settings.Path)
+            ? Path.Combine(_settings.Path, name)
+            : name;
 
         if (!File.Exists(path))
         {
@@ -106,7 +113,9 @@ public class FilesystemProvider : IProvider
         _logger.LogDebug("Listing files in {Path}", _settings.Path);
 
         var searchOptions = _settings.IncludeSubDirectories ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly;
-        var files = Directory.EnumerateFiles(_settings.Path, _settings.SearchPattern ?? "*", searchOptions).ToList();
+        var files = Directory
+            .EnumerateFiles(_settings.Path, _settings.SearchPattern ?? "*", searchOptions)
+            .ToList();
 
         _logger.LogDebug("{Count} configuration files found", files.Count());
 

@@ -1,6 +1,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Oluso.Configuration.Abstractions;
 using Oluso.Configuration.Hosting.Providers.Filesystem;
+using Oluso.Configuration.Hosting.Providers.Git;
 using Oluso.Configuration.Hosting.Publishers.RabbitMq;
 using Oluso.Configuration.Hosting.Publishers.Redis;
 using StackExchange.Redis;
@@ -15,7 +16,7 @@ public static class ConfigurationServiceExtensions
     /// <summary>
     /// add hosted configuration service
     /// </summary>
-    public static IConfigurationServiceBuilder AddConfigurationServiceBuilder(this IServiceCollection services)
+    public static IConfigurationServiceBuilder AddConfigurationService(this IServiceCollection services)
     {
         services.AddHostedService<HostedConfigurationService>();
         services.AddSingleton<IConfigurationService, ConfigurationService>();
@@ -23,8 +24,12 @@ public static class ConfigurationServiceExtensions
     }
 
     /// <summary>
-    /// add filesystem provider.
+    /// add filesystem provider
     /// </summary>
+    /// <param name="builder"></param>
+    /// <param name="configure"></param>
+    /// <returns></returns>
+    /// <exception cref="ArgumentNullException"></exception>
     public static IConfigurationServiceBuilder AddFilesystemProvider(this IConfigurationServiceBuilder builder,
         Action<FilesystemProviderOptions> configure)
     {
@@ -35,8 +40,58 @@ public static class ConfigurationServiceExtensions
 
         var opts = new FilesystemProviderOptions();
         configure(opts);
-        builder.Services.AddSingleton(opts.Settings);
+        return builder.AddFilesystemProvider(opts.Settings);
+    }
+
+    /// <summary>
+    /// register the filesystem provider
+    /// </summary>
+    /// <param name="builder"></param>
+    /// <param name="settings"></param>
+    /// <returns></returns>
+    /// <exception cref="ArgumentNullException"></exception>
+    public static IConfigurationServiceBuilder AddFilesystemProvider(this IConfigurationServiceBuilder builder,
+        FilesystemProviderSettings settings)
+    {
+        if (settings == null)
+        {
+            throw new ArgumentNullException(nameof(settings));
+        }
+        builder.Services.AddSingleton(settings);
         builder.Services.AddSingleton<IProvider, FilesystemProvider>();
+        return builder;
+    }
+
+    /// <summary>
+    /// register the Git provider
+    /// </summary>
+    /// <param name="builder"></param>
+    /// <param name="configure"></param>
+    /// <returns></returns>
+    public static IConfigurationServiceBuilder AddGitProvider(this IConfigurationServiceBuilder builder,
+        Action<GitProviderOptions> configure)
+    {
+        var opts = new GitProviderOptions();
+        configure(opts);
+        return builder.AddGitProvider(opts.Settings);
+    }
+    
+    /// <summary>
+    /// register the Git provider
+    /// </summary>
+    /// <param name="builder"></param>
+    /// <param name="settings"></param>
+    /// <returns></returns>
+    public static IConfigurationServiceBuilder AddGitProvider(this IConfigurationServiceBuilder builder,
+        GitProviderSettings settings)
+    {
+        if (settings == null)
+        {
+            throw new ArgumentNullException(nameof(settings));
+        }
+
+        builder.Services.AddSingleton(settings);
+        builder.Services.AddSingleton<IProvider, GitProvider>();
         return builder;
     }
 
