@@ -15,4 +15,8 @@
     <ProjectReference Include="..\..\..\..\src\Configuration.Hosting\Oluso.Configuration.Hosting.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Configurations\Configurations\test.json" />
+  </ItemGroup>
+
 </Project>

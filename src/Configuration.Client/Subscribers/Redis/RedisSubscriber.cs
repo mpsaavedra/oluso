@@ -71,7 +71,7 @@ public class RedisSubscriber : Oluso.Configuration.Abstractions.ISubscriber
 
         subscriber.Subscribe(channel, (redisChannel, value) =>
         {
-            _logger.LogInformation("Received subcription to channel {channel}", channel);
+            _logger.LogInformation("Received subscription to channel {channel}", channel);
             handler(channel);
         });
 

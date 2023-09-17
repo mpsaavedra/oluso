@@ -25,6 +25,43 @@ public class ConfigurationOptions
     /// <summary>
     /// The type of <see cref="IConfigurationParser"/> used to parse the remote configuration file.
     /// </summary>
-    public IConfigurationParser Parser { get; set; }
+    public IConfigurationParser? Parser { get; set; }
+
+    /// <summary>
+    /// create a new <see cref="ConfigurationOptions"/>
+    /// </summary>
+    /// <param name="configurationName"></param>
+    /// <param name="optional"></param>
+    /// <param name="reloadOnChange"></param>
+    /// <param name="parser"></param>
+    /// <returns></returns>
+    public static ConfigurationOptions Create(string configurationName, bool optional, bool reloadOnChange,
+        IConfigurationParser? parser)
+    {
+        return new()
+        {
+            ConfigurationName = configurationName,
+            Optional = optional,
+            ReloadOnChange = reloadOnChange,
+            Parser = parser
+        };
+    }
+
+    /// <summary>
+    /// create a new <see cref="ConfigurationOptions"/>
+    /// </summary>
+    /// <param name="configurationName"></param>
+    /// <param name="optional"></param>
+    /// <param name="reloadOnChange"></param>
+    /// <returns></returns>
+    public static ConfigurationOptions Create(string configurationName, bool optional, bool reloadOnChange)
+    {
+        return new()
+        {
+            ConfigurationName = configurationName,
+            Optional = optional,
+            ReloadOnChange = reloadOnChange
+        };
+    }
 }
 #pragma warning restore CS8618

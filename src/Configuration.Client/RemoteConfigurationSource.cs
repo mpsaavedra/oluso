@@ -43,7 +43,7 @@ public class RemoteConfigurationSource : IConfigurationSource
     /// <summary>
     /// The type of <see cref="IConfigurationParser"/> used to parse the remote configuration file.
     /// </summary>
-    public IConfigurationParser Parser { get; set; }
+    public IConfigurationParser? Parser { get; set; }
 
     /// <summary>
     /// Delegate to create the type of <see cref="ISubscriber"/> used to subscribe to published configuration messages.

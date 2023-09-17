@@ -1,3 +1,4 @@
+#nullable enable
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,9 @@ public class ConfigurationService : IConfigurationService
 {
     private readonly ILogger<ConfigurationService> _logger;
     private readonly IProvider _provider;
+#pragma warning disable CS0649
     private readonly IPublisher _publisher;
+#pragma warning restore CS0649
 
 #pragma warning disable CS8625
 #pragma warning disable CS8618
@@ -22,13 +25,12 @@ public class ConfigurationService : IConfigurationService
     /// returns a new <see cref="ConfigurationService"/> instance
     /// </summary>
     public ConfigurationService(ILogger<ConfigurationService> logger,
-        IProvider provider, IPublisher publisher)
+        IProvider provider, IPublisher? publisher = null)
     {
 #pragma warning restore CS8625
 #pragma warning restore CS8618
         _logger = logger;
         _provider = provider ?? throw new ArgumentNullException(nameof(provider));
-        _publisher = publisher ?? throw new ArgumentNullException(nameof(publisher));
         _logger!.LogDebug("Configuration Service has been created");
     }
 
@@ -41,7 +43,7 @@ public class ConfigurationService : IConfigurationService
         if (_provider != null)
         {
             _logger.LogDebug("Initializing publisher {Publisher}", nameof(_publisher));
-            _publisher.Initialize();
+            _publisher?.Initialize();
         }
         var paths = await _provider!.ListPaths();
         await PublishChanges(paths);
@@ -61,7 +63,17 @@ public class ConfigurationService : IConfigurationService
         foreach (var path in paths)
         {
             var hash = await _provider.GetHash(path);
-            await _publisher.Publish(path, hash);
+            var topic = path;
+            if (_provider is FilesystemProvider provider)
+            {
+                if (!path.StartsWith(provider.Settings.Path))
+                {
+                    topic = path;
+                }
+
+                topic = path.Substring(provider.Settings.Path.Length + 1);
+            }
+            await _publisher?.Publish(topic, hash)!;
         }
     }
 
@@ -74,13 +86,18 @@ public class ConfigurationService : IConfigurationService
             paths = paths
                 .Select(x =>
                 {
-                    var settingsPath = (_provider as FilesystemProvider)?.Settings.Path;
-                    var path = settingsPath != null &&
-                           !x.StartsWith(settingsPath)
+                    if(_provider is FilesystemProvider provider)
+                    {
+                        var settingsPath = provider?.Settings.Path;
+                        var path = settingsPath != null &&
+                                   !x.StartsWith(settingsPath)
                             ? Path.Combine(settingsPath, x)
                             : x;
-                    path = path.EndsWith("~") ? path.Substring(0, path.Length - 1) : path;
-                    return path;
+                        path = path.EndsWith("~") ? path.Substring(0, path.Length - 1) : path;
+                        return path;
+                    }
+
+                    return x;
                 });
         }
         else

@@ -10,22 +10,16 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services
     .AddConfigurationService()
-     .AddFilesystemProvider(cfg => 
+    .AddFilesystemProvider(cfg =>
         cfg
             .WithPath(@"Configurations"))
-    // .AddGitProvider(cfg =>
+    // .AddRabbitMqPublisher(cfg =>
     //     cfg
-    //         .WithRepositoryUrl("ssh://mpsaavedra@10.42.0.1:/home/mpsaavedra/settings-repo")
-    //         .WithLocalPath("C:/local-repo")
-    //         .WithUsername("mpsaavedra")
-    //         .WithPassword("P3lvmten")
-    //         .WithBranch("master"))
-     .AddRabbitMqPublisher(cfg =>
-         cfg
-             .WithHostName($"localhost")
-             .WithUserName("guest")
-             .WithPassword("guest")
-             .WithVirtualHost("/"));
+    //         .WithHostName($"localhost")
+    //         .WithUserName("guest")
+    //         .WithPassword("guest")
+    //         .WithVirtualHost("/"));
+    .AddRedisPublisher("localhost:6379");
 
 var app = builder.Build();
 

@@ -37,7 +37,7 @@ internal class RemoteConfigurationBuilder : IConfigurationBuilder
                 ConfigurationName = configuration.ConfigurationName,
                 Optional = configuration.Optional,
                 ReloadOnChange = configuration.ReloadOnChange,
-                Parser = configuration.Parser,
+                Parser = configuration.Parser!,
 
                 CreateSubscriber = _remoteConfigurationOptions.CreateSubscriber
             };

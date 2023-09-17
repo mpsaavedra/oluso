@@ -96,15 +96,14 @@ public class FilesystemProvider : IProvider
             ? Path.Combine(_settings.Path, name)
             : name;
 
-        if (!File.Exists(path))
-        {
-            _logger.LogError("File {Path} could not be found", path);
+        if (File.Exists(path)) 
+            return await File.ReadAllBytesAsync(path);
+        
+        _logger.LogError("File {Path} could not be found", path);
 #pragma warning disable CS8603
-            return null;
+        return null;
 #pragma warning restore CS8603
-        }
 
-        return await File.ReadAllBytesAsync(path);
     }
 
     /// <inheritdoc/>
@@ -115,6 +114,7 @@ public class FilesystemProvider : IProvider
         var searchOptions = _settings.IncludeSubDirectories ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly;
         var files = Directory
             .EnumerateFiles(_settings.Path, _settings.SearchPattern ?? "*", searchOptions)
+            .Where(x => !x.EndsWith("~"))
             .ToList();
 
         _logger.LogDebug("{Count} configuration files found", files.Count());

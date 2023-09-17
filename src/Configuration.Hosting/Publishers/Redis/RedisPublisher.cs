@@ -39,7 +39,7 @@ public class RedisPublisher : IPublisher
             {
                 _logger.LogDebug("Connection to Redis message broker restored");
             };
-            _logger.LogDebug("Redis configuration publisher initiallized");
+            _logger.LogDebug("Redis configuration publisher initialized");
         }
     }
 

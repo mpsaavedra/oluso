@@ -14,7 +14,7 @@ internal class RemoteConfigurationProvider : ConfigurationProvider, IDisposable
 
     private readonly RemoteConfigurationSource _source;
     private readonly Lazy<HttpClient> _httpClient;
-    private readonly IConfigurationParser _parser;
+    private readonly IConfigurationParser? _parser;
     private bool _isDisposed;
 
     private string Hash { get; set; }
@@ -172,11 +172,11 @@ internal class RemoteConfigurationProvider : ConfigurationProvider, IDisposable
                         _logger.LogInformation("Computed hash for Configuration '{ConfigurationName}' is {Hash}.", _source.ConfigurationName, Hash);
 
                         stream.Position = 0;
-                        var data = _parser.Parse(stream);
+                        var data = _parser?.Parse(stream);
 
                         _logger.LogInformation("Configuration updated for '{ConfigurationName}'.", _source.ConfigurationName);
 
-                        return data;
+                        return data!;
                     }
                 }
 

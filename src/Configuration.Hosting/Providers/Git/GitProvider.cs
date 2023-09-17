@@ -7,13 +7,21 @@ using Oluso.Configuration.Abstractions.Helpers;
 
 namespace Oluso.Configuration.Hosting.Providers.Git;
 
+/// <inheritdoc cref="IProvider"/>
 public class GitProvider : IProvider
 {
     private readonly ILogger<GitProvider> _logger;
     private readonly GitProviderSettings _settings;
     private CredentialsHandler _credentialsHandler;
+    
+    /// <inheritdoc cref="IProvider.Name"/>
     public string Name => "Git provider";
 
+    /// <summary>
+    /// returns a new <see cref="GitProvider"/> instance
+    /// </summary>
+    /// <param name="logger"></param>
+    /// <param name="settings"></param>
     public GitProvider(ILogger<GitProvider> logger, GitProviderSettings settings)
     {
         _logger = logger;
@@ -22,6 +30,7 @@ public class GitProvider : IProvider
         settings.RepositoryUrl.ToNullEmptyOrWhitespaceThrow(nameof(settings.RepositoryUrl));
     }
     
+    /// <inheritdoc cref="IProvider.Watch"/>
     public async Task Watch(Func<IEnumerable<string>, Task> onChange, CancellationToken cancellationToken = default)
     {
         while (!cancellationToken.IsCancellationRequested)
@@ -59,6 +68,7 @@ public class GitProvider : IProvider
         }
     }
 
+    /// <inheritdoc cref="IProvider.Initialize"/>
     public void Initialize()
         {
             _logger.LogInformation("Initializing {Name} provider with options {Options}.", Name, new
@@ -113,6 +123,7 @@ public class GitProvider : IProvider
             _logger.LogInformation("Current HEAD is [{hash}] '{MessageShort}'.", hash, repo.Head.Tip.MessageShort);
         }
 
+    /// <inheritdoc cref="IProvider.GetConfiguration"/>
         public async Task<byte[]> GetConfiguration(string name)
         {
             string path = Path.Combine(_settings.LocalPath, name);
@@ -126,6 +137,7 @@ public class GitProvider : IProvider
             return await File.ReadAllBytesAsync(path);
         }
 
+        /// <inheritdoc cref="IProvider.GetHash"/>
         public async Task<string> GetHash(string name)
         {
             var bytes = await GetConfiguration(name);
@@ -133,6 +145,7 @@ public class GitProvider : IProvider
             return Hasher.CreateHash(bytes);
         }
 
+        /// <inheritdoc cref="IProvider.ListPaths"/>
         public Task<IEnumerable<string>> ListPaths()
         {
             _logger.LogInformation("Listing files at {LocalPath}.", _settings.LocalPath);

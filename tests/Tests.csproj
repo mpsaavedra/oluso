@@ -4,12 +4,13 @@
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-
+    <NoWarn>CS8032;</NoWarn>
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.3.2" />
+    <PackageReference Include="NSubstitute" Version="5.1.0" />
     <PackageReference Include="Shouldly" Version="4.0.3" />
     <PackageReference Include="xunit" Version="2.4.2" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.5">
@@ -24,8 +25,20 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\src\Configuration.Abstractions\Oluso.Configuration.Abstractions.csproj" />
+    <ProjectReference Include="..\src\Configuration.Client\Oluso.Configuration.Client.csproj" />
+    <ProjectReference Include="..\src\Configuration.Hosting\Oluso.Configuration.Hosting.csproj" />
     <ProjectReference Include="..\src\Core\Oluso.csproj" />
     <ProjectReference Include="..\src\Data\Oluso.Data.csproj" />
+    <ProjectReference Include="..\src\Email.Abstractions\Oluso.Email.Abstractions.csproj" />
+    <ProjectReference Include="..\src\Email.MailKit\Oluso.Email.MailKit.csproj" />
+    <ProjectReference Include="..\src\Email.NetEmail\Oluso.Email.NetEmail.csproj" />
+    <ProjectReference Include="..\src\Email\Oluso.Email.csproj" />
+    <ProjectReference Include="..\src\HealthCheck\Oluso.HealthCheck.csproj" />
+    <ProjectReference Include="..\src\Logger.Abstractions\Oluso.Logger.Abstractions.csproj" />
+    <ProjectReference Include="..\src\Logger.Serilog\Oluso.Logger.Serilog.csproj" />
+    <ProjectReference Include="..\src\Logger\Oluso.Logger.csproj" />
+    <ProjectReference Include="..\src\Notifier\Oluso.Notifier.csproj" />
   </ItemGroup>
 
   <ItemGroup>
