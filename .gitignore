@@ -359,3 +359,4 @@ TestProject/
 force.cs
 bot.txt
 **/*version.txt
+/TestLogs/

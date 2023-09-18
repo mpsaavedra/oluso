@@ -10,5 +10,5 @@ public class LoggerSettings
     /// <summary>
     /// Serilog settings
     /// </summary>
-    public SerilogSettings? SerilogSettings { get; set; } = new();
+    public SerilogSettings? Serilog { get; set; } = new();
 }

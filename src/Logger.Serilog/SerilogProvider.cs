@@ -27,11 +27,11 @@ public class SerilogProvider : Abstractions.ILogger, ILoggerService
     /// <param name="settings"></param>
     public SerilogProvider(SerilogSettings settings) =>
         Settings = settings;
-    
+
     /// <summary>
     /// Serilog settings
     /// </summary>
-    public SerilogSettings Settings { get; set; }
+    public SerilogSettings Settings { get; set; } = new();
     
     /// <summary>
     /// trace a message
@@ -40,7 +40,7 @@ public class SerilogProvider : Abstractions.ILogger, ILoggerService
     /// <returns></returns>
     public Abstractions.ILogger Trace(string message)
     {
-        _logger?.Verbose(message);
+        _logger?.Verbose($"{message}\n");
         Close();
         return this;
     }
@@ -53,7 +53,7 @@ public class SerilogProvider : Abstractions.ILogger, ILoggerService
     /// <returns></returns>
     public Abstractions.ILogger Trace(string message, object data)
     {
-        _logger?.Verbose(message + " => {Data}", data);
+        _logger?.Verbose($"{message}" + " => {Data}\n", data);
         Close();
         return this;
     }
@@ -65,7 +65,7 @@ public class SerilogProvider : Abstractions.ILogger, ILoggerService
     /// <returns></returns>
     public Abstractions.ILogger Debug(string message)
     {
-        _logger?.Debug(message);
+        _logger?.Debug($"{message}\n");
         Close();
         return this;
     }
@@ -78,7 +78,7 @@ public class SerilogProvider : Abstractions.ILogger, ILoggerService
     /// <returns></returns>
     public Abstractions.ILogger Debug(string message, object data)
     {
-        _logger?.Debug(message + " => {Data}", data);
+        _logger?.Debug($"{message}" + " => {Data}\n", data);
         Close();
         return this;
     }
@@ -90,7 +90,7 @@ public class SerilogProvider : Abstractions.ILogger, ILoggerService
     /// <returns></returns>
     public Abstractions.ILogger Info(string message)
     {
-        _logger?.Information(message);
+        _logger?.Information($"{message}\n");
         Close();
         return this;
     }
@@ -103,7 +103,7 @@ public class SerilogProvider : Abstractions.ILogger, ILoggerService
     /// <returns></returns>
     public Abstractions.ILogger Info(string message, object data)
     {
-        _logger?.Information(message + " => {Data}", data);
+        _logger?.Information($"{message}\n" + " => {Data}", data);
         Close();
         return this;
     }
@@ -119,7 +119,7 @@ public class SerilogProvider : Abstractions.ILogger, ILoggerService
     {
         var message = "{EventName} => " + templateMessage;
         var values = new object[] { eventName }.Concat(propertyValues).ToArray();
-        _logger?.Information(message, values);
+        _logger?.Information($"{message}\n", values);
         Close();
         return this;
     }
@@ -131,7 +131,7 @@ public class SerilogProvider : Abstractions.ILogger, ILoggerService
     /// <returns></returns>
     public Abstractions.ILogger Error(string message)
     {
-        _logger?.Error(message);
+        _logger?.Error($"{message}\n");
         Close();
         return this;
     }
@@ -144,7 +144,7 @@ public class SerilogProvider : Abstractions.ILogger, ILoggerService
     /// <returns></returns>
     public Abstractions.ILogger Error(string message, object data)
     {
-        _logger?.Error(message + " => {Data}", data);
+        _logger?.Error($"{message}\n" + " => {Data}", data);
         Close();
         return this;
     }
@@ -160,7 +160,7 @@ public class SerilogProvider : Abstractions.ILogger, ILoggerService
     {
         var message = "{EventName} => " + templateMessage;
         var values = new object[] { eventName }.Concat(propertyValues).ToArray();
-        _logger?.Error(message, values);
+        _logger?.Error($"{message}\n", values);
         Close();
         return this;
     }
@@ -172,7 +172,7 @@ public class SerilogProvider : Abstractions.ILogger, ILoggerService
     /// <returns></returns>
     public Abstractions.ILogger Error(Exception exception)
     {
-        _logger?.Error("Exception => {Exception}", exception);
+        _logger?.Error("Exception => {Exception}\n", exception);
         Close();
         return this;
     }
@@ -185,7 +185,7 @@ public class SerilogProvider : Abstractions.ILogger, ILoggerService
     /// <returns></returns>
     public Abstractions.ILogger Error(string message, Exception exception)
     {
-        _logger?.Error(message + " => {Exception}", exception);
+        _logger?.Error($"{message}\n" + " => {Exception}", exception);
         Close();
         return this;
     }

@@ -15,7 +15,7 @@ public class LoggerOptions
     /// <summary>
     /// Serilog configuration action
     /// </summary>
-    public Action<SerilogOptions> SerilogOptions { get; private set; } = x => { };
+    public Action<SerilogOptions> SerilogOptions { get; set; } = x => { };
 
     /// <summary>
     /// Set to ue Serilog Logger

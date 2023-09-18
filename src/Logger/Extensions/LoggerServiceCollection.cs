@@ -25,9 +25,9 @@ public static class LoggerServiceCollection
                 .GetSection(nameof(LoggerSettings))
                 .Get<LoggerSettings>();
 
-        if (settings?.SerilogSettings != null)
+        if (settings?.Serilog != null)
         {
-            services.AddSerilogService(settings.SerilogSettings);
+            services.AddSerilogService(settings.Serilog);
         }
 
         return services;
