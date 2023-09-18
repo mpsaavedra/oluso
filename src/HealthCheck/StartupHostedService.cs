@@ -9,7 +9,7 @@ namespace Oluso.HealthCheck;
 /// </summary>
 public class StartupHostedService : IHostedService, IDisposable
 {
-    private readonly int _delaySeconds = 15;
+    private readonly int _delaySeconds = 5;
     private readonly ILogger<StartupHostedService> _logger;
     private readonly StartupHostedServiceHealthCheck _startupHostedServiceHealthCheck;
 

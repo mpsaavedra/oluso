@@ -35,11 +35,11 @@ public static class HealthCheckServiceCollectionExtensions
                 MemoryHealthCheckSettings.DefaultMemoryHealthCheckFullName,
                 HealthStatus.Degraded, new string[] { "ready" });
         
-        if (settings.IsEnabled)
+        if (settings.Enabled)
         {
-            if(settings.MemoryHealthCheckSettings?.Enabled == true)
+            if(settings.MemoryHealth?.Enabled == true)
             {
-                services.AddMemoryHealthCheckService(healthCheck, settings.MemoryHealthCheckSettings!);
+                services.AddMemoryHealthCheckService(healthCheck, settings.MemoryHealth!);
             }
         }
         

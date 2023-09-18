@@ -8,10 +8,10 @@ public class HealthCheckSettings
     /// <summary>
     /// if true the health check is enabled
     /// </summary>
-    public bool IsEnabled { get; set; }
+    public bool Enabled { get; set; }
     
     /// <summary>
     /// Memory health check settings
     /// </summary>
-    public MemoryHealthCheckSettings? MemoryHealthCheckSettings { get; set; } = new();
+    public MemoryHealthCheckSettings? MemoryHealth { get; set; } = new();
 }

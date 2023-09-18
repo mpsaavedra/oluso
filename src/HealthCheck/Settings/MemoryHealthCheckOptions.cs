@@ -9,7 +9,7 @@ public class MemoryHealthCheckOptions
     /// <see cref="MemoryHealthCheckSettings"/>
     /// </summary>
 #pragma warning disable CS8618
-    public MemoryHealthCheckSettings Settings { get; private set; }
+    public MemoryHealthCheckSettings Settings { get; private set; } = new();
 #pragma warning restore CS8618
 
     /// <summary>
