@@ -114,11 +114,38 @@ namespace Oluso.Email {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Email could not be sent.
+        /// </summary>
+        internal static string MsgEmailCouldNotBeSend {
+            get {
+                return ResourceManager.GetString("MsgEmailCouldNotBeSend", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Email from address could not be null.
         /// </summary>
         internal static string MsgEmailFromCouldNotBeNull {
             get {
                 return ResourceManager.GetString("MsgEmailFromCouldNotBeNull", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sending email, please wait...
+        /// </summary>
+        internal static string MsgEmailSendingPleaseWait {
+            get {
+                return ResourceManager.GetString("MsgEmailSendingPleaseWait", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Email sent successfully.
+        /// </summary>
+        internal static string MsgEmailSentSuccessfully {
+            get {
+                return ResourceManager.GetString("MsgEmailSentSuccessfully", resourceCulture);
             }
         }
         

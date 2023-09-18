@@ -13,12 +13,12 @@ public class EmailServiceSettings
     /// <summary>
     /// <see cref="NetEmailSettings"/>
     /// </summary>
-    public NetEmailSettings NetEmailSettings { get; set; }
-    
+    public NetEmailSettings NetEmailSettings { get; set; } = new();
+
     /// <summary>
     /// <see cref="MailKitSettings"/>
     /// </summary>
-    public MailKitSettings MailKitSettings { get; set; }
+    public MailKitSettings MailKitSettings { get; set; } = new();
 }
 
 #pragma warning restore CS8618

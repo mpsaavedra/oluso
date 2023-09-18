@@ -66,4 +66,13 @@
     <data name="MsgNullOrEmpty" xml:space="preserve">
         <value>{source} could not be null</value>
     </data>
+    <data name="MsgEmailCouldNotBeSend" xml:space="preserve">
+        <value>Email could not be sent</value>
+    </data>
+    <data name="MsgEmailSentSuccessfully" xml:space="preserve">
+        <value>Email sent successfully</value>
+    </data>
+    <data name="MsgEmailSendingPleaseWait" xml:space="preserve">
+        <value>Sending email, please wait..</value>
+    </data>
 </root>

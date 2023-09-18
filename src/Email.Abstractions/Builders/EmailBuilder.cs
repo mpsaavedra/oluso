@@ -59,9 +59,12 @@ public class EmailBuilder
     /// </summary>
     /// <param name="to"></param>
     /// <returns></returns>
-    public EmailBuilder WithTo(List<EmailAddress> to)
+    public EmailBuilder WithTo(params EmailAddress[] to)
     {
-        _to = to;
+        foreach (var t in to)
+        {
+            WithTo(t);
+        }
         return this;
     }
 
@@ -83,9 +86,12 @@ public class EmailBuilder
     /// </summary>
     /// <param name="bcc"></param>
     /// <returns></returns>
-    public EmailBuilder WithBcc(List<EmailAddress> bcc)
+    public EmailBuilder WithBcc(params EmailAddress[] bcc)
     {
-        _bcc = bcc;
+        foreach (var b in bcc)
+        {
+            WithBcc(b);
+        }
         return this;
     }
 
@@ -107,9 +113,12 @@ public class EmailBuilder
     /// </summary>
     /// <param name="cc"></param>
     /// <returns></returns>
-    public EmailBuilder WithCc(List<EmailAddress> cc)
+    public EmailBuilder WithCc(params EmailAddress[] cc)
     {
-        _cc = cc;
+        foreach (var c in cc)
+        {
+            WithCc(c);
+        }
         return this;
     }
     

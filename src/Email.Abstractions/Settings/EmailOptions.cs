@@ -9,7 +9,7 @@ public class EmailOptions
     /// get the <see cref="EmailSettings"/> object with configuration to use
     /// </summary>
 #pragma warning disable CS8618
-    public IEmailSettings EmailSettings { get; private set; }
+    public IEmailSettings EmailSettings { get; set; }
 #pragma warning restore CS8618
 
     /// <summary>

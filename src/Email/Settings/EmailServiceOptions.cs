@@ -39,6 +39,7 @@ public class EmailServiceOptions
     /// <returns></returns>
     public EmailServiceOptions WithNetEmail(Action<NetEmailOptions> options)
     {
+        var opts = new NetEmailOptions();
         var settings = options!.ToEmailConfigureOrDefault().EmailSettings;
         var config = settings.IsEqualTypeThrow<IEmailSettings, NetEmailSettings>(nameof(settings));
         return WithNetEmail(config);
@@ -51,6 +52,7 @@ public class EmailServiceOptions
     /// <returns></returns>
     public EmailServiceOptions WithNetEmail(NetEmailSettings settings)
     {
+        settings.Enable = true;
         EmailServiceSettings.NetEmailSettings = settings;
         return this;
     }
@@ -90,6 +92,7 @@ public class EmailServiceOptions
     /// <returns></returns>
     public EmailServiceOptions WithMailKit(MailKitSettings settings)
     {
+        settings.Enable = true;
         EmailServiceSettings.MailKitSettings = settings;
         return this;
     }

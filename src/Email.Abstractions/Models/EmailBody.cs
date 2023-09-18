@@ -51,7 +51,7 @@ public class EmailBody
         {
             foreach (var item in data)
             {
-                template.ReplaceAll($"{templateTags.Split(',')[0]}{item.Key}{templateTags.Split(',')[1]}", item.Value);
+                template = template.ReplaceAll($"{templateTags.Split(',')[0]}{item.Key}{templateTags.Split(',')[1]}", item.Value);
             }
         }
         return new EmailBody(template);

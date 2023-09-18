@@ -31,16 +31,16 @@ public class MailKitService : EmailService, IEmailService
         SetupServer();
 
         var msg = new MimeMessage();
-        msg.From.Add(MailboxAddress.Parse($"{email.From.FromName} {email.From.FromEmail}"));
+        msg.From.Add(MailboxAddress.Parse($"{email.From.FromEmail}"));
         msg.Subject = email.Subject;
         msg.Body = new TextPart(TextFormat.Html)
         {
             Text = email.Body?.Content
         };
         
-        email.To?.ForEach(to => msg.To.Add(MailboxAddress.Parse($"{to.FromName} {to.FromEmail}")));
-        email.Bcc?.ForEach(to => msg.To.Add(MailboxAddress.Parse($"{to.FromName} {to.FromEmail}")));
-        email.Cc?.ForEach(to => msg.To.Add(MailboxAddress.Parse($"{to.FromName} {to.FromEmail}")));
+        email.To?.ForEach(to => msg.To.Add(MailboxAddress.Parse($"{to.FromEmail}")));
+        email.Bcc?.ForEach(to => msg.To.Add(MailboxAddress.Parse($"{to.FromEmail}")));
+        email.Cc?.ForEach(to => msg.To.Add(MailboxAddress.Parse($"{to.FromEmail}")));
         email.Attachments?.ForEach(attachment =>
         {
             

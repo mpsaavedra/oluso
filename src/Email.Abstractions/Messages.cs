@@ -44,20 +44,11 @@ public static class Messages
 
     public static string EmailZipDirectoryCouldNotBeNull() => Resources.MsgEmailZipDirectoryCouldNotBeNull;
 
-    public static string EmailCouldNotBeSend()
-    {
-        throw new NotImplementedException();
-    }
+    public static string EmailCouldNotBeSend() => Resources.MsgEmailCouldNotBeSend;
 
-    public static string EmailSentSuccessfully()
-    {
-        throw new NotImplementedException();
-    }
+    public static string EmailSentSuccessfully() => Resources.MsgEmailSentSuccessfully;
 
-    public static string EmailSendingPleaseWait()
-    {
-        throw new NotImplementedException();
-    }
+    public static string EmailSendingPleaseWait() => Resources.MsgEmailSendingPleaseWait;
 
     public static string NullOrEmpty(string source) =>
         string.Format(Resources.MsgNullOrEmpty, source);

@@ -35,6 +35,7 @@ public sealed class EmailAddressBuilder
             throw new ApplicationException(Messages.EmailAddressCouldNotBeNull());
         if (!fromEmail.IsEmail())
             throw new ApplicationException(Messages.EmailFormatIsInvalid(fromEmail));
+        _fromEmail = fromEmail;
         return this;
     }
 
