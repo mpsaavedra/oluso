@@ -6,9 +6,11 @@ namespace Oluso.Notifier;
 /// </summary>
 public class HandlerMessage
 {
-    private SortedDictionary<DateTime, MessageData> _messages = new();
-    private Exception? _exception = null;
+    private readonly SortedDictionary<DateTime, MessageData> _messages = new();
+    private readonly Exception? _exception = null;
+#pragma warning disable CS8618
     private static HandlerMessage _instance;
+#pragma warning restore CS8618
 
     /// <summary>
     /// return the singleton instance of the HandlerMessage 
@@ -162,6 +164,7 @@ public class HandlerMessage
     /// <returns></returns>
     public HandlerMessage FromMessage(HandlerMessage? message = null)
     {
+        message ??= new HandlerMessage();
         Status = message.Status;
         LaunchTime = message.LaunchTime;
         Data = message.Data;

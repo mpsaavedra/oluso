@@ -22,13 +22,10 @@ public class SignalRHub<THub> : Hub<THub>, IBaseNotification
         data ??= HandlerMessage.Instance.Message;
         await (this as Hub).Clients.All.SendAsync("OnUpdateStatus", data);
     }
-
-    /// <summary>
-    /// get/set the clients from an strong typed <see cref="Hub{T}"/> where
-    /// T is of type THub. This are the clients to be used to send/receive messages
-    /// to/from connected clients.
-    /// </summary>
-    public IHubCallerClients HubClients => (this as Hub).Clients;
     
+    /// <summary>
+    /// get the Hub base class which allows to access low level functions like
+    /// SendAsync
+    /// </summary>
     public Hub Hub => (this as Hub);
 }
