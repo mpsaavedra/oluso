@@ -19,10 +19,10 @@
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
     <data name="MsgItemNullException" xml:space="preserve">
-        <value>Item {item} could not be null or empty</value>
+        <value>Item {0} could not be null or empty</value>
     </data>
     <data name="MsgNullOrEmpty" xml:space="preserve">
-        <value>{source} could not be null or contain any null item</value>
+        <value>{0} could not be null or contain any null item</value>
     </data>
     <data name="MsgComparisonMustBeTrue" xml:space="preserve">
         <value>Result could not be true</value>
@@ -37,21 +37,21 @@
         <value>Invalid boolean result</value>
     </data>
     <data name="MsgNullOrAnyNull" xml:space="preserve">
-        <value>{source} or any of his members could be null</value>
+        <value>{0} or any of his members could be null</value>
     </data>
     <data name="MsgInvalidFormat" xml:space="preserve">
-        <value>{source} is on invalid format</value>
+        <value>{0} is on invalid format</value>
     </data>
     <data name="MsgNotFound" xml:space="preserve">
-        <value>{source} not found</value>
+        <value>{0} not found</value>
     </data>
     <data name="MsgGreater" xml:space="preserve">
-        <value>{source} could not be greater than {max}</value>
+        <value>{0} could not be greater than {1}</value>
     </data>
     <data name="MsgLower" xml:space="preserve">
-        <value>{source} could not be lower than {min}</value>
+        <value>{0} could not be lower than {1}</value>
     </data>
     <data name="MsgInRange" xml:space="preserve">
-        <value>{source} must be in a range between {min} and {max}</value>
+        <value>{0} must be in a range between {1} and {2}</value>
     </data>
 </root>

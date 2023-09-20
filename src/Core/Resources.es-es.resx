@@ -12,10 +12,10 @@
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
     <data name="MsgItemNullException" xml:space="preserve">
-        <value>Elemento {item} no puede ser nulo o vacio</value>
+        <value>Elemento {0} no puede ser nulo o vacio</value>
     </data>
     <data name="MsgNullOrEmpty" xml:space="preserve">
-        <value>{source} no puede ser nulo o contener miembros nulos</value>
+        <value>{0} no puede ser nulo o contener miembros nulos</value>
     </data>
     <data name="MsgComparisonMustBeTrue" xml:space="preserve">
         <value>El resultado no puede ser verdadero</value>
@@ -30,21 +30,21 @@
         <value>Fallo comparacion binaria</value>
     </data>
     <data name="MsgNullOrAnyNull" xml:space="preserve">
-        <value> {source} o cualquiera de sus miembros puede ser nulo</value>
+        <value> {0} o cualquiera de sus miembros puede ser nulo</value>
     </data>
     <data name="MsgInvalidFormat" xml:space="preserve">
-        <value>{source} esta en formato invalido</value>
+        <value>{0} esta en formato invalido</value>
     </data>
     <data name="MsgNotFound" xml:space="preserve">
-        <value>{source} no ha sido encontrado</value>
+        <value>{0} no ha sido encontrado</value>
     </data>
     <data name="MsgGreater" xml:space="preserve">
-        <value>{source} no puede ser mayor que {max}</value>
+        <value>{0} no pude ser mayor que {1}</value>
     </data>
     <data name="MsgLower" xml:space="preserve">
-        <value>{source} no puede ser menor que {min}</value>
+        <value>{0} no puede ser menor que {1}</value>
     </data>
     <data name="MsgInRange" xml:space="preserve">
-        <value>{source} debe estar en un rango entre {min} y {max}</value>
+        <value>{0} debe estar en un rango entre {1} y {2}</value>
     </data>
 </root>

@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.SignalR;
+using Oluso.Extensions;
 
 namespace Oluso.Notifier.SignalR;
 
@@ -11,21 +12,18 @@ namespace Oluso.Notifier.SignalR;
 /// services.AddSingleton{INotifier, SignalRNotifier}();
 /// </code>
 /// </summary>
-/// <typeparam name="THubInterface">Hub contract interface</typeparam>
 /// <typeparam name="THub">Hub client</typeparam>
-public class SignalRNotifier<THubInterface, THub> : INotifier
-    where THubInterface : class, IBaseNotification
-    where THub: Hub<THubInterface>
+public class SignalRNotifier<THub> : INotifier
+    where THub: Hub, IBaseNotification
 {
-    private readonly IHubContext<THub, THubInterface> _handler;
-    private HandlerMessage _message;
+    private readonly IHubContext<Hub<THub>, THub> _handler;
 
 #pragma warning disable CS8618
     /// <summary>
-    /// returns a new <see cref="SignalRNotifier{THubInterface,THub}"/> instance
+    /// returns a new <see cref="SignalRNotifier{THub}"/> instance
     /// </summary>
-    /// <param name="handler"></param>
-    public SignalRNotifier(IHubContext<THub, THubInterface> handler)
+    /// <param name="handler">underlying hub <see cref="IHubContext{THub}"/> used to send messages</param>
+    public SignalRNotifier(IHubContext<Hub<THub>, THub> handler)
 #pragma warning restore CS8618
     {
         _handler = handler;
@@ -34,16 +32,17 @@ public class SignalRNotifier<THubInterface, THub> : INotifier
     /// <summary>
     /// <inheritdoc cref="INotifier.Message"/>
     /// </summary>
-    public HandlerMessage Message => _message;
+    public HandlerMessage? Message => HandlerMessage.Instance;
 
     /// <summary>
     /// <inheritdoc cref="INotifier.NotifyUpdateAsync"/>
     /// </summary>
     /// <param name="msg"></param>
-    public async Task NotifyUpdateAsync(HandlerMessage msg)
+    public async Task NotifyUpdateAsync(HandlerMessage? msg = null)
     {
+        msg ??= HandlerMessage.Instance;
         msg.MessageLevel = MessageLevel.Information;
-        _message = msg;
+        msg = HandlerMessage.Instance.FromMessage(msg);
         await _handler.Clients.All.OnUpdateStatus(AsHubMessage(msg));
     }
 
@@ -51,17 +50,18 @@ public class SignalRNotifier<THubInterface, THub> : INotifier
     /// <inheritdoc cref="INotifier.NotifyUpdate"/>
     /// </summary>
     /// <param name="msg"></param>
-    public void NotifyUpdate(HandlerMessage msg) =>
+    public void NotifyUpdate(HandlerMessage? msg = null) =>
         Task.Factory.StartNew(async () => await NotifyUpdateAsync(msg));
 
     /// <summary>
     /// <inheritdoc cref="INotifier.NotifyErrorAsync"/>
     /// </summary>
     /// <param name="msg"></param>
-    public async Task NotifyErrorAsync(HandlerMessage msg)
+    public async Task NotifyErrorAsync(HandlerMessage? msg = null)
     {
+        msg ??= HandlerMessage.Instance;
         msg.MessageLevel = MessageLevel.Error;
-        _message = msg;
+        msg = HandlerMessage.Instance.FromMessage(msg);
         await _handler.Clients.All.OnUpdateStatus(AsHubMessage(msg));
     }
 
@@ -69,7 +69,7 @@ public class SignalRNotifier<THubInterface, THub> : INotifier
     /// <inheritdoc cref="INotifier.NotifyError"/>
     /// </summary>
     /// <param name="msg"></param>
-    public void NotifyError(HandlerMessage msg)=>
+    public void NotifyError(HandlerMessage? msg = null)=>
         Task.Factory.StartNew(async () => await NotifyErrorAsync(msg));
     
     

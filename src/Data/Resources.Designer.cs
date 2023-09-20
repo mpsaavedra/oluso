@@ -60,7 +60,7 @@ namespace Oluso.Data {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Element with id {id} was not found, please check that it exists.
+        ///   Looks up a localized string similar to Element with id {0} was not found, please check that it exists.
         /// </summary>
         internal static string MsgEntityWithIdNotFound {
             get {
@@ -69,7 +69,7 @@ namespace Oluso.Data {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to source} musst be greter than {min}.
+        ///   Looks up a localized string similar to {0} must be greter than {1}.
         /// </summary>
         internal static string MsgGreaterThan {
             get {

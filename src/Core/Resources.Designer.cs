@@ -87,7 +87,7 @@ namespace Oluso {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {source} could not be greater than {max}.
+        ///   Looks up a localized string similar to {0} could not be greater than {1}.
         /// </summary>
         internal static string MsgGreater {
             get {
@@ -105,7 +105,7 @@ namespace Oluso {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {source} must be in a range between {min} and {max}.
+        ///   Looks up a localized string similar to {0} must be in a range between {1} and {2}.
         /// </summary>
         internal static string MsgInRange {
             get {
@@ -114,7 +114,7 @@ namespace Oluso {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {source} is on invalid format.
+        ///   Looks up a localized string similar to {0} is on invalid format.
         /// </summary>
         internal static string MsgInvalidFormat {
             get {
@@ -123,7 +123,7 @@ namespace Oluso {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Item {item} could not be null or empty.
+        ///   Looks up a localized string similar to Item {0} could not be null or empty.
         /// </summary>
         internal static string MsgItemNullException {
             get {
@@ -132,7 +132,7 @@ namespace Oluso {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {source} could not be lower than {min}.
+        ///   Looks up a localized string similar to {0} could not be lower than {1}.
         /// </summary>
         internal static string MsgLower {
             get {
@@ -141,7 +141,7 @@ namespace Oluso {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {source} not found.
+        ///   Looks up a localized string similar to {0} not found.
         /// </summary>
         internal static string MsgNotFound {
             get {
@@ -150,7 +150,7 @@ namespace Oluso {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {source} or any of his members could be null.
+        ///   Looks up a localized string similar to {0} or any of his members could be null.
         /// </summary>
         internal static string MsgNullOrAnyNull {
             get {
@@ -159,7 +159,7 @@ namespace Oluso {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {source} could not be null or contain any null item.
+        ///   Looks up a localized string similar to {0} could not be null or contain any null item.
         /// </summary>
         internal static string MsgNullOrEmpty {
             get {

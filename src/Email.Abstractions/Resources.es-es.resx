@@ -15,7 +15,7 @@
         <value>La direccion de correo no puede ser nula, vacia o espacio vacio</value>
     </data>
     <data name="MsgEmailAddressIsInvalid" xml:space="preserve">
-        <value>La direccion de correo {email} es invalida</value>
+        <value>La direccion de correo {0} es invalida</value>
     </data>
     <data name="MsgEmailBodyCoudNotBeNull" xml:space="preserve">
         <value>El cuerpo del mensaje no puede ser nullo, vacio o espacio en blanco</value>
@@ -24,28 +24,28 @@
         <value>El adjunto del email no puede ser nullo</value>
     </data>
     <data name="MsgEmailZipDirectoryNotFound" xml:space="preserve">
-        <value>No se encontrol {filePath} del archivo zip</value>
+        <value>No se encontrol {0} del archivo zip</value>
     </data>
     <data name="MsgEmailTemplateNotFound" xml:space="preserve">
-        <value>PLantilla del email {filePath} no se encontro</value>
+        <value>PLantilla del email {0} no se encontro</value>
     </data>
     <data name="MsgEmailAttachmentNotFound" xml:space="preserve">
-        <value>El adjunto {filePaht} no se ha encontrado</value>
+        <value>El adjunto {0} no se ha encontrado</value>
     </data>
     <data name="MsgEmailTemplateDirectoryNotFound" xml:space="preserve">
-        <value>Directorio de plantillas de email {templateDir} not found</value>
+        <value>Directorio de plantillas de email {0} not found</value>
     </data>
     <data name="MsgDirectoryNotFound" xml:space="preserve">
-        <value>Directorio {directoryPath} no encontrado</value>
+        <value>Directorio {0} no encontrado</value>
     </data>
     <data name="MsgFileNotFound" xml:space="preserve">
-        <value>{filePath} no encontrado</value>
+        <value>{0} no encontrado</value>
     </data>
     <data name="MsgMustBeOfType" xml:space="preserve">
-        <value>{source} debe ser de tipo {type}</value>
+        <value>{0} debe ser de tipo {1}</value>
     </data>
     <data name="MsgRequiredParameter" xml:space="preserve">
-        <value>{paramname} es requerido</value>
+        <value>{0} es requerido</value>
     </data>
     <data name="MsgEmailFromCouldNotBeNull" xml:space="preserve">
         <value>La direccion del remitente del correo no puede ser nula</value>
@@ -57,7 +57,7 @@
         <value>La direccion del zip no puede ser nula</value>
     </data>
     <data name="MsgNullOrEmpty" xml:space="preserve">
-        <value>{source} no puede ser nulo</value>
+        <value>{0} no puede ser nulo</value>
     </data>
     <data name="MsgEmailCouldNotBeSend" xml:space="preserve">
         <value>No se ha podido enviar el correo</value>

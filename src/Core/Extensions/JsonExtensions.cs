@@ -20,11 +20,16 @@ public static class JsonExtensions
     /// <typeparam name="T"></typeparam>
     /// <returns></returns>
     public static string ToSerialize<T>(this T value, Action<JsonSerializerOptions>? action = null) =>
-        JsonSerializer
-            .Serialize(
-                value.IsNullOrEmptyThrow(Messages.NullOrEmpty(nameof(value))),
-                typeof(T),
-                action!.ToConfigureOrDefault());
+        action != null
+            ? JsonSerializer
+                .Serialize(
+                    value.IsNullOrEmptyThrow(Messages.NullOrEmpty(nameof(value))),
+                    typeof(T),
+                    action!.ToConfigureOrDefault())
+            : JsonSerializer
+                .Serialize(
+                    value.IsNullOrEmptyThrow(Messages.NullOrEmpty(nameof(value))),
+                    typeof(T));
 
     /// <summary>
     /// deserialize a string into an object

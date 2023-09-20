@@ -60,7 +60,7 @@ namespace Oluso.Email {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Directory {directoryPath} not found.
+        ///   Looks up a localized string similar to Directory {0} not found.
         /// </summary>
         internal static string MsgDirectoryNotFound {
             get {
@@ -78,7 +78,7 @@ namespace Oluso.Email {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Email address {email} is invalid.
+        ///   Looks up a localized string similar to Email address {0} is invalid.
         /// </summary>
         internal static string MsgEmailAddressIsInvalid {
             get {
@@ -96,7 +96,7 @@ namespace Oluso.Email {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Email attachment {filePath} not found.
+        ///   Looks up a localized string similar to Email attachment {0} not found.
         /// </summary>
         internal static string MsgEmailAttachmentNotFound {
             get {
@@ -150,7 +150,7 @@ namespace Oluso.Email {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Email template directory {templateDir} not found.
+        ///   Looks up a localized string similar to Email template directory {0} not found.
         /// </summary>
         internal static string MsgEmailTemplateDirectoryNotFound {
             get {
@@ -159,7 +159,7 @@ namespace Oluso.Email {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Email template at {filePath} not found.
+        ///   Looks up a localized string similar to Email template at {0} not found.
         /// </summary>
         internal static string MsgEmailTemplateNotFound {
             get {
@@ -186,7 +186,7 @@ namespace Oluso.Email {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Email zip path {filePath} could not be found.
+        ///   Looks up a localized string similar to Email zip path {0} could not be found.
         /// </summary>
         internal static string MsgEmailZipDirectoryNotFound {
             get {
@@ -195,7 +195,7 @@ namespace Oluso.Email {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {filePath} not found.
+        ///   Looks up a localized string similar to {0} not found.
         /// </summary>
         internal static string MsgFileNotFound {
             get {
@@ -204,7 +204,7 @@ namespace Oluso.Email {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {source} must be of type {type}.
+        ///   Looks up a localized string similar to {0} must be of type {1}.
         /// </summary>
         internal static string MsgMustBeOfType {
             get {
@@ -213,7 +213,7 @@ namespace Oluso.Email {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {source} could not be null.
+        ///   Looks up a localized string similar to {0} could not be null.
         /// </summary>
         internal static string MsgNullOrEmpty {
             get {
@@ -222,7 +222,7 @@ namespace Oluso.Email {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {paramName} is required.
+        ///   Looks up a localized string similar to {0} is required.
         /// </summary>
         internal static string MsgRequiredParameter {
             get {

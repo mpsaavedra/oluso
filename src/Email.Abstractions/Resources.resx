@@ -22,7 +22,7 @@
         <value>Email address could not be null, empty or whitespace</value>
     </data>
     <data name="MsgEmailAddressIsInvalid" xml:space="preserve">
-        <value>Email address {email} is invalid</value>
+        <value>Email address {0} is invalid</value>
     </data>
     <data name="MsgEmailBodyCoudNotBeNull" xml:space="preserve">
         <value>Email body could not be null, empty or whitespace</value>
@@ -31,28 +31,28 @@
         <value>Email attachment could not be null</value>
     </data>
     <data name="MsgEmailZipDirectoryNotFound" xml:space="preserve">
-        <value>Email zip path {filePath} could not be found</value>
+        <value>Email zip path {0} could not be found</value>
     </data>
     <data name="MsgEmailTemplateNotFound" xml:space="preserve">
-        <value>Email template at {filePath} not found</value>
+        <value>Email template at {0} not found</value>
     </data>
     <data name="MsgEmailAttachmentNotFound" xml:space="preserve">
-        <value>Email attachment {filePath} not found</value>
+        <value>Email attachment {0} not found</value>
     </data>
     <data name="MsgEmailTemplateDirectoryNotFound" xml:space="preserve">
-        <value>Email template directory {templateDir} not found</value>
+        <value>Email template directory {0} not found</value>
     </data>
     <data name="MsgDirectoryNotFound" xml:space="preserve">
-        <value>Directory {directoryPath} not found</value>
+        <value>Directory {0} not found</value>
     </data>
     <data name="MsgFileNotFound" xml:space="preserve">
-        <value>{filePath} not found</value>
+        <value>{0} not found</value>
     </data>
     <data name="MsgMustBeOfType" xml:space="preserve">
-        <value>{source} must be of type {type}</value>
+        <value>{0} must be of type {1}</value>
     </data>
     <data name="MsgRequiredParameter" xml:space="preserve">
-        <value>{paramName} is required</value>
+        <value>{0} is required</value>
     </data>
     <data name="MsgEmailFromCouldNotBeNull" xml:space="preserve">
         <value>Email from address could not be null</value>
@@ -64,7 +64,7 @@
         <value>Email zip directory could not be null</value>
     </data>
     <data name="MsgNullOrEmpty" xml:space="preserve">
-        <value>{source} could not be null</value>
+        <value>{0} could not be null</value>
     </data>
     <data name="MsgEmailCouldNotBeSend" xml:space="preserve">
         <value>Email could not be sent</value>

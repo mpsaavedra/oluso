@@ -8,31 +8,31 @@ public interface INotifier
     /// <summary>
     /// <see cref="HandlerMessage"/> instance with message to send
     /// </summary>
-    HandlerMessage Message { get; }
+    HandlerMessage? Message { get; }
 
     /// <summary>
     /// send an async <see cref="HandlerMessage"/> update message
     /// </summary>
     /// <param name="msg"></param>
     /// <returns></returns>
-    Task NotifyUpdateAsync(HandlerMessage msg);
+    Task NotifyUpdateAsync(HandlerMessage? msg = null);
 
     /// <summary>
     /// send a sync <see cref="HandlerMessage"/> update message
     /// </summary>
     /// <param name="msg"></param>
-    void NotifyUpdate(HandlerMessage msg);
+    void NotifyUpdate(HandlerMessage? msg = null);
         
     /// <summary>
     /// send an async <see cref="HandlerMessage"/> error message
     /// </summary>
     /// <param name="msg"></param>
     /// <returns></returns>
-    Task NotifyErrorAsync(HandlerMessage msg);
+    Task NotifyErrorAsync(HandlerMessage? msg = null);
 
     /// <summary>
     /// send a sync <see cref="HandlerMessage"/> error message
     /// </summary>
     /// <param name="msg"></param>
-    void NotifyError(HandlerMessage msg);
+    void NotifyError(HandlerMessage? msg = null);
 }

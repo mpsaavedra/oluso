@@ -1,12 +1,19 @@
 namespace Oluso.Notifier;
 
 /// <summary>
-/// Message to be send to the client
+/// Message to be send to the client. This message has the intention to be a singleton
+/// object 
 /// </summary>
 public class HandlerMessage
 {
     private SortedDictionary<DateTime, MessageData> _messages = new();
     private Exception? _exception = null;
+    private static HandlerMessage _instance;
+
+    /// <summary>
+    /// return the singleton instance of the HandlerMessage 
+    /// </summary>
+    public static HandlerMessage Instance => _instance ??= new HandlerMessage();
 
     /// <summary>
     /// returns a new <see cref="HandlerMessage"/> instance
@@ -147,4 +154,20 @@ public class HandlerMessage
     /// message level to represent the message type
     /// </summary>
     public MessageLevel MessageLevel { get; set; } = MessageLevel.Information;
+
+    /// <summary>
+    /// register the message into the message instance
+    /// </summary>
+    /// <param name="message"></param>
+    /// <returns></returns>
+    public HandlerMessage FromMessage(HandlerMessage? message = null)
+    {
+        Status = message.Status;
+        LaunchTime = message.LaunchTime;
+        Data = message.Data;
+        MessageLevel = message.MessageLevel;
+        InnerException = message.InnerException;
+        Message = message.Message;
+        return this;
+    }
 }
