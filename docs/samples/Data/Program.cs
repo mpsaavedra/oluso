@@ -18,6 +18,7 @@ builder.ConfigureServices((host, services) =>
     services
         .AddDbContext<ApplicationDbContext>(opts =>
             opts.UseInMemoryDatabase("DataPackageExample"))
+        .AddUnitOfWork(typeof(Program))
         .AddRepositories(typeof(Program));
 });
 using var host = builder.Build();
