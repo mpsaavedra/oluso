@@ -1,5 +1,7 @@
+using AutoMapper;
 using Data.Data;
 using Data.Models;
+using Data.Models.Dtos;
 using Data.Repositories;
 using Data.Repositories.Specifications;
 using Microsoft.EntityFrameworkCore;
@@ -48,7 +50,7 @@ public class LectureHelper
             studentsRepo.Query.AsEnumerable().Where(isMale.And(isUnder21)).Count().ShouldBe(1);
             studentsRepo.Query.AsEnumerable().Where(isMale.And(isUnder21.Not())).Count().ShouldBe(6);
             studentsRepo.Query.AsEnumerable().Where(isMale & !isUnder21).Count().ShouldBe(6);
-
+            
             Ok("Done!!");
         }
         catch (Exception e)

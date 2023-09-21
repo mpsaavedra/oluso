@@ -19,7 +19,8 @@ builder.ConfigureServices((host, services) =>
         .AddDbContext<ApplicationDbContext>(opts =>
             opts.UseInMemoryDatabase("DataPackageExample"))
         .AddUnitOfWork(typeof(Program))
-        .AddRepositories(typeof(Program));
+        .AddRepositories(typeof(Program))
+        .AddAutoMapping(typeof(Program));
 });
 using var host = builder.Build();
 var helper = new LectureHelper();
