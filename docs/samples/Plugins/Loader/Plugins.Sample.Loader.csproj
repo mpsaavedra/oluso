@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\src\Plugins\Oluso.Plugins.csproj" />
+    <ProjectReference Include="..\Shared\Plugins.Sample.Shared.csproj" />
+  </ItemGroup>
+
+  <!-- build related plugins to make things easier  -->
+  <Target Name="BuildPlugins" AfterTargets="Build">
+    <Exec Command="dotnet publish ../Plugin1/ -o ..\..\plugins\Builded\Plugins.Sample.Plugin1" />
+    <Exec Command="dotnet publish ../Plugin2/ -o ..\..\plugins\Builded\Plugins.Sample.Plugin2" />
+  </Target>
+
+  <!-- cleanup the plugins directory to fresh build are use always -->
+  <Target Name="CleanPlugins" AfterTargets="Clean">
+    <Exec Command="rm -R ..\..\plugins\Builded" />
+  </Target>
+  
+</Project>

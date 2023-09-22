@@ -360,3 +360,4 @@ force.cs
 bot.txt
 **/*version.txt
 /TestLogs/
+/docs/samples/Plugins/Builded/

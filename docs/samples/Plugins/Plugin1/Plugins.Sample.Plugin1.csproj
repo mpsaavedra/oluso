@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <OutDir>..\..\plugins\Builded\Plugins.Sample.Plugin1</OutDir>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\src\Plugins\Oluso.Plugins.csproj" />
+    <ProjectReference Include="..\Shared\Plugins.Sample.Shared.csproj" />
+  </ItemGroup>
+
+</Project>

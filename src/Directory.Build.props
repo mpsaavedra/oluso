@@ -21,7 +21,7 @@
         <PackageId>$(AssemblyName)</PackageId>
         <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
         <License>$(SolutionDir)LICENSE.txt</License>
-        <PackageIcon>logo.png</PackageIcon>
+<!--        <PackageIcon>${SolutionDir}docs\images\logo.png</PackageIcon>-->
         <PackageProjectUrl>$(GithubRepo)</PackageProjectUrl>
         <PackageReleaseNotes>$(GithubRepo)tree/main/docs/RELEASE_NOTES.txt</PackageReleaseNotes>
         <RepositoryUrl>$(GithubRepo)</RepositoryUrl>
