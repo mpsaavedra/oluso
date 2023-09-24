@@ -95,7 +95,7 @@ public class LectureHelper
         Info("seeding Teachers", 2);
         ctx.Teachers.AddRange(new[] { teacher1, teacher2 });
         await ctx.SaveChangesAsync();
-        await Wait();
+        Wait();
 
         Info($"seeding Students", 2);
         ctx.Students.AddRange(new[]
@@ -103,12 +103,12 @@ public class LectureHelper
             student1, student2, student3, student4, student4, student5, student6, student7, student8, student9,
         });
         await ctx.SaveChangesAsync();
-        await Wait();
+        Wait();
 
         Info("seeding Lecture", 2);
         ctx.Lectures.AddRange(new[] { lecture1, lecture2 });
         await ctx.SaveChangesAsync();
-        await Wait();
+        Wait();
 
         Info("seeding assistance of Students to Lectures", 2);
         ctx.StudentLectures.AddRange(new[]
@@ -117,7 +117,7 @@ public class LectureHelper
             studentLecture6, studentLecture7, studentLecture8, studentLecture9,
         });
         await ctx.SaveChangesAsync();
-        await Wait();
+        Wait();
 
         Ok("Database seeded, successfully");
     }
@@ -165,5 +165,5 @@ public class LectureHelper
         Console.WriteLine(msg);
     }
 
-    private async Task Wait() => Thread.Sleep(100);
+    private void Wait() => Thread.Sleep(100);
 }

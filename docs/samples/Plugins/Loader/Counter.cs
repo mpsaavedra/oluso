@@ -46,6 +46,5 @@ public class Tester
         var plugin = svr.Get<IAsyncPlugin<string>>(Constants.MessagePluginName).Result;
         plugin.Run("This message is from a plugin").ConfigureAwait(false);
         return this;
-        return this;
     }
 }

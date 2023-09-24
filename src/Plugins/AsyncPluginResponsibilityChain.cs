@@ -41,7 +41,9 @@ public class AsyncPluginResponsibilityChain<TParameter, TReturn> : IAsyncPluginR
         }
 
         // order using the Level property
-        var ordered = _middlewares.OrderBy(x => (x as IPlugin).Level).ToList();
+        var ordered = _middlewares
+            .Where(x => x != null && (x as IPlugin) != null)
+            .OrderBy(x => ((x as IPlugin)!).Level).ToList();
         int index = 0;
         Func<TParameter, Task<TReturn>> func = null!;
         func = (param) =>

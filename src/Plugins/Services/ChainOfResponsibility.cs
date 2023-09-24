@@ -13,7 +13,7 @@ public class ChainOfResponsibilityService : IChainOfResponsibilityService
         _pluginService = pluginService;
     }
 
-    /// <inheritdoc cref="IChainOfResponsibilityService.ExecuteChain{TParameter, TReturn}"/>
+    /// <inheritdoc cref="IChainOfResponsibilityService.ExecuteAsyncChain{TParameter,TReturn}"/>
     public TReturn ExecuteChain<TParameter, TReturn>(string eventCode, TParameter parameter)
     {
         var middleware = Task.Run(() => _pluginService.MiddlewareChain(eventCode)).Result;

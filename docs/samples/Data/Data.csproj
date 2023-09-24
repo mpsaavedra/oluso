@@ -5,6 +5,7 @@
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <NoWarn>CS8618;CS1998;CS8032;</NoWarn>
   </PropertyGroup>
   
   <ItemGroup>

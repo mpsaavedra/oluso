@@ -109,6 +109,7 @@ public partial class PluginService : IPluginService
         }
         catch (Exception e)
         {
+            Insist.RegisterException(e, e.Message);
             return false;
         }
     }

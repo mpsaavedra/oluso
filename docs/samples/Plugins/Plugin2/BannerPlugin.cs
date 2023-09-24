@@ -20,9 +20,10 @@ public class BannerPlugin : IAsyncPlugin<string>
 
     public IServiceCollection? ConfigureServices(IServiceCollection services) => services;
 
-    public async Task Run(string parameter)
+    public Task Run(string parameter)
     {
         parameter.ToBanner();
         Console.WriteLine(parameter);
+        return Task.CompletedTask;
     }
 }

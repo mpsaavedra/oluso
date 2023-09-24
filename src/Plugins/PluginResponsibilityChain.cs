@@ -32,7 +32,7 @@ public class PluginResponsibilityChain<TParameter, TReturn> : IPluginResponsibil
                 func = _finallyFunc ?? ((x) => default!);
             }
 
-            return middleware.Run(param, func);
+            return middleware.Run(param, func!);
         };
         
         return func(parameter);

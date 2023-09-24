@@ -4,7 +4,10 @@ using System.Linq;
 
 namespace Oluso.Helpers;
 
-public class ConsoleBanner
+/// <summary>
+/// print Banner style console messages
+/// </summary>
+public static class ConsoleBanner
     {
         private static bool _initialized = false;
         private static readonly Dictionary<char, string> _letters = new Dictionary<char, string>();

@@ -5,6 +5,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <OutDir>..\..\plugins\Builded\Plugins.Sample.Plugin1</OutDir>
+    <NoWarn>CS1998;</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>

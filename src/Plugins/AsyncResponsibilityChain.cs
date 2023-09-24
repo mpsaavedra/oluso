@@ -60,7 +60,7 @@ public class AsyncResponsibilityChain<TParameter, TReturn>
         func = (param) =>
         {
             var type = MiddlewareTypes[index];
-            var middleware = (IAsyncMiddleware<TParameter, TReturn>)MiddlewareResolver.Resolve(type);
+            var middleware = MiddlewareResolver.Resolve(type) as IAsyncMiddleware<TParameter, TReturn>;
 
             index++;
             // If the current instance of middleware is the last one in the list,
@@ -69,7 +69,7 @@ public class AsyncResponsibilityChain<TParameter, TReturn>
             if (index == MiddlewareTypes.Count)
                 func = this._finallyFunc ?? ((p) => Task.FromResult(default(TReturn))!);
 
-            return middleware.Run(param, func);
+            return middleware?.Run(param, func!)!;
         };
 
         return await func(parameter).ConfigureAwait(false);

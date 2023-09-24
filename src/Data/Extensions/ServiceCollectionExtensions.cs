@@ -47,7 +47,7 @@ public static class ServiceCollectionExtensions
     }
 
     /// <summary>
-    /// register the automapper and load all Dto classes that inherit from <see cref="IMapFrom{T}<>"/>
+    /// register the automapper and load all Dto classes that inherit from <see cref="IMapFrom{T}"/>
     /// </summary>
     /// <param name="services"></param>
     /// <param name="types"></param>

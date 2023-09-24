@@ -11,7 +11,6 @@ public interface IAsyncPlugin<in TParameter, TReturn>: ICommonPlugin
     /// runs the plugin and returns the execution result
     /// </summary>
     /// <param name="parameter"></param>
-    /// <param name="next"></param>
     /// <returns></returns>
     Task<TReturn> Run(TParameter parameter);
 }
@@ -26,7 +25,6 @@ public interface IAsyncPlugin<in TParameter>: ICommonPlugin
     /// runs the middleware
     /// </summary>
     /// <param name="parameter">parameter passed to the plugin</param>
-    /// <param name="next">next middleware to execute</param>
     /// <returns></returns>
     Task Run(TParameter parameter);
 }
