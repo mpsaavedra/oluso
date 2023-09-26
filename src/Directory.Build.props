@@ -1,6 +1,6 @@
 <Project>
     <PropertyGroup>
-        <CurrentVersion>0.1.0</CurrentVersion>
+        <CurrentVersion>0.1.1</CurrentVersion>
         <GithubRepo>http://github.com/mpsaavedra/oluso/</GithubRepo>
         <CompanyName>Michel Perez</CompanyName>
         <IsTestsProject>$(MSBuildProjectName.Contains('Tests'))</IsTestsProject>

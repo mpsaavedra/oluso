@@ -68,11 +68,11 @@ public class BusinessEntity<TKey, TUserKey> : IBusinessEntity<TKey, TUserKey>, I
 
     /// <inheritdoc cref="IBusinessEntity{TKey,TUserKey}.Status"/>
     [JsonPropertyName("status")]
-    public bool Status { get; set; }
+    public bool Status { get; set; } = true;
 
     /// <inheritdoc cref="IBusinessEntity{TKey,TUserKey}.CreatedAt"/>
     [JsonPropertyName("createdAt")]
-    public DateTime CreatedAt { get; set; }
+    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
     /// <inheritdoc cref="IBusinessEntity{TKey,TUserKey}.CreatedBy"/>
     [JsonPropertyName("createdBy")]
@@ -98,7 +98,7 @@ public class BusinessEntity<TKey, TUserKey> : IBusinessEntity<TKey, TUserKey>, I
 
     /// <inheritdoc cref="IBusinessEntity{TKey,TUserKey}.RowVersion"/>
     [JsonPropertyName("rowVersion")]
-    public string RowVersion { get; set; }
+    public string RowVersion { get; set; } = Guid.NewGuid().ToString();
     
     #region Comparisons
 
@@ -154,7 +154,7 @@ public class BusinessEntity<TKey, TUserKey> : IBusinessEntity<TKey, TUserKey>, I
     /// <returns></returns>
     public override string ToString()
     {
-        return $"{GetType().Name} [Id={Id}, RoVersion={RowVersion}]";
+        return $"{GetType().Name} [Id={Id}, RowVersion={RowVersion}]";
     }
 
     #endregion
