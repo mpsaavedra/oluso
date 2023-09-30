@@ -217,11 +217,12 @@ public static class Insist
     /// <param name="exception"></param>
     /// <param name="msg"></param>
     /// <typeparam name="TException"></typeparam>
-    public static void RegisterException<TException>(TException exception, string? msg)
+    public static void RegisterException<TException>(TException exception, string? msg = null)
         where TException: Exception
     {
         lock (LockObject)
         {
+            msg ??= exception.Message;
             var tmp = new Dictionary<Exception, string?>()
             {
                 { exception, msg }

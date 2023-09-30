@@ -1,6 +1,7 @@
 using System.Text;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Oluso.Data.Repositories;
 using Oluso.Extensions;
 
 namespace Oluso.Data;
@@ -81,7 +82,7 @@ public interface IUnitOfWork<out TContext>
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <returns></returns>
-    T? Repository<T>() where T: class;
+    T? Repository<T>() where T : class;
     
     /// <summary>
     /// returns a given service from de DI container
@@ -89,6 +90,8 @@ public interface IUnitOfWork<out TContext>
     /// <typeparam name="T"></typeparam>
     /// <returns></returns>
     T? Service<T>() where T: class;
+    
+    
 }
 
 /// <inheritdoc cref="IUnitOfWork{TContext}"/>
@@ -183,7 +186,7 @@ public class UnitOfWork<TContext> : IUnitOfWork<TContext>
             }
         }, cancellationToken);
     }
-    
+
     /// <inheritdoc cref="IUnitOfWork{TContext}.Repository{T}"/>
     public T? Repository<T>() where T : class =>
         _provider.GetRequiredService(typeof(T)) as T;

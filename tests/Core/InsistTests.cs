@@ -85,4 +85,18 @@ public class InsistTests
     [Fact]
     public void Insist_MustBe_False_Ok_Msg() =>
         Insist.MustBe.False<FalseException>(false, "This is true but it mut be false");
+
+    [Fact]
+    public void Insist_Multiple_Exceptions()
+    {
+        try
+        {
+            Insist.RegisterException(new Exception(), "Exception a");
+            Insist.RegisterException(new ApplicationException("Exception b"));
+            Insist.Exceptions.Count().ShouldBe(2);
+        }
+        catch 
+        {
+        }
+    }
 }

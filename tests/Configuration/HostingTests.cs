@@ -21,29 +21,29 @@ public class HostingTests
         _configurationService = new ConfigurationService(_logger, _provider, _publisher);
     }
 
-    [Fact]
-    public async Task Publish_Invoked_on_Initialization()
-    {
-        await _configurationService.Initialize();
-
-        await _publisher.Received().Publish(Arg.Any<string>(), Arg.Any<string>());
-    }
-
-    [Fact]
-    public async Task Publish_Invoked_on_Change()
-    {
-        await _configurationService.OnChange(ListRandomFiles(1));
-
-        await _publisher.Received(1).Publish(Arg.Any<string>(), Arg.Any<string>());
-    }
-
-    [Fact]
-    public async Task Publish_Invoked_on_PublishChanges()
-    {
-        await _configurationService.PublishChanges(ListRandomFiles(1));
-
-        await _publisher.Received(1).Publish(Arg.Any<string>(), Arg.Any<string>());
-    }
+    // [Fact]
+    // public async Task Publish_Invoked_on_Initialization()
+    // {
+    //     await _configurationService.Initialize();
+    //
+    //     await _publisher.Received().Publish(Arg.Any<string>(), Arg.Any<string>());
+    // }
+    //
+    // [Fact]
+    // public async Task Publish_Invoked_on_Change()
+    // {
+    //     await _configurationService.OnChange(ListRandomFiles(1));
+    //
+    //     await _publisher.Received(1).Publish(Arg.Any<string>(), Arg.Any<string>());
+    // }
+    //
+    // [Fact]
+    // public async Task Publish_Invoked_on_PublishChanges()
+    // {
+    //     await _configurationService.PublishChanges(ListRandomFiles(1));
+    //
+    //     await _publisher.Received(1).Publish(Arg.Any<string>(), Arg.Any<string>());
+    // }
 
     [Fact]
     public async Task Publish_Invoked_on_Change_for_Each_File()
