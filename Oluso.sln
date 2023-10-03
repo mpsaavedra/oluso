@@ -87,6 +87,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plugins.Sample.Loader", "do
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plugins.Sample.Shared", "docs\samples\Plugins\Shared\Plugins.Sample.Shared.csproj", "{C459CB68-B6F4-4562-9D90-AA50E1A23989}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Oluso.SourceGenerators", "src\SourceGenerators\SourceGenerators\Oluso.SourceGenerators.csproj", "{57CBBC63-4A08-40D5-89F3-7854C41E0438}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Oluso.SourceGenerators.Abstractions", "src\SourceGenerators\SourceGenerators.Abstractions\Oluso.SourceGenerators.Abstractions.csproj", "{9F6BC841-93AC-4D37-B7A5-CE199DA2D8E5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -208,6 +212,14 @@ Global
 		{C459CB68-B6F4-4562-9D90-AA50E1A23989}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C459CB68-B6F4-4562-9D90-AA50E1A23989}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C459CB68-B6F4-4562-9D90-AA50E1A23989}.Release|Any CPU.Build.0 = Release|Any CPU
+		{57CBBC63-4A08-40D5-89F3-7854C41E0438}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{57CBBC63-4A08-40D5-89F3-7854C41E0438}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{57CBBC63-4A08-40D5-89F3-7854C41E0438}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{57CBBC63-4A08-40D5-89F3-7854C41E0438}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9F6BC841-93AC-4D37-B7A5-CE199DA2D8E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9F6BC841-93AC-4D37-B7A5-CE199DA2D8E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9F6BC841-93AC-4D37-B7A5-CE199DA2D8E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9F6BC841-93AC-4D37-B7A5-CE199DA2D8E5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{197C8646-AAF6-4C89-96AF-18F064813F6E} = {29CE7033-FA10-4D4F-9285-06D119940C86}
@@ -249,5 +261,7 @@ Global
 		{3C58E46A-3BF8-4489-BDD1-35557EA491F1} = {5B251B8B-70B0-4F07-B697-A542156DE4C6}
 		{AB5E9E91-9E9D-47C4-B827-95F2293A743F} = {5B251B8B-70B0-4F07-B697-A542156DE4C6}
 		{C459CB68-B6F4-4562-9D90-AA50E1A23989} = {5B251B8B-70B0-4F07-B697-A542156DE4C6}
+		{57CBBC63-4A08-40D5-89F3-7854C41E0438} = {29CE7033-FA10-4D4F-9285-06D119940C86}
+		{9F6BC841-93AC-4D37-B7A5-CE199DA2D8E5} = {29CE7033-FA10-4D4F-9285-06D119940C86}
 	EndGlobalSection
 EndGlobal
