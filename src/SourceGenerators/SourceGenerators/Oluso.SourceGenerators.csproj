@@ -36,10 +36,10 @@
     <ItemGroup>
         <None Update="tools\*.ps1" CopyToOutputDirectory="PreserveNewest" Pack="true" PackagePath="" />
     </ItemGroup>
-    
-    <PropertyGroup>
-        <BeforePack>$(BeforePack);IncludeOutputAsAnalyzer</BeforePack>
-    </PropertyGroup>
+<!--    -->
+<!--    <PropertyGroup>-->
+<!--        <BeforePack>$(BeforePack);IncludeOutputAsAnalyzer</BeforePack>-->
+<!--    </PropertyGroup>-->
 
     <Target Name="IncludeOutputAsAnalyzer" DependsOnTargets="Build">
         <ItemGroup>

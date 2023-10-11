@@ -39,7 +39,7 @@ jobs:
     - name: Build and Pack
       run: |
         dotnet build --configuration Release --no-restore Oluso.sln
-        dotnet pack --configuration Release --no-restore --no-build --output ./nupkg Oluso.ln
+        dotnet pack --configuration Release --no-restore --no-build --output ./nupkg Oluso.sln
     - name: Publish Nuget packages
       run: dotnet nuget push ./nupkg/*.nupkg --source github --api-key ${{ secrets.GITHUB_TOKEN }}
       
