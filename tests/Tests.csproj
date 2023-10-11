@@ -39,12 +39,14 @@
     <ProjectReference Include="..\src\Logger.Serilog\Oluso.Logger.Serilog.csproj" />
     <ProjectReference Include="..\src\Logger\Oluso.Logger.csproj" />
     <ProjectReference Include="..\src\Notifier\Oluso.Notifier.csproj" />
-    <ProjectReference Include="..\src\SourceGenerators\SourceGenerators\Oluso.SourceGenerators.csproj" />
+    <ProjectReference Include="..\src\SourceGenerators\SourceGenerators\Oluso.SourceGenerators.csproj" 
+                      OutputItemType="Analyzer" ReferenceOutputAssembly="true" />
   </ItemGroup>
 
   <ItemGroup>
     <None Remove="test.txt" />
     <EmbeddedResource Include="test.txt" />
   </ItemGroup>
+
 
 </Project>
