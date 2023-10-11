@@ -2,7 +2,7 @@
 
 ![Build status master](https://github.com/mpsaavedra/oluso/actions/workflows/main_push.yml/badge.svg?branch=main)
 ![Build status development](https://github.com/mpsaavedra/oluso/actions/workflows/dev_push.yml/badge.svg?branch=dev)
-
+![Publish status](https://github.com/mpsaavedra/oluso/actions/workflows/release.yml/badge.svg?branch=release)
 
 This repository contains the **Oluso** SDK and has the intention to put together as many packages and utilities as possible that solve many of the common problems i' ve been facing during this years of development. I hope that helps some other developers out there. It include a very large documentation -that's been written on the go, so it could change a lot- that cover almost every helper, extension or tool included in the SDK, You could found it in the [documentation](./docs/index.md) folder, and also check for the examples placed in there that introduce you in a more fluid way to the SDK functionalities and design.
 
