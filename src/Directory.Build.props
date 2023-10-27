@@ -1,6 +1,6 @@
 <Project>
     <PropertyGroup>
-        <CurrentVersion>0.9.208</CurrentVersion>
+        <CurrentVersion>0.9.211</CurrentVersion>
         <GithubRepo>https://github.com/mpsaavedra/oluso/</GithubRepo>
         <CompanyName>Michel Perez</CompanyName>
         <IsTestsProject>$(MSBuildProjectName.Contains('Tests'))</IsTestsProject>
@@ -21,7 +21,7 @@
         <PackageId>$(AssemblyName)</PackageId>
         <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
         <License>$(SolutionDir)LICENSE.txt</License>
-        <PackageLicenseUrl>$(GithubRepo)LICENSE.txt</PackageLicenseUrl>
+<!--        <PackageLicenseUrl>$(GithubRepo)LICENSE.txt</PackageLicenseUrl>-->
 <!--        <PackageIcon>$(SolutionDir)logo.png</PackageIcon>-->
         <PackageProjectUrl>$(GithubRepo)</PackageProjectUrl>
         <PackageReleaseNotes>$(GithubRepo)tree/main/docs/RELEASE_NOTES.txt</PackageReleaseNotes>

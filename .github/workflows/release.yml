@@ -1,19 +1,15 @@
 name: Publish packages
 
 on:
-  workflow_dispatch:  # allow running the work from manually from Github UI
+#  workflow_dispatch:  # allow running the work from manually from Github UI
   push:
-    branches:
-      - 'release'     # run when pushing to release branch
-  pull_request:
-    branches:
-      - '*'           # run for all pull requests
-  release:
-    types:
-      - published     # run when a new github release is published
-
-env:
-  NUGET_DIRECTORY: ${{ github.workspace }}/nuget
+    branches: [ release ]     # run when pushing to release branch
+#  pull_request:
+#    branches:
+#      - '*'           # run for all pull requests
+#  release:
+#    types:
+#      - published     # run when a new github release is published
 
 jobs:
   build:
@@ -23,7 +19,7 @@ jobs:
       matrix:
         os: [ ubuntu-latest, windows-latest ]
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v2
         
       - name: Setup .NET                    # .Net SDK in the global.json file
         uses: actions/setup-dotnet@v3
@@ -41,7 +37,7 @@ jobs:
       matrix:
         os: [ ubuntu-latest, windows-latest ]
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v2
 
       - name: Setup .NET                    # .Net SDK in the global.json file
         uses: actions/setup-dotnet@v3

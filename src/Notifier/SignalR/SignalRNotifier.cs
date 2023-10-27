@@ -29,15 +29,10 @@ public class SignalRNotifier<THub> : INotifier
         _handler = handler;
     }
 
-    /// <summary>
     /// <inheritdoc cref="INotifier.Message"/>
-    /// </summary>
     public HandlerMessage? Message => HandlerMessage.Instance;
 
-    /// <summary>
-    /// <inheritdoc cref="INotifier.NotifyUpdateAsync"/>
-    /// </summary>
-    /// <param name="msg"></param>
+    /// <inheritdoc cref="INotifier.NotifyUpdateAsync(Oluso.Notifier.HandlerMessage?)"/>
     public async Task NotifyUpdateAsync(HandlerMessage? msg = null)
     {
         msg ??= HandlerMessage.Instance;
@@ -46,17 +41,19 @@ public class SignalRNotifier<THub> : INotifier
         await _handler.Clients.All.OnUpdateStatus(AsHubMessage(msg));
     }
 
-    /// <summary>
-    /// <inheritdoc cref="INotifier.NotifyUpdate"/>
-    /// </summary>
-    /// <param name="msg"></param>
+    /// <inheritdoc cref="INotifier.NotifyUpdateAsync(string)"/>
+    public Task NotifyUpdateAsync(string msg) =>
+        NotifyUpdateAsync(HandlerMessage.NewInformationMessage(msg));
+
+    /// <inheritdoc cref="INotifier.NotifyUpdate(Oluso.Notifier.HandlerMessage?)"/>
     public void NotifyUpdate(HandlerMessage? msg = null) =>
         Task.Factory.StartNew(async () => await NotifyUpdateAsync(msg));
 
-    /// <summary>
-    /// <inheritdoc cref="INotifier.NotifyErrorAsync"/>
-    /// </summary>
-    /// <param name="msg"></param>
+    /// <inheritdoc cref="INotifier.NotifyUpdate(string)"/>
+    public void NotifyUpdate(object data) =>
+        NotifyUpdate(HandlerMessage.NewDataMessage(data));
+
+    /// <inheritdoc cref="INotifier.NotifyErrorAsync(Oluso.Notifier.HandlerMessage?)"/>
     public async Task NotifyErrorAsync(HandlerMessage? msg = null)
     {
         msg ??= HandlerMessage.Instance;
@@ -65,14 +62,19 @@ public class SignalRNotifier<THub> : INotifier
         await _handler.Clients.All.OnUpdateStatus(AsHubMessage(msg));
     }
 
-    /// <summary>
-    /// <inheritdoc cref="INotifier.NotifyError"/>
-    /// </summary>
-    /// <param name="msg"></param>
+    /// <inheritdoc cref="INotifier.NotifyErrorAsync(string)"/>
+    public Task NotifyErrorAsync(string msg) =>
+        NotifyErrorAsync(HandlerMessage.NewErrorMessage(msg));
+
+    /// <inheritdoc cref="INotifier.NotifyError(Oluso.Notifier.HandlerMessage?)"/>
     public void NotifyError(HandlerMessage? msg = null)=>
         Task.Factory.StartNew(async () => await NotifyErrorAsync(msg));
-    
-    
+
+    /// <inheritdoc cref="INotifier.NotifyError(string)"/>
+    public void NotifyError(string msg) =>
+        NotifyError(HandlerMessage.NewErrorMessage(msg));
+
+
     private static object AsHubMessage(HandlerMessage message) => new
     {
         Stage = message.Status.ToString(),

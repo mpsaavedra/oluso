@@ -22,6 +22,8 @@ public class FakeDbContextBaseDbContext : BaseDbContext
     }
 
     public virtual DbSet<FakeBusinessEntity> FakeBusinessEntities => Set<FakeBusinessEntity>();
+    
+    public virtual DbSet<FakeBusinessEntity2> FakeBusinessEntities2 => Set<FakeBusinessEntity2>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

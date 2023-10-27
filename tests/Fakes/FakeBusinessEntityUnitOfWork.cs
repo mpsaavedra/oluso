@@ -6,7 +6,8 @@ public interface IFakeBusinessEntityUnitOfWork : IUnitOfWork<FakeDbContextBaseDb
 {
 }
 
-public class FakeBusinessEntityUnitOfWork : UnitOfWork<FakeDbContextBaseDbContext>, IFakeBusinessEntityUnitOfWork
+public class FakeBusinessEntityUnitOfWork : UnitOfWork<FakeDbContextBaseDbContext, string>, 
+    IFakeBusinessEntityUnitOfWork
 {
     public FakeBusinessEntityUnitOfWork(IServiceProvider provider, FakeDbContextBaseDbContext context) : base(provider,
         context)

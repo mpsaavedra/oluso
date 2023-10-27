@@ -17,11 +17,11 @@ public static class SerilogLoggerServiceCollectionExtensions
     /// <param name="services"></param>
     /// <param name="settings"><see cref="SerilogSettings"/></param>
     /// <returns></returns>
-    public static IServiceCollection AddSerilogService(this IServiceCollection services,
+    public static ILoggerService? AddSerilogService(this IServiceCollection services,
         SerilogSettings settings)
     {
         services.TryAddSingleton<ILoggerService>(new SerilogProvider(settings));
-        return services;
+        return services.BuildServiceProvider().GetService<ILoggerService>();
     }
 
     /// <summary>
@@ -30,7 +30,7 @@ public static class SerilogLoggerServiceCollectionExtensions
     /// <param name="services"></param>
     /// <param name="options"></param>
     /// <returns></returns>
-    public static IServiceCollection AddSerilogService(this IServiceCollection services,
+    public static ILoggerService? AddSerilogService(this IServiceCollection services,
         Action<SerilogOptions> options) =>
         services.AddSerilogService(options!.ToSerilogConfigureOrDefault().SerilogSettings);
 }

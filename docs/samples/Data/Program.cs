@@ -17,14 +17,21 @@ builder.ConfigureServices((host, services) =>
 {
     services
         .AddDbContext<ApplicationDbContext>(opts =>
-            opts.UseInMemoryDatabase("DataPackageExample"))
+            //    opts.UseInMemoryDatabase("DataPackageExample"))
+            opts
+                .EnableSensitiveDataLogging()
+                .UseSqlServer(
+                "Server=sql-server;Database=sdk_testdb;User Id=sa;Password=P3lvmten.*;TrustServerCertificate=true;",
+                cfg => cfg
+                    .MigrationsAssembly(typeof(Program).Assembly.GetName().Name)
+                    .EnableRetryOnFailure(10, TimeSpan.FromSeconds(10.0), null)))
         .AddUnitOfWork(typeof(Program))
         .AddRepositories(typeof(Program))
         .AddAutoMapping(typeof(Program));
 });
 using var host = builder.Build();
 var helper = new LectureHelper();
-await helper.SeedDatabase(host.Services);
+// await helper.SeedDatabase(host.Services);
 await helper.RunTests(host.Services);
 // await host.RunAsync();
 

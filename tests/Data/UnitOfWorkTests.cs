@@ -56,13 +56,53 @@ public class UnitOfWorkTests
         });
         unitOfWork.Context.FakeBusinessEntities.Count().ShouldBe(1);
     }
+
+    [Fact]
+    public async Task UnitOfWorkTests_DoubleOperation()
+    {
+        var unitOfWork = BuildUnitOfWork("DoubleOperation");
+        await unitOfWork.ExecuteAsync(
+            async () =>
+            {
+                var id = await unitOfWork.Repository<IFakeRepository2>()!
+                    .CreateAsync(new FakeBusinessEntity2
+                    {
+                        Dni = "TEST_DNI"
+                    })!;
+
+                var ent = await unitOfWork.Repository<IFakeRepository2>()!
+                    .Query.FirstOrDefaultAsync(x => x.Id == id);
+                
+                var id2 = unitOfWork.Repository<IFakeRepository>()!
+                    .CreateAsync(new FakeBusinessEntity
+                    {
+                        Age = 44,
+                        Value = "DEFAULT_VALUE",
+                        FakeBusinessEntity2 = ent!
+                    });
+                    
+                return true;
+            });
+    }
     
     private IFakeUnitOfWork BuildContext(string section)
     {
         var serviceProvider = new ServiceCollection()
             .AddDbContext<FakeDbContextBaseDbContext>(cfg => 
                 cfg.UseInMemoryDatabase($"unitOfWork{section}TestDatabase"))
-            .AddSingleton<IFakeUnitOfWork, FakeUnitOfWork>()
+            .AddTransient<IFakeUnitOfWork, FakeUnitOfWork>()
+            .BuildServiceProvider();
+        return serviceProvider.GetRequiredService<IFakeUnitOfWork>();
+    }
+    
+    private IFakeUnitOfWork BuildUnitOfWork(string section)
+    {
+        var serviceProvider = new ServiceCollection()
+            .AddDbContext<FakeDbContextBaseDbContext>(cfg => 
+                cfg.UseInMemoryDatabase($"unitOfWork{section}TestDatabase"))
+            .AddTransient<IFakeUnitOfWork, FakeUnitOfWork>()
+            .AddTransient<IFakeRepository, FakeRepository>()
+            .AddTransient<IFakeRepository2, FakeRepository2>()
             .BuildServiceProvider();
         return serviceProvider.GetRequiredService<IFakeUnitOfWork>();
     }

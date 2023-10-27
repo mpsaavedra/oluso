@@ -13,5 +13,13 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\src\Logger\Oluso.Logger.csproj" />
   </ItemGroup>
+  
+  <ItemGroup>
+    <Folder Include="TestLogs\" />
+  </ItemGroup>
+
+
+
+
 
 </Project>
