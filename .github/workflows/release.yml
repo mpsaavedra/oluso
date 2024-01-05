@@ -1,67 +1,45 @@
 name: Publish packages
 
 on:
-#  workflow_dispatch:  # allow running the work from manually from Github UI
+  workflow_dispatch: # allow running the work from manually from Github UI
   push:
-    branches: [ release ]     # run when pushing to release branch
-#  pull_request:
-#    branches:
-#      - '*'           # run for all pull requests
-#  release:
-#    types:
-#      - published     # run when a new github release is published
+    branches: [release] # run when pushing to release branch
+  # pull_request:
+  #    branches:
+  #      - '*'           # run for all pull requests
+  release:
+    types:
+      - published # run when a new github release is published
+
+env:
+  DOTNET_SKIP_FIRST_TIME_EXPIRIENCE: 1
+  DOTNET_LOGO: true
+  NuGetDirectory: ${{ github.workspace}}/nuget
+
+defaults:
+  run:
+    shell: pwsh
 
 jobs:
-  build:
+  create_nuget:
     name: Build on ${{ matrix.os }}
     runs-on: ${{matrix.os}}
     strategy:
       matrix:
-        os: [ ubuntu-latest, windows-latest ]
+        os: [ubuntu-latest, windows-latest]
     steps:
-      - uses: actions/checkout@v2
-        
-      - name: Setup .NET                    # .Net SDK in the global.json file
-        uses: actions/setup-dotnet@v3
-          
-      - name: Restore dependencies
-        run: dotnet restore Oluso.sln
-        
-      - name: Building projects
-        run: dotnet build --configuration Release --no-restore Oluso.sln
-        
-  test:
-    name: Test on ${{ matrix.os }}
-    runs-on: ${{matrix.os}}
-    strategy:
-      matrix:
-        os: [ ubuntu-latest, windows-latest ]
-    steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
-      - name: Setup .NET                    # .Net SDK in the global.json file
-        uses: actions/setup-dotnet@v3
-          
-      - name: Testing projects
-        run: dotnet test --configuration Release
-          
-  pack:
-    name: Build, pack and publish packages for ${{ matrix.os }}
-    runs-on: ${{matrix.os}}
-    strategy:
-      matrix:
-        os: [ ubuntu-latest, windows-latest ]
-    needs:
-      - build
-      - test
-    steps:
-      - name: Register Nuget repository
-        run: dotnet nuget add source --username mpsaavedra --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/mpsaavedra/index.json"
-        
-      - name: Build and Pack
-        run: |
-          dotnet build --configuration Release --no-restore Oluso.sln
-          dotnet pack --configuration Release --no-restore --no-build --output ./nupkg Oluso.sln
-          
-      - name: Publish to Nuget packages repository
-        run: dotnet nuget push ./nupkg/*.nupkg --source "github" --api-key ${{ secrets.GITHUB_TOKEN }}
+      - name: Setup .NET # .Net SDK in the global.json file
+        uses: actions/setup-dotnet@v4
+
+      - run: dotnet pack --configuration Release --output ${{env.NuGetDirectory}}
+
+      - uses: action/upload-artifact@v3
+        with:
+          name: nuget
+          if-no-files-found: error
+          retention-dayrs: 7
+          path: ${{ env.NuGetDirectory }}/*.nupkg
