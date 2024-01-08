@@ -1,4 +1,4 @@
-name: Build And Test (main)
+name: Build, Test and Deploy (main)
 
 on:
   push:
@@ -52,12 +52,12 @@ jobs:
           dotnet-version: ${{env.DOTNET_VERSION}}
 
       - run: dotnet pack --configuration Release --output ${{env.NuGetDirectory}}
-
-      - uses: action/upload-artifact@v3
+      
+      - uses: actions/upload-artifact@v3
         with:
           name: nuget
           if-no-files-found: error
-          retention-dayrs: 7
+          retention-days: 7
           path: ${{ env.NuGetDirectory }}/*.nupkg
   
   deploy:
