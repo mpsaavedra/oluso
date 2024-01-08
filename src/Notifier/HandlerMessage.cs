@@ -49,6 +49,39 @@ public class HandlerMessage
     }
 
     /// <summary>
+    /// returns a new Information message
+    /// </summary>
+    /// <param name="message"></param>
+    /// <returns></returns>
+    public static HandlerMessage NewInformationMessage(string message) => 
+        New(message, level: MessageLevel.Information);
+
+    /// <summary>
+    /// returns a new Debug message
+    /// </summary>
+    /// <param name="data"></param>
+    /// <returns></returns>
+    public static HandlerMessage NewDebugMessage(object? data = null) => 
+        New(data, level: MessageLevel.Information);
+
+    /// <summary>
+    /// returns a new Data message
+    /// </summary>
+    /// <param name="data"></param>
+    /// <returns></returns>
+    public static HandlerMessage NewDataMessage(object? data = null) => 
+        New(data, level: MessageLevel.Information);
+    
+    /// <summary>
+    /// returns a new Error message
+    /// </summary>
+    /// <param name="message"></param>
+    /// <param name="exception"></param>
+    /// <returns></returns>
+    public static HandlerMessage NewErrorMessage(string message, Exception? exception = null) => 
+        New(message, level: MessageLevel.Error, exception: exception);
+
+    /// <summary>
     /// returns the last message
     /// </summary>
     public MessageData Message

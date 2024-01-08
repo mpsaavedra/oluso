@@ -1,9 +1,10 @@
 using System.Net;
 using Oluso.Logger.Abstractions.Extensions;
 using Oluso.Logger.Serilog.Settings;
-using Serilog;
-using Serilog.Context;
-using Serilog.Debugging;
+using global::Serilog;
+using global::Serilog.Context;
+using global::Serilog.Debugging;
+using Serilog.Events;
 using Seri = global::Serilog;
 
 namespace Oluso.Logger.Serilog.Extensions;

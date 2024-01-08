@@ -1,7 +1,7 @@
 <Project>
     <PropertyGroup>
-        <CurrentVersion>0.9.208</CurrentVersion>
-        <GithubRepo>http://github.com/mpsaavedra/oluso/</GithubRepo>
+        <CurrentVersion>0.9.211</CurrentVersion>
+        <GithubRepo>https://github.com/mpsaavedra/oluso/</GithubRepo>
         <CompanyName>Michel Perez</CompanyName>
         <IsTestsProject>$(MSBuildProjectName.Contains('Tests'))</IsTestsProject>
         
@@ -21,13 +21,17 @@
         <PackageId>$(AssemblyName)</PackageId>
         <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
         <License>$(SolutionDir)LICENSE.txt</License>
-<!--        <PackageIcon>${SolutionDir}docs\images\logo.png</PackageIcon>-->
+        <!--PackageLicenseFile>$(SolutionDir)LICENSE.txt</PackageLicenseFile>
+        <PackageIcon>$(SolutionDir)logo.png</PackageIcon-->
         <PackageProjectUrl>$(GithubRepo)</PackageProjectUrl>
         <PackageReleaseNotes>$(GithubRepo)tree/main/docs/RELEASE_NOTES.txt</PackageReleaseNotes>
-        <RepositoryUrl>$(GithubRepo)</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
         <PackageOutputPath>$(SolutionDir)..\oluso-packages\$(Version)</PackageOutputPath>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <EnablePackageValidation>true</EnablePackageValidation>
+        <NoWarn>$(NoWarn);CS1591;</NoWarn>
+        <PackageTags>sdk;library;oluso;net;</PackageTags>
     </PropertyGroup>
 
     <ItemGroup>

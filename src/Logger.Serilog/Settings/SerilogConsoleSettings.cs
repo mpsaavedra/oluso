@@ -8,9 +8,9 @@ namespace Oluso.Logger.Serilog.Settings;
 public class SerilogConsoleSettings
 {
     /// <summary>
-    /// Default logging template,
+    /// Default logging template
     /// </summary>
-    public const string DefaultOutputTemplate = "{NewLine}{Timestamp:HH:mm:ss:fff} | {Title} {Level:u3} {Message:lj}";
+    public const string DefaultOutputTemplate = "[ {Timestamp:HH:mm:ss:fff} | {Title} :: {Level:u3} ] {Message:lj}{NewLine}{Exception}";
 
     /// <summary>
     /// Default minimum logging level, Info by default 

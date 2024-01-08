@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.SignalR;
+using Oluso.Notifier;
 using Oluso.Notifier.SignalR;
 
 namespace Notifier.Hubs;

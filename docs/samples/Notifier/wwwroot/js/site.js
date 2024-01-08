@@ -19,6 +19,10 @@ connection.on("ReceiveMessage", function (user, message) {
    document.getElementById("messageInput").value = "";
 });
 
+connection.on("OnUpdateStatus", function(data) {
+    console.log(data);
+});
+
 connection.start().then(function () {
    document.getElementById("sendButton").disabled = false;
 }).catch(function (err) {

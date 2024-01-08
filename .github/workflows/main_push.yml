@@ -13,33 +13,17 @@ jobs:
     runs-on: ${{matrix.os}}
     strategy:
       matrix:
-        os: [ ubuntu-latest, windows-latest, macos-latest ]
+        os: [ ubuntu-latest ]
+        # os: [ ubuntu-latest, windows-latest, macos-latest ]
     steps:
     - uses: actions/checkout@v2
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: ${{env.DOTNET_VERSION}}
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: 3.9
     - name: Restore dependencies
       run: dotnet restore Oluso.sln
     - name: Build
       run: dotnet build --configuration Release --no-restore Oluso.sln
     - name: Test
       run: dotnet test
-    # - name: Send message to Telegram
-    #     uses: appleboy/telegram-action@master
-    #     with:
-    #       to: ${{ secrets.TELEGRAM_CHAT_ID }}
-    #       token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-    #       message: "Compilation result: ${{ job.status }}"
-    - name: Build and Pack
-      run: |
-        dotnet build --configuration Release --no-restore Oluso.sln
-        dotnet pack --configuration Release --no-restore --no-build --output ./nupkg Oluso.sln
-    - name: Publish Nuget packages
-      run: dotnet nuget push ./nupkg/*.nupkg --source github --api-key ${{ secrets.GITHUB_TOKEN }}
-      

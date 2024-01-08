@@ -212,7 +212,9 @@ public static class ObjectExtensions
     /// <returns></returns>
     public static TSource PopulateWithMappedData<TSource>(this TSource source, object mappedData)
     {
-        foreach (var dbProperty in source!.GetType().GetProperties())
+        foreach (var dbProperty in source!.GetType().GetProperties()
+                     .Where(x => x.CanWrite &&
+                                 x.PropertyType.IsPublic))
         {
             if (mappedData.GetType().GetProperties().Any(p => p.Name == dbProperty.Name))
             {

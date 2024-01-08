@@ -1,0 +1,115 @@
+name: Publish packages
+
+on:
+  workflow_dispatch: # allow running the work from manually from Github UI
+  push:
+    branches: [release] # run when pushing to release branch
+  pull_request:
+    branches:
+      - '*'           # run for all pull requests
+  release:
+    types:
+      - published # run when a new github release is published
+
+env:
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 1
+  DOTNET_LOGO: true
+  DOTNET_VERSION: '6.0.101'
+  NuGetDirectory: ${{ github.workspace}}/nuget
+
+defaults:
+  run:
+    shell: pwsh
+
+jobs:
+  create_nuget:
+    name: Build on ${{ matrix.os }}
+    runs-on: ${{matrix.os}}
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: ${{env.DOTNET_VERSION}}
+
+      - run: dotnet pack --configuration Release --output ${{env.NuGetDirectory}}
+
+      - uses: action/upload-artifact@v3
+        with:
+          name: nuget
+          if-no-files-found: error
+          retention-dayrs: 7
+          path: ${{ env.NuGetDirectory }}/*.nupkg
+          
+  validate_nuget:
+    name: Validate nuget
+    needs: [ create_nuget ]
+    runs-on: ${{matrix.os}}
+    strategy:
+      matrix:
+        os: [ ubuntu-latest ]
+    steps:
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: ${{env.DOTNET_VERSION}}
+        
+      # download previously created artifact
+      - uses: actions/download-artifact@v3
+        with:
+          name: nuget
+          path: ${{ env.NugetDirectory }}
+      
+      - name: Install nuget validator
+        run: dotnet tool update Meziantou.Framework.NugetPackageValidator.Tool --global
+          
+      - name: Validate package
+        run: meziantou.validate-nuget-package (Get-ChildItem "${{ env.NugetDirectory }}/*.nupkg")
+        
+  run_test:
+    name: Run tests
+    runs-on: ${{matrix.os}}
+    strategy:
+      matrix:
+        os: [ ubuntu-latest ]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: ${{env.DOTNET_VERSION}}
+      - name: Run tests
+        urun: dotnet test --cofiguration Release
+          
+  deploy:
+    # publish only when creating a github Release
+    # https://docs.github.com/en/repositories/releasing-projects-on-github/managing-releases-in-a-reposistory
+    # you can update this logic if you want to manage releases differently
+    name: Deploy to nuget.org
+    if: github.event_name == 'release'
+    runs-on: ${{matrix.os}}
+    strategy:
+      matrix:
+        os: [ ubuntu-latest ]
+    needs: [ validate_nuget, run_test ]
+    steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v3
+        with: 
+          name: nuget
+          path: ${{ env.NugetDirectory }}
+      - name: Setup .Net
+        uses: actions/setup-dotnet@v4
+      - name: Publish Nuget packages
+        run: |
+          foreach($file in  (Get-ChildItem "${{ env.NugetDirectory }} -Recurse -Include *.nupkg")){
+            dotnet nuget push $file --api-key "${{ secrets.NUGET_APIKEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate"
+          }
+          

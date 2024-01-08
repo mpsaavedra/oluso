@@ -23,6 +23,7 @@ public class LectureHelper
 
             Info("Preparing tp execute tests");
             Info("retrieving services from dependency container", 2);
+            var unitOfWork = provider.GetRequiredService<IUnitOfWork>();
             var teachersRepo = provider.GetRequiredService<ITeacherRepository>();
             var studentsRepo = provider.GetRequiredService<IStudentRepository>();
             var lecturesRepo = provider.GetRequiredService<ILectureRepository>();
@@ -50,6 +51,18 @@ public class LectureHelper
             studentsRepo.Query.AsEnumerable().Where(isMale.And(isUnder21)).Count().ShouldBe(1);
             studentsRepo.Query.AsEnumerable().Where(isMale.And(isUnder21.Not())).Count().ShouldBe(6);
             studentsRepo.Query.AsEnumerable().Where(isMale & !isUnder21).Count().ShouldBe(6);
+
+            Info("creating using UnitOfWork");
+            var result = await unitOfWork.ExecuteAsync(async () =>
+            {
+                var lecture1 = unitOfWork.Repository<ILectureRepository>()!.GetEntity<Lecture>().First(x => x.Id == 1);
+                var lecture2 = unitOfWork.Repository<ILectureRepository>()!.GetEntity<Lecture>().First(x => x.Id == 1);
+                lecture1.Subject = "This subject";
+                await unitOfWork.Repository<ILectureRepository>()!.UpdateAsync(lecture1);
+                lecture2.Subject = "Other subject";
+                await unitOfWork.Repository<ILectureRepository>()!.UpdateAsync(lecture2);
+                return true;
+            });
             
             Ok("Done!!");
         }
@@ -69,19 +82,32 @@ public class LectureHelper
         await using var ctx = provider.GetRequiredService<ApplicationDbContext>();
 
         Info($"Generating data", 2);
-        var teacher1 = new Teacher() { Id = 1, Name = "Thomas" };
-        var teacher2 = new Teacher() { Id = 2, Name = "John" };
-        var student1 = new Student() { Id = 1, Name = "Michael", Gender = Gender.Male, Age = 21 };
-        var student2 = new Student() { Id = 2, Name = "Amalia", Gender = Gender.Female, Age = 17 };
-        var student3 = new Student() { Id = 3, Name = "Elisabeth", Gender = Gender.Female, Age = 21 };
-        var student4 = new Student() { Id = 4, Name = "Donald", Gender = Gender.Male, Age = 25 };
-        var student5 = new Student() { Id = 5, Name = "George", Gender = Gender.Male, Age = 25 };
-        var student6 = new Student() { Id = 6, Name = "Luis", Gender = Gender.Male, Age = 28 };
-        var student7 = new Student() { Id = 7, Name = "Lemuel", Gender = Gender.Male, Age = 28 };
-        var student8 = new Student() { Id = 8, Name = "James", Gender = Gender.Male, Age = 21 };
-        var student9 = new Student() { Id = 9, Name = "Kirk", Gender = Gender.Male, Age = 18 };
-        var lecture1 = new Lecture() { Id = 1, Subject = "Programming 101", Teacher = teacher1 };
-        var lecture2 = new Lecture() { Id = 2, Subject = "Design patterns 101", Teacher = teacher2 };
+        // var teacher1 = new Teacher() { Id = 1, Name = "Thomas" };
+        // var teacher2 = new Teacher() { Id = 2, Name = "John" };
+        // var student1 = new Student() { Id = 1, Name = "Michael", Gender = Gender.Male, Age = 21 };
+        // var student2 = new Student() { Id = 2, Name = "Amalia", Gender = Gender.Female, Age = 17 };
+        // var student3 = new Student() { Id = 3, Name = "Elisabeth", Gender = Gender.Female, Age = 21 };
+        // var student4 = new Student() { Id = 4, Name = "Donald", Gender = Gender.Male, Age = 25 };
+        // var student5 = new Student() { Id = 5, Name = "George", Gender = Gender.Male, Age = 25 };
+        // var student6 = new Student() { Id = 6, Name = "Luis", Gender = Gender.Male, Age = 28 };
+        // var student7 = new Student() { Id = 7, Name = "Lemuel", Gender = Gender.Male, Age = 28 };
+        // var student8 = new Student() { Id = 8, Name = "James", Gender = Gender.Male, Age = 21 };
+        // var student9 = new Student() { Id = 9, Name = "Kirk", Gender = Gender.Male, Age = 18 };
+        // var lecture1 = new Lecture() { Id = 1, Subject = "Programming 101", Teacher = teacher1 };
+        // var lecture2 = new Lecture() { Id = 2, Subject = "Design patterns 101", Teacher = teacher2 };
+        var teacher1 = new Teacher() { Name = "Thomas" };
+        var teacher2 = new Teacher() { Name = "John" };
+        var student1 = new Student() { Name = "Michael", Gender = Gender.Male, Age = 21 };
+        var student2 = new Student() { Name = "Amalia", Gender = Gender.Female, Age = 17 };
+        var student3 = new Student() { Name = "Elisabeth", Gender = Gender.Female, Age = 21 };
+        var student4 = new Student() { Name = "Donald", Gender = Gender.Male, Age = 25 };
+        var student5 = new Student() { Name = "George", Gender = Gender.Male, Age = 25 };
+        var student6 = new Student() { Name = "Luis", Gender = Gender.Male, Age = 28 };
+        var student7 = new Student() { Name = "Lemuel", Gender = Gender.Male, Age = 28 };
+        var student8 = new Student() { Name = "James", Gender = Gender.Male, Age = 21 };
+        var student9 = new Student() { Name = "Kirk", Gender = Gender.Male, Age = 18 };
+        var lecture1 = new Lecture() { Subject = "Programming 101", Teacher = teacher1 };
+        var lecture2 = new Lecture() { Subject = "Design patterns 101", Teacher = teacher2 };
         var studentLecture1 = new StudentLecture() { Lecture = lecture1, Student = student1 };
         var studentLecture2 = new StudentLecture() { Lecture = lecture1, Student = student2 };
         var studentLecture3 = new StudentLecture() { Lecture = lecture1, Student = student3 };

@@ -15,16 +15,11 @@ public static class LoggerServiceCollection
     /// register Logger service
     /// </summary>
     /// <param name="services"></param>
-    /// <param name="configuration"></param>
+    /// <param name="settings"></param>
     /// <returns></returns>
-    public static IServiceCollection AddLoggerService(IServiceCollection services, 
-        IConfiguration configuration)
+    public static IServiceCollection AddLoggerService(this IServiceCollection services, 
+        LoggerSettings settings)
     {
-        var settings =
-            configuration?
-                .GetSection(nameof(LoggerSettings))
-                .Get<LoggerSettings>();
-
         if (settings?.Serilog != null)
         {
             services.AddSerilogService(settings.Serilog);
