@@ -52,7 +52,7 @@ jobs:
           dotnet-version: ${{env.DOTNET_VERSION}}
 
       - run: dotnet pack --configuration Release --output ${{env.NuGetDirectory}}
-
+      
       - uses: actions/upload-artifact@v3
         with:
           name: nuget
