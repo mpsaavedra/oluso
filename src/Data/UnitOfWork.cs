@@ -168,7 +168,14 @@ public class UnitOfWork<TContext, TUserKey> : IUnitOfWork<TContext, TUserKey>
         _provider = provider;
     }
 
-    /// <inheritdoc cref="IUnitOfWork{TContext}.ExecuteAsync{TResult}"/>
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="operation"></param>
+    /// <param name="verifySucceeded"></param>
+    /// <param name="cancellationToken"></param>
+    /// <typeparam name="TResult"></typeparam>
+    /// <returns></returns>
     public async Task<TResult> ExecuteAsync<TResult>(Func<Task<TResult>> operation,
         Task<bool>? verifySucceeded = null,
         CancellationToken cancellationToken = default)
@@ -227,7 +234,12 @@ public class UnitOfWork<TContext, TUserKey> : IUnitOfWork<TContext, TUserKey>
         }, async ct => await Task.FromResult(true), cancellationToken);
     }
 
-    /// <inheritdoc cref="IUnitOfWork{TContext}.ExecuteAsync(Action, Func{bool}?, CancellationToken)"/>
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="operation"></param>
+    /// <param name="verifySucceeded"></param>
+    /// <param name="cancellationToken"></param>
     public async Task ExecuteAsync(Action operation, Func<bool>? verifySucceeded = null,
         CancellationToken cancellationToken = default)
     {
@@ -286,11 +298,19 @@ public class UnitOfWork<TContext, TUserKey> : IUnitOfWork<TContext, TUserKey>
         }, cancellationToken);
     }
 
-    /// <inheritdoc cref="IUnitOfWork{TContext}.Repository{T}"/>
+    /// <summary>
+    /// Returns repository of requested type
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <returns></returns>
     public T? Repository<T>() where T : class =>
         _provider.GetRequiredService(typeof(T)) as T;
 
-    /// <inheritdoc cref="IUnitOfWork{TContext}.Service{T}"/>
+    /// <summary>
+    /// Returns a registered service
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <returns></returns>
     public T? Service<T>() where T : class =>
         _provider.GetRequiredService(typeof(T)) as T;
 

@@ -21,18 +21,22 @@
         <PackageId>$(AssemblyName)</PackageId>
         <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
         <License>$(SolutionDir)LICENSE.txt</License>
-<!--        <PackageLicenseUrl>$(GithubRepo)LICENSE.txt</PackageLicenseUrl>-->
-<!--        <PackageIcon>$(SolutionDir)logo.png</PackageIcon>-->
+        <!--PackageLicenseFile>$(SolutionDir)LICENSE.txt</PackageLicenseFile>
+        <PackageIcon>$(SolutionDir)logo.png</PackageIcon-->
         <PackageProjectUrl>$(GithubRepo)</PackageProjectUrl>
         <PackageReleaseNotes>$(GithubRepo)tree/main/docs/RELEASE_NOTES.txt</PackageReleaseNotes>
         <RepositoryType>git</RepositoryType>
         <PackageOutputPath>$(SolutionDir)..\oluso-packages\$(Version)</PackageOutputPath>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <EnablePackageValidation>true</EnablePackageValidation>
+        <NoWarn>$(NoWarn);CS1591;</NoWarn>
+        <PackageTags>sdk;library;oluso;net;</PackageTags>
     </PropertyGroup>
 
     <ItemGroup>
         <None Include="$(SolutionDir)LICENSE.txt" Pack="true" PackagePath="." />
-<!--        <None Include="$(SolutionDir)docs\images\logo.png" Pack="true" PackagePath="." />-->
+        <None Include="$(SolutionDir)docs\images\logo.png" Pack="true" PackagePath="." />
     </ItemGroup>
 
     <ItemGroup>

@@ -49,7 +49,7 @@ public class SignalRNotifier<THub> : INotifier
     public void NotifyUpdate(HandlerMessage? msg = null) =>
         Task.Factory.StartNew(async () => await NotifyUpdateAsync(msg));
 
-    /// <inheritdoc cref="INotifier.NotifyUpdate(string)"/>
+    /// <inheritdoc cref="INotifier.NotifyUpdate(object)"/>
     public void NotifyUpdate(object data) =>
         NotifyUpdate(HandlerMessage.NewDataMessage(data));
 
