@@ -5,7 +5,14 @@ on:
     branches: [ main ]
 
 env:
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 1
+  DOTNET_LOGO: true
   DOTNET_VERSION: '6.0.101'
+  NuGetDirectory: ${{ github.workspace}}/nuget
+
+defaults:
+  run:
+    shell: pwsh
 
 jobs:
   build:
@@ -27,3 +34,56 @@ jobs:
       run: dotnet build --configuration Release --no-restore Oluso.sln
     - name: Test
       run: dotnet test
+      
+  create_nuget:
+    name: Create nuget packages on ${{ matrix.os }}
+    runs-on: ${{matrix.os}}
+    strategy:
+      matrix:
+        os: [ ubuntu-latest ]
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: ${{env.DOTNET_VERSION}}
+
+      - run: dotnet pack --configuration Release --output ${{env.NuGetDirectory}}
+
+      - uses: action/upload-artifact@v3
+        with:
+          name: nuget
+          if-no-files-found: error
+          retention-dayrs: 7
+          path: ${{ env.NuGetDirectory }}/*.nupkg
+  
+  deploy:
+    # publish only when creating a github Release
+    # https://docs.github.com/en/repositories/releasing-projects-on-github/managing-releases-in-a-reposistory
+    # you can update this logic if you want to manage releases differently
+    name: Deploy to nuget.org
+    # if: github.event_name == 'release'
+    runs-on: ${{matrix.os}}
+    strategy:
+      matrix:
+        os: [ ubuntu-latest ]
+    # needs: [ validate_nuget, run_test ]
+    needs: [ create_nuget ]
+    steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: nuget
+          path: ${{ env.NugetDirectory }}
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: ${{env.DOTNET_VERSION}}
+      - name: Publish Nuget packages
+        run: |
+          foreach($file in  (Get-ChildItem "${{ env.NugetDirectory }} -Recurse -Include *.nupkg")){
+            dotnet nuget push $file --api-key "${{ secrets.NUGET_APIKEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate"
+          }
